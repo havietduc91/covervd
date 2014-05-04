@@ -1,0 +1,14 @@
+
+<?php
+$i = 1;
+foreach($this->list as $v){
+	$this->row = $v;
+	if($i % 4 == 1)
+		echo '<div class="row" style="margin-top:20px;">';
+	echo $this->render('widget/grid-game.phtml');
+	if($i % 4 == 0)
+		echo '</div>';
+	$i++;
+}
+if($i % 4 != 1)
+	echo '</div>';

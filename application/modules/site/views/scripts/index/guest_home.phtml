@@ -1,0 +1,124 @@
+<style>
+strong {
+	color: #0088CC;
+}
+</style>
+	<a name="features"></a>
+	<!-- Sign up -->
+	<div class='row well'>
+		<div class="col-md-6 col-md-offset-3">
+			<a href="/user/oauth?login=yahoo" class="btn btn-mini">
+				<i class = "icon-sm-yahoo"></i><?php t("signin_with_yahoo",1);?>
+			</a>
+			<a href="/user/oauth?login=google" class="btn btn-mini">
+				<i class = "icon-sm-google"></i><?php t("signin_with_google",1);?>
+			</a>
+			<a href="/user/oauth?login=twitter" class="btn btn-mini btn-info" style="font-weight:bold;">
+				<i class = "icon-sm-twitter"></i><?php t("signin_with_twitter",1);?>
+			</a>
+			<a href="/user/oauth?login=facebook" class="btn btn-mini">
+				<i class = "icon-sm-facebook"></i><?php t("signin_with_facebook",1);?>
+			</a>
+		</div>
+        <div class='col-md-3 col-md-offset-3' id='register_form'>
+        	<a name="signup"></a>
+        	
+        	<h3><?php t("sign_up",1);?></h3>
+        		<?php t("it's_free",1);?>
+        	<?php 
+        	    $form = new User_Form_Register();
+                $form->build();
+                $form->setAction('/user/register')
+                    ->setAttrib('class', 'cl_ajax');
+                echo $form;
+        	?>
+        </div>
+        <div class='col-md-3'>
+        	<div id='login_form'>
+        	<h3><?php t("login",1);?></h3>
+        	<?php t("forgot_your_password",1);?> <a href="/user/forgot-password" id='remind_password'><?php t("recieve_a_new_one",1);?></a>
+        	<?php 
+        	    $form = new User_Form_Login();
+                $form->build();
+                $form->setAction('/user/login')
+                    ->setAttrib('class', 'cl_ajax');
+                echo $form;
+        	?>
+        	</div>
+        	
+        	<div id='remind_password_form' style='display:none'>
+    		<h3><?php t("remind_password",1);?></h3>
+        	<b style='color:green'><a href='/user/login' id='login'><?php t("login",1);?></a></b>
+        	<?php 
+        	    $form = new User_Form_RemindPassword();
+                $form->build();
+                $form->setAction('/user/forgot-password')
+                    ->setAttrib('class', 'cl_ajax');
+                echo $form;
+        	?>        	
+        	
+        	</div>
+        </div>
+		        
+	</div>
+	
+	<div class='row'>
+		<div class='col-md-12'>
+		<h3><?php t("download_mobile_apps",1);?></h3>
+		</div>
+	</div>
+	
+	<div class='row'>
+	<hr/>
+	<div class='col-md-3'>
+    	<h3><?php t("iphone",1);?></h3>
+    	<div>
+    		<p>
+    		<?php t("iphone",1);?>
+    		</p>
+    	</div>
+	</div>
+	
+	<div class='col-md-3'>
+    	<h3><?php t("android",1);?></h3>
+    	<div>
+    		<p>
+    		<?php t("android",1);?>
+    		</p>
+    	</div>
+	</div>
+
+	<div class='col-md-3'>
+    	<h3><?php t("window",1);?></h3>
+    	<div>
+    		<p>
+    		<?php t("window",1);?>
+    		</p>
+    	</div>
+	</div>
+
+	<div class='col-md-3'>
+    	<h3><?php t("blackberry",1);?></h3>
+    	<div>
+    		<p>
+    		<?php t("blackberry",1);?>
+    		</p>
+    	</div>
+	</div>
+	
+	</div>	
+<?php $this->inlineScript()->captureStart();?>
+$(document).ready(function(){
+    $("#login").click(function(e){
+    	e.preventDefault();
+    	$("#login_form").show();
+    	$("#remind_password_form").hide();
+    });
+   
+    $("#remind_password").click(function(e){
+    	e.preventDefault();
+    	$("#login_form").hide();
+    	$("#remind_password_form").show();
+    });
+});
+<?php $this->inlineScript()->captureEnd();?>

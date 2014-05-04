@@ -1,0 +1,14 @@
+<div class='col-md-12'>
+<?php echo $this->render('index/navbar.phtml');?>
+</div>
+<div class='col-md-6'>
+<h1> New Ad </h1>
+<?php $this->form->setAttrib('class', 'cl_ajax');?>
+<?php echo $this->form;?>
+</div>
+<div class='col-md-6'>
+<a href="#" id="preview_post_btn" class='btn btn-primary'>Preview</a>
+    <hr/>
+    <div id='preview_area'>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<?php echo sand_dev_info_phtml(__FILE__);?>
+<?php 
+    $lu = Zend_Registry::get('user');
+    $isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
+?>
+
+<?php if ($isWidget):?>
+    <?php 
+		echo $this->render('/widget/story-list.phtml');
+	?>
+<?php else:?>
+<div class="row index-list">
+    <div class="col-md-7">
+    	<?php 
+    		echo $this->render('/widget/story-list.phtml');
+    	    ?>
+    </div>
+
+	<div class="col-md-3 sidebar">
+			<?php if (APPLICATION_ENV == 'development'):?>
+				<div data-whereami='<? echo __FILE__;?>'></div>
+			<?php endif;?>
+						
+				<div class="light-black-bg sidebar-nav col-md-12" style="min-height: 70px;">
+				<div class="alert alert-success alert-dismissable"> <?php echo t('_help_like_fanpage',1)?>
+				<?php if(!getenv("SITE")):?>
+				<div class="fb-like-box" 
+        				data-href="https://www.facebook.com/truyencuoihoibinet" 
+        				data-width="The pixel width of the plugin" 
+        				data-colorscheme="light" 
+        				data-show-faces="false" 
+        				data-header="true" 
+        				data-stream="false" 
+        				data-show-border="true">
+    				</div>	
+    				<?php elseif (getenv('SITE') == 'tf'):?>
+    				<div class="fb-like-box" 
+        				data-href="https://www.facebook.com/WaRiTiSaensukh" 
+        				data-width="The pixel width of the plugin" 
+        				data-colorscheme="light" 
+        				data-show-faces="false" 
+        				data-header="true" 
+        				data-stream="false" 
+        				data-show-border="true">
+    				</div>	
+    				<?php endif;?>
+    				</div>
+				</div>
+				
+			<div data-spy="affix" style="width: 262px; margin-top:20px;" data-offset-top="200" id='affix-right-box' class='visible-md visible-lg'>
+    			<div id ="top-user" data-url='/site/topuser' class='sand-ajax-widget'>
+    				</div>
+    					
+    			<div id ="vote-image" data-url='/widget/vote' class='sand-ajax-widget'>
+    				</div>
+			</div>
+	</div>
+	<div class='col-md-2'>
+			<?php if (APPLICATION_ENV == 'development'):?>
+				<div data-whereami='<? echo __FILE__;?>'></div>
+			<?php endif;?>
+				<div class="sidebar-nav">
+                    <?php echo get_conf('sidebar_ad1', '');?>					
+				</div>
+	</div>
+	
+</div>			
+
+<?php endif;?>

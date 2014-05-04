@@ -1,0 +1,34 @@
+<?php if (isset($this->row)) :?>
+<div class='col-md-12'>
+    <?php echo $this->render('index/navbar.phtml');?>
+</div>
+
+<div class='col-md-12'>
+    <h1> Update Ad </h1>
+    <?php $this->form->setAttrib('class', 'cl_ajax');?>
+    <?php 
+    if (isset($this->successMsg)) 
+        echo "<div class='alert alert-success'>" . $this->successMsg . "</div>";
+        
+    if (isset($this->err) && $this->err != null && $this->err != '')
+    { 
+        echo "<div class='alert alert-error'>";
+        if (is_string($this->err)) 
+            echo $this->err; 
+        elseif (is_array($this->err)  && count($this->err) > 0)
+        {
+            echo "<ul>";
+            foreach ($this->err as $e)
+                echo "<li>$e</li>";
+            echo "</ul>";
+        }
+        echo "</div>";
+    }
+    ?>
+    <?php 
+    	echo $this->form;
+    ?>
+</div>
+<?php else:?>
+   Object not found    
+<?php endif;?>

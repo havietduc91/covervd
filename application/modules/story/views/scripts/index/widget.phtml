@@ -1,0 +1,120 @@
+<div class="panel panel-default">
+  <div class="panel-heading" style="padding-top:5px; padding-bottom: 5px;">
+    <h3 class="panel-title"><?php echo $this->title?></h3>
+  </div>
+  <div class="panel-body">
+     <?php if (isset($this->list) && count($this->list) > 0):?>
+        <?php foreach ($this->list['result'] as $row){?>
+        	<div class="photoListItemSmall">
+                <a style="text-decoration: none;" href="<?php echo node_link('story', $row);?>">
+                    <div class="thumbnail" style="border: none;">
+                    <?php if(isset($row['type'])){ $storyType = story_type($row['type']);?>
+					 	<?php if($storyType == 'image'){?>
+							<?php 
+		                      //$image =  STATIC_CDN . '/170/' . $row['url'];
+							$image =  PUBLIC_FILES_UPLOAD_PATH . '/170/' . $row['url'];
+							$checkImage =  @getimagesize($image);
+		                    ?>
+		                    <div class = "filledImage">
+		                        <img src="<?php
+		                        if(is_array($checkImage)){
+		                            echo STATIC_CDN . '/170/' . $row['url'];
+		                            //$url = STATIC_CDN . '/170/' . $row['url'];
+		                            $url = PUBLIC_FILES_UPLOAD_PATH . '/170/' . $row['url'];
+		                        }else{
+		                            echo STATIC_CDN . $row['url'];   
+		                            //$url = STATIC_CDN . $row['url'];
+		                            $url = PUBLIC_FILES_UPLOAD_PATH . $row['url'];
+		                        }
+		                        ?>"
+		                        <?php  /*Giup hien thi phan giua cua anh*/
+		                        /*(Filled image widget new|hot|vote)*/
+			                        	list($width, $height) = getimagesize($url);
+			                        	$heightFilledImage = 80;//height class filedImage img
+										$widthFilledImage = 100;
+			                        	
+			                        	//Get height (chieu dai thuc cua anh ty le
+			                        	// voi chieu dai cua khung chua anh)
+			                        	$heightFilledImageNew = $widthFilledImage * $height/ $width;
+			                        	
+			                        	$gap = ($heightFilledImageNew - $heightFilledImage)/2;
+			                        	if($gap > 0){
+			                        		echo "style = 'margin-top: -{$gap}px'";
+			                        	}
+			                        ?>
+		                        >
+		                        </div> 	
+					 	<?php }?>
+					 	<?php if($storyType == 'video'){?>
+					 		<?php 
+                				$imgLink = "http://img.youtube.com/vi/{$row['ytid']}/0.jpg";
+                			?>
+                			<img class="lazy img-polaroid" src="<?php echo $imgLink;?>">
+					 	<?php }?>
+		 		   <?php }?>
+                   
+                    </div>
+                    <div class="info">
+                        <h3>
+                        	<?php 
+                        	/*
+                              $arrayTitle = explode(" ", $row['name']);
+        					  $name = '';
+        					  foreach ($arrayTitle as $str){
+        					      if(strlen( $str) > 10)
+        					          $str = substr($str, 0,10);
+        					        
+                                  $name = $name . " " . $str;  
+        					  }
+        					  if(strlen($name) > 55)
+                                  echo substr($name,0,55).'...';
+                              else 
+                                  echo  $name;
+                              */
+                              echo char_breadcumb($row['name'], 15);
+                        	?>
+                        </h3>
+                        <div class="stats">
+                           <?php /*
+                                <span title="point">
+                                    <i class="<?php echo get_icon('eye-open');?>"> </i>
+                                	<?php
+                                    if(isset($row['counter']['point']) && $row['counter']['point'])
+                                        echo number_format($row['counter']['point'],2);
+                                    else     
+                                        echo "0";
+                                     ?>
+                                 </span>&nbsp;
+                           */?>
+                            <span title="comment"  class = "comments"  >
+                            	<i class="<?php echo get_icon('comment');?>"> </i>
+                                 <?php 
+                                if(isset($row['counter']['tc']) && $row['counter']['tc'])
+                                    echo $row['counter']['tc'];
+                                else 
+                                    echo "0";
+                                 ?>
+                            </span>
+                                 &nbsp;
+                            <span title="vote" class="likes">
+                                <i class="<?php echo get_icon('thumbs-up');?>"> </i>
+                                <?php 
+                                if(isset($row['counter']['vote']) && $row['counter']['vote'])
+                                    echo $row['counter']['vote'];
+                                else 
+                                    echo "0";
+                                ?>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </a>
+            </div>
+        <?php }?>
+    <?php endif;?>
+  </div>
+</div>
+</div>
+
+</div>

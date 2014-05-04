@@ -1,0 +1,25 @@
+<?php $page = Zend_Registry::get('page');?>
+<?php 
+    $type = get_value('type', 1);
+    $active = story_type($type);
+?>
+<ul class="nav nav-pills story-type-nav">
+	<li <?php if ($active == 'image'):?>class='active'<?php endif;?>>
+	    <a href="/story/new?type=<?php echo story_typeint('image');?>"><?php echo t('image', 2);?></a></li>
+	<li <?php if ($active == 'video'):?>class='active'<?php endif;?>>
+	    <a href="/story/new?type=<?php echo story_typeint('video');?>"><?php echo t('video', 2);?></a></li>
+	<li <?php if ($active == 'story'):?>class='active'<?php endif;?>>
+	    <a href="/story/new?type=<?php echo story_typeint('story');?>"><?php echo t('story', 2);?></a></li>
+    <li <?php if ($active == 'multi-choice'):?>class='active'<?php endif;?>>
+	    <a href="/story/new?type=<?php echo story_typeint('multi-choice');?>"><?php echo t('multi_choice', 1);?></a></li>
+	<?php
+	/* 
+	<li <?php if ($active == 'link'):?>class='active'<?php endif;?> id="link"><a href="#"><?php echo t('link');?></a></li>
+	<li <?php if ($active == 'quote'):?>class='active'<?php endif;?> id="quote"><a href="#"><?php echo t('quote');?></a></li>	
+	<li <?php if ($active == 'quiz'):?>class='active'<?php endif;?> id="quiz"><a href="#"><?php echo t('quiz');?></a></li>
+	<li <?php if ($active == 'game-flash'):?>class='active'<?php endif;?> id="game-flash"><a href="#"><?php echo t('flash_game');?></a></li>
+	*/
+	?>
+</ul>
+<div class="separator-high"></div>
+<hr/>

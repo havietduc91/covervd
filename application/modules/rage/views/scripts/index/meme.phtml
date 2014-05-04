@@ -1,0 +1,38 @@
+	<script>
+
+	$.fn.ready(function() {
+
+	    var img = new Image();
+	    img.crossOrigin="anonymous";
+	    img.src="yourImage.png";
+	    
+		Meme('http://rage.local/meme1/images/philosoraptor.jpg', 'canvas');
+
+		$('#top-line, #bottom-line').keyup(function() {
+			Meme("http://rage.local/meme1/images/philosoraptor.jpg", 'canvas', $('#top-line').val(), $('#bottom-line').val());
+		});
+
+	});
+
+	</script>
+	<div style="width: 100%;">
+       <div style="float:left;">
+            <h1>TODO : Suggest Meme</h1>
+       </div>
+       <div style="float:right; width: 70%">
+           	<div class="center-element" id="img">
+                <h1>Meme Creator</h1>
+            	<div>
+                	<input id="top-line" placeholder="top line">
+                	<input id="bottom-line" placeholder="bottom line">
+            	</div>
+            </div>
+        	<canvas id="canvas"></canvas>
+        	<div class="center-element">
+           	    <input id="image-name" placeholder="image name">
+                <button type="button" name="downloadMeme" id="generate">Generate download file</button>
+       	    </div>
+       </div>
+    </div>
+    <div style="clear:both"></div>
+

@@ -1,0 +1,6 @@
+<?php echo t("dear",1); ?> <?php echo $this->to;?>, <br/>
+<p>
+<?php echo t("thank_you_for_registering_on_".DOMAIN."._to_use_all_of_our_features,_you_need_to_activate_your_account.",1) ?> </p>
+<p><?php t("please_click_the_following_link_to_activate",1)?> <a href='<?php echo SITE_URL?>/user/activate?activation_code=<?php echo $this->params['activation_code']?>&id=<?php echo $this->params['id']?>&act=1'><?php echo SITE_URL?>/user/activate?activation_code=<?php echo $this->params['activation_code']?>&id=<?php echo $this->params['id']?></a><br/>
+</p>
+<?php echo $this->render('/templates/notif/email-footer.phtml');?> 

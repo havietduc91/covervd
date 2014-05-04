@@ -1,0 +1,108 @@
+<style>
+#count { font-size: 20px; font-weight: bold; }
+</style>
+
+<script>
+var startNumber = 180;
+var timeoutHandler = null;
+
+function countDown(number) {
+  $('#count').text(number);
+
+  number--;
+  if(number > 0) {
+    timeoutHandler = setTimeout(function() { countDown(number); }, 1000);
+  }
+  else {
+	  $('#count').text(0);
+	  $("#stop_button").trigger('click');
+	}
+}
+
+function microphone_recorder_sync_events() {
+
+  microphone_recorder_events.apply(this, arguments);
+
+  switch(arguments[0])
+  {
+  	case "ready":
+  	  	$("#record_button").text('Start');
+  	  	break;
+  	case "microphone_connected":
+  		$("#record_button").text('Record');
+  	  	break;
+    case "stopped":
+    case "recording_stopped":
+      var name = arguments[1];
+      clearTimeout( timeoutHandler );
+      timeoutHandler = null;
+      break;
+
+    case "recording":
+      countDown(startNumber);
+      $("#stop_button").show();
+      $("#record_button").hide();
+      break;
+
+    case "playback_started":
+      var latency = parseInt(arguments[2], 10);
+      console.log(latency);
+      $("#stop_button").attr('onclick', "Recorder.recorder.stopPlayBack();");
+      $('#playback').text( "latency is " + latency + "." );
+      timeoutHandler = setTimeout(function() {countDown(startNumber);}, latency);
+      break;
+    case "saved":
+        var name = arguments[1];
+        var data = $.parseJSON(arguments[2]);
+        if(data.saved) {
+        	var filename = name + ".wav";
+          	$('#upload_status').css({'color': 'green'}).html(filename + " was saved. Click '<a href='/acceptfile.php?download=" + filename + "' style='color:blue;'>" + filename + "'</a> to download.");
+        } else {
+          $('#upload_status').css({'color': '#F00'}).text(name + " was not saved");
+        }
+        break;
+  }
+}
+</script>
+
+  <div id="status" class="alert alert-info">Recorder Status...</div>
+  <div id="control_panel">
+	<a href="/dev/record" class="btn btn-mini"><i class="icon-refresh"></i>Reset</a>
+  <a class="btn btn-mini" id="record_button" onclick="Recorder.record('audio', 'audio.wav');" href="javascript:void(0);" title="Record">Recode</a>
+  <a class="btn btn-mini" id="stop_button" style="display:none;" onclick="Recorder.record('audio', 'audio.wav');" href="javascript:void(0);" title="Stop">
+  	  <i class="icon-stop"></i>Stop
+  </a>
+  <a class="btn btn-mini" id="play_button" style="display:none;" onclick="Recorder.playBack('audio');" href="javascript:void(0);" title="Play">
+  	<i class="icon-play"></i> Play
+  </a>
+  <span id="save_button">
+    <span id="flashcontent">
+      <p>Your browser must have JavaScript enabled and the Adobe Flash Player installed.</p>
+    </span>
+  </span>
+  </div>
+  <div id="upload_status">
+  </div>
+
+  <div id="count">
+  </div>
+
+  <form id="uploadForm" name="uploadForm" action="/acceptfile.php">
+    <input name="authenticity_token" value="xxxxx" type="hidden">
+    <input name="upload_file[parent_id]" value="1" type="hidden">
+    <input name="format" value="json" type="hidden">
+  </form>
+
+<?php $this->inlineScript()->appendFile(ASSETS_CDN . "common/js/recorder/swfobject.js", 'text/javascript');?>
+<?php $this->inlineScript()->appendFile(ASSETS_CDN . "common/js/recorder/recorder.js", 'text/javascript');?>
+<?php $this->inlineScript()->captureStart();?>
+jQuery(document).ready(function(){
+	var appWidth = 24;
+  	var appHeight = 24;
+  	var flashvars = {'event_handler': 'microphone_recorder_sync_events', 'upload_image': 'images/upload.png'};
+  	var params = {};
+  	var attributes = {'id': "recorderApp", 'name':  "recorderApp"};
+  	swfobject.embedSWF("/recorder.swf", "flashcontent", appWidth, appHeight, "10.1.0", "", flashvars, params, attributes);
+  	
+});
+<?php $this->inlineScript()->captureEnd();?>

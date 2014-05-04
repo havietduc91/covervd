@@ -1,0 +1,12 @@
+<?php $page = Zend_Registry::get('page');?>
+<ul class='nav nav-tabs'>
+	<li <?php if ($page == 'ad/index/new') echo "class='active';"?>><a href="/ad/new">New</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'ad/index/update') echo "class='active';"?>><a href="/ad/update<?php if (isset($this->row['id'])) echo "?id=" . $this->row['id'];?>"">Update</a></li>
+	<?php endif;?>    
+	<li <?php if ($page == 'ad/index/search') echo "class='active';"?>><a href="/ad/search">Search</a></li>
+    <li <?php if ($page == 'ad/index/search-comment') echo "class='active';"?>><a href="/ad/search-comment">Search Comment</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'ad/index/view') echo "class='active';"?>><a href="/ad/<?php if (isset($this->row['id'])) echo "" . $this->row['id'];?>">View</a></li>
+	<?php endif;?>
+</ul>

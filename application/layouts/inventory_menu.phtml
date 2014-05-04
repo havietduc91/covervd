@@ -1,0 +1,55 @@
+<?php $lu = Zend_Registry::get('user');?>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="nav-collapse">
+            <?php $page = Zend_Registry::get('page');?>
+				<ul class="nav nav-pills inventory-type-nav">
+					<li <?php if ($page == 'inventory/index/add'):?>class='activeMenu'<?php Endif;?>>
+					   <a href="/inventory/add">Add</a>
+					</li>
+					<li <?php if ($page == 'inventory/index/search'):?>class='activeMenu'<?php Endif;?>>
+					   <a href="/inventory/search">Search</a>
+					</li>
+					<li <?php if ($page == 'inventory/index/update' || $page == 'inventory/index/update-multi'):?>class='activeMenu'<?php Endif;?>>
+					   <a href="/inventory/update-multi">Update</a>
+					</li>
+					<li <?php if ($page == 'inventory/index/received'):?>class='activeMenu'<?php Endif;?>>
+					   <a href="/inventory/received">Received</a>
+					</li>
+					<?php if (has_perm('sudo')):?>
+					<li <?php if (strpos($page, 'user') === 0):?>class='activeMenu'<?php Endif;?>>
+					   <a href="/user/search">User</a>
+					</li>
+					<li <?php if (strpos($page, 'user') === 0):?>class='activeMenu'<?php Endif;?>>
+					   <a href="/user/search-roles">User Roles</a>
+					</li>
+					<?php endif;?>
+				</ul>
+				
+				<div class="btn-group pull-right" id="c_login" style=';'>
+				<a name="login" class="has-tooltip btn btn-success " title=""
+					href="/user/update?_cl_step=account"><i class='icon-user'></i> <?php echo $lu['name'];?></a>
+				<?php if (is_guest()):?>
+				<a name="login" class="has-tooltip btn " title="click to logout"
+					href="/user/login">Login</a>
+			    <?php else:?>
+			    <a name="login" class="has-tooltip btn " title="click to logout"
+					href="/user/logout">Logout</a>
+			    <?php endif;?>
+			    </div>
+				
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+<style>
+.activeMenu
+{
+    font-weight:bold;
+}
+.activeMenu a
+{
+    color:orange !important;
+}
+</style>    

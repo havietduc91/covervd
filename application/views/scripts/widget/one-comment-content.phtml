@@ -1,0 +1,54 @@
+<?php 
+    $c = $this->c;
+    $lu = Zend_Registry::get('user');
+?>
+
+    
+    <div class="<?php echo $this->zebraClass;?> comment">
+        
+        <div class='comment_content'>
+        <?php echo isset($c['fcontent']) ? $c['fcontent']:$c['content'];?>
+        </div>
+        
+        <?php if(isset($c['attachments']) && count($c['attachments']) > 0) :?>
+        <div>
+        	<ul class="attachment-list">
+        	<?php foreach ($c['attachments'] as $att) :?>
+        		<li class="span">
+        			<input type="checkbox" 
+        				   attachmenttype="comment"
+        				   cid="<?php echo $c['id'];?>"
+        				   id="<?php echo $att['id'];?>" 
+        				   class="remove-attachment"   
+        				   checked <?php if($c['u']['id'] != $lu['id']) :?>disabled<?php endif;?>/>
+            			   
+            			<a href="/<?php echo $this->comment_node_type;?>/download?tid=<?php echo $c['node']['id'];?>&id=<?php echo $att['id'];?>" class="">
+            				<?php echo $att['name'];?> <i class="<?php echo get_icon('download-alt');?>"></i>
+            			</a>
+        		</li>
+        	<?php endforeach;?>
+        	</ul>
+    	</div>    	
+    	<div style='clear:both'></div>
+        <?php endif;?>
+        
+        <div style="text-align:right;">
+        <a title="<?php echo t('reply');?>" href="javascript:;" name="<?php echo $c['id'];?>" class="btn-reply has-tooltip"><i class='<?php echo get_icon('reply');?>'></i></a>
+        &nbsp;&nbsp;
+        <?php if ($this->commentEditable) :?>
+        <a title="<?php echo t('edit',1);?>" href='#new_comment' class='edit_comment has-tooltip'><i class='<?php echo get_icon('edit');?>'></i></a>
+        &nbsp;&nbsp; 
+        <a title="<?php echo t('click_if_you_think_this_is_a_spam', 1);?>" 
+        	href='/<?php echo $this->comment_node_type;?>/update-comment?nid=<?php echo $this->row['id'];?>&id=<?php echo $c['id'];?>&_cl_step=is_spam' class='cl_ajax has-tooltip'><i class='<?php echo get_icon('flag');?>'></i></a>
+      	&nbsp;&nbsp;
+    	<a title="<?php echo t('delete', 1);?>"
+    		class='cl_ajax has-tooltip' _cl_ajax_confirm='yes' 
+    		_cl_get_metadata='hide_my_parent:3' 
+    		href='/<?php echo $this->comment_node_type;?>/del-comment?id=<?php echo $c['id'];?>'
+    		><i class='<?php echo get_icon('remove');?>'></i></a> 
+        <?php endif;?>
+        
+        </div>
+        
+    </div>
+    

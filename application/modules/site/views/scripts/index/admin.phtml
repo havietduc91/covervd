@@ -1,0 +1,137 @@
+<?php echo sand_dev_info_phtml(__FILE__);?>
+<div class='row'>
+	<div class='col-md-2'>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">User</h3>
+          </div>
+          <div class="panel-body admin-panel-body">
+            <ul>
+    	    <li><a target="_blank" href="/user/search">Search users</a></li>
+    	    <li><a target="_blank" href="/user/search-roles">Roles</a></li>
+    	    <li><a target="_blank" href="/fake/index/new?file=1">Insert fake user</a></li>
+    	    <li><a target="_blank" href="/user/new">Insert user manually</a></li>
+    	    <li><a target="_blank" title="Old users dont have filed 'f' ,update them set to '0' " href="/user/update-fake">Update Old User</a></li>
+    	    </ul>
+          </div>
+        </div>
+	</div>
+	
+	<div class='col-md-2'>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Story</h3>
+          </div>
+          <div class="panel-body admin-panel-body">
+            <ul>
+        	    <li><a target="_blank" href="/story/search">Search Stories</a></li>
+        	    <li><a target="_blank" href="/story/new">New Story</a></li>
+        	    <li><a class='modal_ajax' title="this should be done by applicatoin logic but it could go wrong sometimes" href="/story/refresh-hotness">Refresh hotness manually</a></li>
+        	    
+        	    <li><a class='modal_ajax' style='color:red;' href="/story/remove-static-cache">Remove static /cache/ dir manually</a></li>
+        	    <li><a class='modal_ajax label label-default' href="/story/update-size-images">Update width and height</a></li>
+	    	</ul>
+          </div>
+        </div>
+	</div>
+	
+	<div class='col-md-2'>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Tag</h3>
+          </div>
+          <div class="panel-body admin-panel-body">
+           <ul>
+        	   <li><a target="_blank" href="/tag/index/search">Search Tags</a></li>
+        	   <li><a target="_blank" href="/tag/index/new">New tag</a></li>
+        	   <li><a class="label label-default" target="_blank" href="/tag/index/update-counter-tag-all-story">
+        	   Update All Tag Counters </a></li>
+        	   <li><a class="label label-default" target="_blank" 
+        	   href="/tag/index/get-popular-tags">
+        	   Get Popular Tags </a></li>
+    	   </ul>
+          </div>
+        </div>
+	</div>
+	
+	<div class='col-md-2'>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Advertisements</h3>
+          </div>
+          <div class="panel-body admin-panel-body">
+           <ul>
+        	   <li><a href='/ad/new'>New</a></li>
+	    	   <li><a href='/ad/search'>Search ads</a></li>
+    	   </ul>
+          </div>
+        </div>
+	</div>
+	
+	<div class='col-md-2'>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Configurations</h3>
+          </div>
+          <div class="panel-body admin-panel-body">
+           <ul>
+        	   <li><a href='/conf/new'>New Conf</a></li>
+	    	   <li><a href='/conf/search'>List Conf</a></li>
+    	   </ul>
+          </div>
+        </div>
+	</div>
+	
+</div>
+
+<div class='row' >
+    <div class='col-md-3'>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Site Mananger</h3>
+          </div>
+          <div class="panel-body admin-panel-body">
+           <ul>
+               <li><a target="_blank" href="/translate/index/search">Translations</a></li>
+               <li><a target="_blank" href="/redis/index">Redis data</a></li>
+    	       <li><a title="update user,story,tag max iid to redis" target="_blank" href="/site/update-iid">Update Iids to redis</a></li>
+    	       <li><a target="_blank" href="/queue/overview">Job Queue</a></li>
+    	       <li><a class='modal_ajax' style='color:red;' href="/story/update-counter-view-from-redis-to-db">Update views counter from Redis to DB</a></li>
+    	       <?php
+    	       /* 
+    	       <li><a target="_blank" href="/site/port" class='label label-default'>import old mysql db</a></li>
+    	       */
+    	       ?>
+    	   </ul>
+          </div>
+        </div>
+    </div>
+    
+    <div class='col-md-2'>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Karma User Top Mananger</h3>
+          </div>
+          <div class="panel-body admin-panel-body">
+          <span style='color:red;'>Testing purpose</span>
+	      <ul>
+    	      <li><a class='modal_ajax' href="/snapshot/guidetest" >Test guide</a></li>
+    	      <li><a class='modal_ajax' href="/snapshot/fake-snapshot">Fake snapshot</a></li>
+    	      <li><a class='modal_ajax' href="/snapshot/fake-base-karma">Fake base karma</a></li>
+	      </ul>
+	      <span class='bold'>Daily actions</span>
+	      <ul>
+    	      <li><a target="_blank" href="/snapshot/take-snapshot">Take daily snap shot</a></li>
+    	      <li><a target="_blank" href="/snapshot/rebase-karma" >Rebase</a></li>
+    	      <li><a target="_blank" href="/snapshot/topscorekarma" title='Generate top users for 7 and 30 days'>Top Score Karma</a></li>
+		  </ul>
+          </div>
+        </div>
+    </div>
+</div>
+<style>
+.admin-panel-body
+{
+    min-height:150px;
+}    	       
+</style>

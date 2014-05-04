@@ -1,0 +1,142 @@
+<div id='cssmenu'>
+    <ul>
+       <li class='active'><a href='index.html'><span>Home</span></a></li>
+       <li><a href='#'><span>Meme Create</span></a></li>
+       <li><a id="rage-help" href='#help-box'><span>RageMaker Help</span></a></li>
+       <li class='last'><a href='#'><span>Contact</span></a></li>
+    </ul>
+    </div>
+
+	<div style="width: 640px; margin: 0 auto;">
+		<div id="pane2"
+			style="margin: 20px 0; width: 640px; position: relative; min-height: 0px;">
+			<div class="">
+                <?php echo t('click_image_to_insert_to_drawing_area',1);?>
+               </div>
+
+
+			<div id="blank_content">
+				<div class="sharedaddy"></div>
+				<div id="memebaseSubmitFormContainer"></div>
+				<div>
+					<div class="dock" id="toolbar">
+						<div class="dock-container"
+							title=<?php echo t("click_to_add_it_to_the_canvas",1);?>></div>
+					</div>
+				</div>
+				<div id='promptContainer' title=<?php echo t('import_image',1);?>>
+					<div>
+						<strong>URL: </strong> <input type='text' id='txtImportUrl'
+							value='' />
+					</div>
+					<p class='errorText'></p>
+					<p> <?php echo t('enter_the_URL_to_an_image_you_would_like_to_import.This_could_be_another_rage_comic_or_anything_else.');?></p>
+				</div>
+				<div id='flickrContainer' title='Import image from Flickr'>
+					<label><strong><?php echo t('enter_keyword',1);?>: </strong></label>
+					<input type="text" value="" id="flickrSearchTerm" />
+					<p id="flickrHelpText"> <?php echo t('search_for_an_image_on_flickr.For_example:"cat_white_background"',1);?> </p>
+					<p style="display: none" id="flickrLoading"></p>
+					<div id="flickrResult"></div>
+				</div>
+				<div id='startUpMessageContainer' title=<?php echo t('pro_tip',1);?>></div>
+				<div id='exportContainer'
+					title=<?php echo t('export_meme_image?',2);?>>
+					<div>
+						<div style='float: left'>
+							<img src="<?echo $base;?>ragecomic/images/messageTroll.png"
+								tppabs="ragecomic/images/messageTroll.png" />
+						</div>
+						<div> <?php echo t('finalize?_You_wont_be_able_to_modify_your_masterpiece_further.',1);?><br />
+							<br />
+                    <?php echo t('in_the_next_step,_you_will_be_able_to_submit_your_Rage_Comic_to_Meme.',1);?> <br />
+							<br /> <b><?php echo t('meme_maker',1);?></b><br />
+                    <?php echo t('submit_meme_to_mememaker_gallery',1);?></div>
+						<div style='clear: both'></div>
+					</div>
+				</div>
+				<div id="canvasContainer">
+					<div id="controllers" class="ui-widget-header ui-corner-all">
+						<div id="templateController" class="controllerSubset"
+							style="border-left: none; padding-left: 3px;">
+							<select id="drpPacks" title=<?php echo t('template_set',1);?>>
+							</select>
+						</div>
+						<div id="toolsController" class="controllerSubset">
+							<strong></strong> <span title=<?php echo t('add_text_box',1);?>
+								id='addTextCtrl' class='menuIcon'><img
+								src="<?echo $base;?>ragecomic/images/text_dropcaps.png"
+								alt="text_dropcaps" align="absmiddle" /></span> <span
+								title=<?php echo t('import_image_from_URL',1);?>
+								id='importImage' class='menuIcon'><img
+								src="<?echo $base;?>ragecomic/images/photo_add.png"
+								alt="photo_add" align="absmiddle" /></span> <span
+								title=<?php echo t('select_brush_color',1);?> id="customWidget"
+								class='menuIcon'><img
+								src="<?echo $base;?>ragecomic/images/color_wheel.png"
+								alt="color_wheel" align="absmiddle" /></span> <span
+								title=<?php echo t('select_brush_size',1);?> id="brushSize"
+								class='menuIcon'> <img
+								src="<?echo $base;?>ragecomic/images/paintbrush.png"
+								alt=<?php echo t('paintburhs',1);?> align="absmiddle" />
+								<div id="brushSizeSlider"></div>
+							</span> <span
+								title=<?php echo t("undo_last_brush_or_'send_to_back'_action",1);?>
+								id="undoBrush" class='menuIcon'> <img
+								src="<?echo $base;?>ragecomic/images/arrow_undo.png"
+								alt="arrow_undo" align="absmiddle" /></span>
+						</div>
+						<div id="panelController" class="controllerSubset"
+							style="float: right;">
+							<span title=<?php echo t('add_row',1)?> id='addBlankRow'
+								class='menuIcon'> <img
+								src="<?echo $base;?>ragecomic/images/add.png"
+								alt=<?php echo t('add',1);?> align="absmiddle" />
+							</span> <span title=<?php echo t('add_blank_row',1);?>
+								id='addFrameCtrl' class='menuIcon'> <img
+								src="<?echo $base;?>ragecomic/images/add.png"
+								alt=<?php echo t('delete');?> align="absmiddle" />
+							</span> <span title=<?php echo t('delete_last_row',1);?>
+								id='removeFrameCtrl' class='menuIcon'> <img
+								src="<?echo $base;?>ragecomic/images/delete.png"
+								alt=<?php echo t('delete');?> align="absmiddle" />
+							</span>
+
+						</div>
+						<span title=<?php echo t('export_canvas',1);?> id='exportCanvas'
+							class='menuIcon'><img
+							src="<?echo $base;?>ragecomic/images/disk.png" alt="disk"
+							align="absmiddle" style="margin-left: 10px;" /></span>
+
+						<div style="clear: both"></div>
+					</div>
+					<div id='drawingCanvasContainer'>
+						<canvas id="drawingCanvasInterface"></canvas>
+						<canvas id="drawingCanvas"></canvas>
+					</div>
+					<img src="<?echo $base;?>ragecomic/images/watermark.png"
+						alt="watermark" id="watermark"
+						style="display: none; position: relative; left: 50px; bottom: 100px;" />
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="help-box" id="help-box">
+		<h3><?php echo t('rage_maker_guide',1);?></h3>
+		<ul>
+            <?php
+            
+            $help_text = get_conf ( 'help_text' );
+            if ($help_text != '') :
+                foreach ( $help_text as $key => $val ) :
+                    ?>
+                <li><?php echo $val;?></li>
+            <?php endforeach;?>
+            <?php else:?>
+                <?php echo t('there_dont_have_any_help_informations',1);?>
+            <?php endif;?>
+            </ul>
+	</div>
+	<img alt="story_img_url" id="story_img_url" style="display: none;"
+		src="<?php echo STATIC_CDN.$story['url'];?>" />

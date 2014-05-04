@@ -1,0 +1,50 @@
+<?php
+ 
+$lu = $this->row;
+$step = get_value('_cl_step', '');
+?>
+<?php /* //what is this??
+    <?php if (!getenv('SITE')):?>
+	<?php echo $this->render('index/user-subnav.phtml');?>
+	<?php endif;?>
+*/ ?>
+    <div class="col-md-12">
+    	<ul class="nav nav-tabs">
+    		<li class=' <?php if ($step == 'account' || $step == '' ) echo 'active';?>'><a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=account"><?php echo t("account",1);?></a></li>
+    		<li class=' <?php if ($step == 'avatar') echo 'active';?>'><a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=avatar"><?php echo t('avatar',1);?></a></li>
+    		<li class=' <?php if ($step == 'change_pass') echo 'active';?>'><a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=change_pass"><?php echo t('change_password',1);?></a></li>
+    		<?php if ($lu['status'] == 'unactivated') :?>
+    		<li><a  href="/user/activate?id=<?php echo $lu['id'];?>"><?php echo t("active_account",1);?></a></li>
+    		<?php endif;?>
+    	</ul>
+    </div>
+    <div class="separator-high"></div>
+	<?php if($step == 'avatar'):?>
+	<?php endif;?>
+	<div class="col-md-6"><?php echo $this->form;?></div>
+
+<?php $this->inlineScript()->captureStart();?>
+CL.formStep = '<?php echo $step;?>';
+CL.uid = '<?php echo $lu['id'];?>';
+CL.CODENAME = '<?php echo CODENAME;?>';
+<?php $this->inlineScript()->captureEnd();?>
+<?php $this->inlineScript()->captureStart();?>
+	$(function(){
+		$('form').ajaxForm(
+		{
+			success: function(data, statusText, xhr, $form){
+				if (data.success)
+				{
+					alert_success("Success!");
+					$form.parent().find('span').html($form.find("input:text").val());
+					$form.parent().find("span,.edit").show();
+                    $('a.cancel').trigger('click');
+				}
+				else
+					alert_error("error " + data.err);
+			}
+		}
+		);
+	});
+<?php $this->inlineScript()->captureEnd();?>
+

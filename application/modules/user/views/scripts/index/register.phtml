@@ -1,0 +1,49 @@
+<div class='row'>
+
+<?php echo sand_dev_info_phtml(__FILE__);?>
+
+<div class="col-md-8 col-md-offset-2 well login-container">
+        	<div class="login-provider">
+        		<h3><?php echo t('sign_up_account', 1);?> <?php echo t('via', 1);?></h3>
+        		<div class="img-container">
+        			<a href="/user/oauth?login=google" class="btn btn-lg">
+	    				<img width="180" height="61" src="<?php echo ASSETS_CDN?>edx/img/google-logo-large.png" alt="Google">
+	    			</a>
+        		</div>
+        		<div class="clearfix clear"></div>
+        		<div class="img-container">
+        			<a href="/user/oauth?login=facebook" class="btn btn-lg">
+	    				<img width="180" height="61" src="<?php echo ASSETS_CDN?>edx/img/facebook-logo-large.png" alt="Facebook">
+	    			</a>
+        		</div>
+        		<div class="clearfix clear"></div>
+        		<div class="img-container">
+        			<a href="/user/oauth?login=yahoo" class="btn btn-lg">
+	    				<img width="180" height="61" src="<?php echo ASSETS_CDN?>edx/img/yahoo-logo-large.png" alt="Yahoo">
+	    			</a>
+        		</div>
+        	</div>
+        	<div class="vertical-separator">
+        		<span class="separator-text"><?php echo t('or', 3);?></span>
+        	</div>
+        	<div class="loginForm">
+	        	<div id='login_form'>
+		        	<h3><?php echo t('sign_up_account', 1);?></h3>
+		        	<?php if (isset($this->err)) :?>
+					      <?php echo $this->err;?>
+					<?php endif;?>
+					<?php if (isset($this->successMsg)) :?>
+					      <?php echo $this->successMsg;?>
+					<?php endif;?>
+		        	<?php 
+						$form = new User_Form_Register();
+						$form->build();
+						$form->setAction('/user/register')
+						->setAttrib('class', 'cl_ajax');
+						echo $form;
+					?>
+	        	</div>
+	        </div>
+       <div class="clearfix clear"></div>
+</div>
+</div>
