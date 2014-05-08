@@ -1,69 +1,503 @@
-<?php echo sand_dev_info_phtml(__FILE__);?>
-<?php 
-    $lu = Zend_Registry::get('user');
-    $isWidget = (isset($this->is_widget) && $this->is_widget == 'widget') ? true:false;
+<?php $lu = Zend_Registry::get('user');?>
+<?php $categories = $this->categories;?>
+<?php /***********************
+	hp_product:: Sản phẩm được SEO đặt lên trang chủ
+	recommend_product: Danh sách sản phẩm được Admin gợi ý cho người dùng
+**/?>
+<?php $hp_product = $this->hp_product;
+	  $hp_product = Dao_Node_Product::getInstance()->getStandedProduct($hp_product);
 ?>
-
-<?php if ($isWidget):?>
-    <?php 
-		echo $this->render('/widget/story-list.phtml');
-	?>
-<?php else:?>
-<div class="row index-list">
-    <div class="col-md-7">
-    	<?php 
-    		echo $this->render('/widget/story-list.phtml');
-    	    ?>
-    </div>
-
-	<div class="col-md-3 sidebar">
-			<?php if (APPLICATION_ENV == 'development'):?>
-				<div data-whereami='<? echo __FILE__;?>'></div>
-			<?php endif;?>
-						
-				<div class="light-black-bg sidebar-nav col-md-12" style="min-height: 70px;">
-				<div class="alert alert-success alert-dismissable"> <?php echo t('_help_like_fanpage',1)?>
-				<?php if(!getenv("SITE")):?>
-				<div class="fb-like-box" 
-        				data-href="https://www.facebook.com/truyencuoihoibinet" 
-        				data-width="The pixel width of the plugin" 
-        				data-colorscheme="light" 
-        				data-show-faces="false" 
-        				data-header="true" 
-        				data-stream="false" 
-        				data-show-border="true">
-    				</div>	
-    				<?php elseif (getenv('SITE') == 'tf'):?>
-    				<div class="fb-like-box" 
-        				data-href="https://www.facebook.com/WaRiTiSaensukh" 
-        				data-width="The pixel width of the plugin" 
-        				data-colorscheme="light" 
-        				data-show-faces="false" 
-        				data-header="true" 
-        				data-stream="false" 
-        				data-show-border="true">
-    				</div>	
-    				<?php endif;?>
-    				</div>
-				</div>
-				
-			<div data-spy="affix" style="width: 262px; margin-top:20px;" data-offset-top="200" id='affix-right-box' class='visible-md visible-lg'>
-    			<div id ="top-user" data-url='/site/topuser' class='sand-ajax-widget'>
-    				</div>
-    					
-    			<div id ="vote-image" data-url='/widget/vote' class='sand-ajax-widget'>
-    				</div>
-			</div>
-	</div>
-	<div class='col-md-2'>
-			<?php if (APPLICATION_ENV == 'development'):?>
-				<div data-whereami='<? echo __FILE__;?>'></div>
-			<?php endif;?>
-				<div class="sidebar-nav">
-                    <?php echo get_conf('sidebar_ad1', '');?>					
-				</div>
-	</div>
+<?php $recommend_products = $this->recommend_products;?>
+<div class="main module">
 	
-</div>			
+   <?php /**DANH SÁCH CHUYÊN MỤC VÀ 1 SẢN PHẨM ĐƯỢC GỢI Ý**/?>
+   <div class="row">
+     <?php /**DANH SÁCH SẢN PHẨM ĐƯỢC ADMIN GỢI Ý**/?>
+   		<?php if(count($recommend_products) > 0):?>
+	   <div id="slidorion" class="slidorion">
+			<div class="slider">
+			 	<?php foreach ($recommend_products as $product):?>
+	  	  	 	 <?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+					<div class="slide">
+						<a href="<?php echo node_link('product', $product);?>">
+						 	<img src="<?php
+				 				  $url = STATIC_GT . $product['images'];
+					              if(!url_exists($url)){
+					              	$url = default_avatar('product');
+					              }
+					              	echo $url;
+			                   ?>"
+			                    <?php 
+				                   if(url_exists($url)){
+						               list($width, $height) = getimagesize($url);
+						               $heightFilledImage = 394;//height class filedImage img
+									   $widthFilledImage = 642;
+						                
+						                //Get height (chieu dai thuc cua anh ty le
+						                // voi chieu dai cua khung chua anh)
+						               
+						                /*
+										$heightFilledImageNew = $widthFilledImage * $height/ $width;
+						                
+						                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+						                if($gap > 0){
+						                	echo "style = 'margin-top: -{$gap}px'";
+						                }
+						                */
+						                $widthFilledImageNew = $heightFilledImage * $width/$height;
+						                
+						                $gap = ( $widthFilledImage - $widthFilledImageNew)/2;
+						                if($gap > 0){
+						                	echo "style = 'margin-left: {$gap}px'";
+						                }
+									}
+				                ?>
+			                    width='100%'>
+						</a></div>
+				<?php endforeach;?>
+			</div>
+	
+			<div class="accordion">
+				<?php foreach ($recommend_products as $product):?>
+					<?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+					<div class="header"><?php echo $product['name'];?></div>
+					<div class="content">
+						<a href="<?php echo node_link('product', $product);?>">
+							<p>Chuyên mục: <?php echo $product['category']['name'];?></p>
+						</a>
+						<?php if($product['counter']['buy'] != 0):?>
+							<p>Có <?php echo $product['counter']['buy'];?> người đã mua</p>
+						<?php else:?>
+							<p> Bạn sẽ là người mua đầu tiên sản phẩm </p>
+						<?php endif;?>
+						<?php if(isset($product['serialNumber']) && $product['serialNumber'] != ''):?>
+							<p> Mã hàng: <?php echo $product['serialNumber'];?></p>
+						<?php endif;?>
+						<p>Giá gốc: <?php echo show_money($product['origin_price']);?>₫</p>
+						<p style='color: #82B548;'>Giá bán: <?php echo show_money($product['deal_price']);?>₫</p>
+					</div>
+				<?php endforeach;?>
+			</div>
+		</div>
+		<?php endif;?>
+    <div>
+    
+    <?php /**LẤY DANH SÁCH SẢN PHẨM THEO IID ĐƯỢC CONFIG CỦA DANH SÁCH CÁC CHUYÊN MỤC :: LOẠI 2**/?>
+  <?php $categories_iids2 = $this->categories_iids2;?>
+  <?php if(count($categories_iids2) > 0):?>
+  <div id="channel-deals">
+  	<?php foreach ($categories_iids2 as $cate):?>
+  	<?php $products = isset($cate['products']) ? $cate['products'] : array();?>
+	  	<?php if(count($products) > 0):?>
+		  <section class="deal-pack row pad-row">
+			  <div class="section-head">
+			      <a href="<?php echo category_link($cate['detail'])?>">
+			      	<h2><?php echo $cate['detail']['name'];?></h2></a>
+			  </div>
+			  <div class="block-grid three-up">
+			  	<?php foreach ($products as $product):?>
+			  		<?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+			      <figure class="deal-card">
+			        <a href="<?php echo node_link('product', $product);?>">
+			          <img src="<?php
+		 				  $url = STATIC_GT . $product['images'];
+			              if(!url_exists($url)){
+			              	$url = default_avatar('product');
+			              }
+			              echo $url;
+		                   ?>"
+		                   <?php  /*Giup hien thi phan giua cua anh*/
+		                   /*(Filled image widget new|hot|vote)*/
+			               list($width, $height) = getimagesize($url);
+			               $heightFilledImage = 187;//height class filedImage img
+						   $widthFilledImage = 300;
+			                
+			                //Get height (chieu dai thuc cua anh ty le
+			                // voi chieu dai cua khung chua anh)
+								/*
+								$heightFilledImageNew = $widthFilledImage * $height/ $width;
+				                
+				                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+				                if($gap > 0){
+				                	echo "style = 'margin-top: -{$gap}px'";
+				                }*/
+				                
+				                $widthFilledImageNew = $heightFilledImage * $width/$height;
+				                
+				                $gap = ($widthFilledImage - $widthFilledImageNew)/2;
+				                if($gap > 0){
+				                	echo "style = 'margin-left: {$gap}px'";
+				                }
+			                ?>>
+			          <figcaption>
+			            <p style="word-wrap: break-word;" class="deal-title should-truncate">
+			            	<?php echo $product['name'];?></p>
+			            <p style="word-wrap: break-word;" class="merchant-name should-truncate">
+			       		     <?php echo $product['category']['name'];?></p>
+			            <p style="word-wrap: break-word;" class="deal-location should-truncate">
+			          		 <?php echo $product['counter']['buy'];?> đã mua</p>
+			            <p class="deal-price">
+			                <s class="original-price"><?php echo show_money($product['origin_price']);?>₫</s>
+			        	   <?php echo show_money($product['deal_price']);?>₫
+			            </p>
+			          </figcaption>
+			        </a>
+			      </figure>
+			      <?php endforeach;?>
+			  </div>
+			</section>
+			
+	  	<?php endif;?>
+	<?php endforeach;?>
+  </div>
+  <?php endif;?>
+    <?php /*
+      <div id="featured">
+        <figure class="hero-deal">
+		  <a href="<?php echo node_link('product', $hp_product);?>" title='<?php echo $hp_product['name'];?>'>
+              <img src="<?php
+ 				  $url = STATIC_GT . $hp_product['images'];
+	              if(!url_exists($url)){
+	              	$url = default_avatar('product');
+	              }
+	              	echo $url;
+                   ?>"
+                   if(url_exists($url)){
+		               list($width, $height) = getimagesize($url);
+		               $heightFilledImage = 422;//height class filedImage img
+					   $widthFilledImage = 702;
+		                
+		                //Get height (chieu dai thuc cua anh ty le
+		                // voi chieu dai cua khung chua anh)
+		                $heightFilledImageNew = $widthFilledImage * $height/ $width;
+		                
+		                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+		                if($gap > 0){
+		                	echo "style = 'margin-top: -{$gap}px'";
+		                }
+					}
+	                ?>
+                    width='100%'>
+		  </a>
+		  <figcaption>
+		    <h2>
+		      <a href="<?php echo node_link('product', $hp_product);?>" 
+		      	title='<?php echo $hp_product['name'];?>'><?php echo $hp_product['name'];?></a>
+		    </h2>
+		
+		    <div class="deal-metadata">
+		        <p style="word-wrap: break-word;" class="deal-location should-truncate">
+		        	<?php echo $hp_product['counter']['buy'];?> đã mua</p>
+		    </div>
+		
+		    <p class="deal-price">
+		        <s class="original-price" title='Giá ban đầu'><?php echo show_money($hp_product['origin_price']);?>₫</s>
+		      <?php echo show_money($hp_product['deal_price']);?>₫
+		    </p>
+		    <div class="view-deal">
+		      <a href="<?php echo node_link('product', $hp_product);?>" class="btn-buy">Xem chi tiết</a>
+		    </div>
+		  </figcaption>
+		</figure>
 
-<?php endif;?>
+      </div>
+      */?>
+    </div>
+  </div>
+  
+  <?php /**LẤY DANH SÁCH SẢN PHẨM THEO IID ĐƯỢC CONFIG CỦA DANH SÁCH CHUYÊN MỤC :: STYLE 1**
+  		Name_cofig:: products_iids1
+  */?>  
+  <?php $style1_products = $this->style1_products;?>
+  <div id="national-occasion" style='border: medium none;'>
+    <section class="row theme-image-three-up" style='overflow: hidden'>
+	  <div class="theme-image-caption">
+	    <h2 class="theme-image-caption-header"></h2>
+	    <p class="theme-image-caption-subheader"></p>
+	  </div>
+	  
+	  <?php $first = $style1_products[0];?>
+	  <a class="six columns theme-image" href="<?php echo node_link('product', $first);?>">
+	    <img src="<?php
+				 $url = STATIC_GT . $first['images'];
+	              if(!url_exists($url)){
+	              	$url = default_avatar('product');
+	              }
+	              echo $url;
+                   ?>"
+                   <?php  /*Giup hien thi phan giua cua anh*/
+                   /*(Filled image widget new|hot|vote)*/
+	               list($width, $height) = getimagesize($url);
+	               $heightFilledImage = 317;//height class filedImage img
+					$widthFilledImage = 462;
+	                
+	                //Get height (chieu dai thuc cua anh ty le
+	                // voi chieu dai cua khung chua anh)
+					/*
+					$heightFilledImageNew = $widthFilledImage * $height/ $width;
+	                
+	                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+	                if($gap > 0){
+	                	echo "style = 'margin-top: -{$gap}px'";
+	                }*/
+	                
+	                $widthFilledImageNew = $heightFilledImage * $width/$height;
+	                
+	                $gap = ( $widthFilledImage - $widthFilledImageNew)/2;
+	                if($gap > 0){
+	                	echo "style = 'margin-left: {$gap}px'";
+	                }
+	                ?>
+                    width='auto !important' height='100% !important'>
+	  </a>
+	  
+	  <div class="six columns deals">
+	  	  <?php if(count($style1_products) > 0):?>
+	  	  	<?php $i = 0;?>
+	  	  	<?php foreach ($style1_products as $product):?>
+	  	  		<?php if($i > 0):?>
+	  	  			<?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+	  	  			 <figure class="deal-card-mini">
+				        <a href="<?php echo node_link('product', $product);?>">
+				          <img src="<?php echo STATIC_GT . $product['images'];?>" style='max-height: 60px;'>
+				        </a>
+				        <figcaption>
+				          <a href="<?php echo node_link('product', $product);?>">
+				            <p style="word-wrap: break-word;" class="deal-title should-truncate">
+				            	<?php echo $product['name'];?></p>
+				          </a>
+				          <p class="deal-price">
+				            <s class="original-price"><?php echo show_money($product['origin_price']);?>₫</s>
+				            	 <?php echo show_money($product['deal_price']);?>₫
+				          </p>
+				            <p style="word-wrap: break-word;" class="deal-location should-truncate">
+				            <?php echo $product['category']['name'];?></p>
+				  		</figcaption>
+				      </figure>
+	  	  		<?php endif;?>
+	  	  		<?php $i ++;?>
+	  	  	<?php endforeach;?>
+	  	  <?php endif;?>
+	      <a class="view-all"
+	      	 href="#">Xem tất cả</a>
+	  </div>
+	</section>
+
+  </div>
+  
+  <?php /**DANH SÁCH SẢN PHẨM ĐƯỢC ADMIN GỢI Ý**/?>
+  <?php /*
+  <div id="featured-deals">
+    <section class="deal-pack row pad-row">
+	  <div class="section-head">
+	      <a href="#">
+	      <h2>Sản phẩm có thể bạn thích</h2></a>
+	      <a class="view-all" href="#">Xem tất cả</a>
+	  </div>
+	  <div class="block-grid four-up">
+	  	  <?php if(count($recommend_products) > 0):?>
+	  	  	<?php foreach ($recommend_products as $product):?>
+	  	  	  <?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+		      <figure class="deal-card">
+		        <a href="<?php echo node_link('product', $product);?>">
+		          <img src="<?php echo STATIC_GT.$product['images'];?>">
+		          <figcaption>
+		            <p style="word-wrap: break-word;" 
+		            	class="deal-title should-truncate"><?php echo $product['name'];?></p>
+		            <p style="word-wrap: break-word;" 
+		            	class="merchant-name should-truncate"><?php echo $product['category']['name'];?></p>
+			        <p style="word-wrap: break-word;" 
+			        	class="deal-location should-truncate"><?php echo $product['counter']['buy'];?> đã mua</p>
+			        	
+		  	        <p class="deal-price">
+						<s class="original-price"><?php echo show_money($product['origin_price']);?>₫</s>
+						<?php echo show_money($product['deal_price']);?>₫
+		            </p>
+		          </figcaption>
+		        </a>
+		      </figure>
+	  	  	<?php endforeach;?>
+	  	  <?php endif;?>
+	  </div>
+	</section>
+  </div>
+  */?>
+  <?php /**LẤY DANH SÁCH SẢN PHẨM THEO IID ĐƯỢC CONFIG CỦA DANH SÁCH CÁC CHUYÊN MỤC :: LOẠI 1*
+  		Name_cofig:: products_categories_iids1
+  */?>
+  
+  <?php $categories_iids1 = $this->categories_iids1;?>
+  <?php if(count($categories_iids1) > 0):?>
+  	 <div id="category-deals">
+  	 <?php foreach ($categories_iids1 as $cate):?>
+	  	<?php $products = isset($cate['products']) ? $cate['products'] : array();?>
+	  	<?php if(count($products) > 0):?>
+	  	 	<section class="deal-pack row pad-row">
+			  <div class="section-head">
+			      <a href="<?php echo category_link($cate['detail'])?>"><h2>
+			      	<?php echo $cate['detail']['name'];?></h2></a>
+			  </div>
+		  
+		     <div class="block-grid four-up">
+		  		<?php foreach ($products as $product):?>
+		  		<?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+			      <figure class="deal-card">
+			        <a href="<?php echo node_link('product', $product);?>">
+			          <img src="<?php echo STATIC_GT . $product['images'];?>">
+			          <figcaption>
+			            <p style="word-wrap: break-word;" class="deal-title should-truncate">
+			            	<?php echo $product['name'];?></p>
+			            <p style="word-wrap: break-word;" class="merchant-name should-truncate">
+			            	<?php echo $product['category']['name'];?></p>
+					    <p style="word-wrap: break-word;" class="deal-location should-truncate">
+					    	<?php echo $product['counter']['buy'];?> đã mua</p>
+				        <p class="deal-price">
+			                <s class="original-price"><?php echo show_money($product['origin_price']);?>₫</s>
+					        <?php echo show_money($product['deal_price']);?>₫
+			            </p>
+			          </figcaption>
+			        </a>
+			      </figure>
+		  		<?php endforeach;?>
+				  </div>
+			</section>
+	  	<?php endif;?>
+  	 <?php endforeach;?>
+  	 </div>
+  <?php endif;?>
+  
+  <?php /**LẤY DANH SÁCH SẢN PHẨM THEO IID ĐƯỢC CONFIG CỦA DANH SÁCH CHUYÊN MỤC :: STYLE 2*
+  		Name_cofig:: category_iid_style2
+  */?>
+  <?php $style2_products = $this->style2_products;?>
+  <div id="manual-merchandising" style='border: medium none;'>
+    <section class="row theme-image-three-up" style='overflow: hidden'>
+	  <div class="theme-image-caption">
+	    <h2 class="theme-image-caption-header"></h2>
+	    <p class="theme-image-caption-subheader"></p>
+	  </div>
+	   <?php $first = $style2_products[0];?>
+	  <a class="six columns theme-image" href="<?php echo node_link('product', $first);?>">
+	    <img src="<?php
+ 				  $url = STATIC_GT . $first['images'];
+	              if(!url_exists($url)){
+	              	$url = default_avatar('product');
+	              }
+	              
+	              echo $url;
+                   ?>"
+                   <?php  /*Giup hien thi phan giua cua anh*/
+                   /*(Filled image widget new|hot|vote)*/
+	               list($width, $height) = getimagesize($url);
+	               $heightFilledImage = 317;//height class filedImage img
+					$widthFilledImage = 462;
+	                
+	                //Get height (chieu dai thuc cua anh ty le
+	                // voi chieu dai cua khung chua anh)
+					/*
+					$heightFilledImageNew = $widthFilledImage * $height/ $width;
+	                
+	                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+	                if($gap > 0){
+	                	echo "style = 'margin-top: -{$gap}px'";
+	                }*/
+	                
+	                $widthFilledImageNew = $heightFilledImage * $width/$height;
+	                
+	                $gap = ( $widthFilledImage - $widthFilledImageNew)/2;
+	                if($gap > 0){
+	                	echo "style = 'margin-left: {$gap}px'";
+	                }
+	                ?>
+                    width='100%'>
+	    
+	  </a>
+	  <div class="six columns deals">
+	     <?php if(count($style2_products) > 0):?>
+	  	  	<?php $i = 0;?>
+	  	  	<?php foreach ($style2_products as $product):?>
+	  	  		<?php if($i > 0):?>
+	  	  			<?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+	  	  			 <figure class="deal-card-mini">
+				        <a href="<?php echo node_link('product', $product);?>">
+				          <img src="<?php echo STATIC_GT . $product['images'];?>"  style='max-height: 60px;'>
+				        </a>
+				        <figcaption>
+				          <a href="<?php echo node_link('product', $product);?>">
+				            <p style="word-wrap: break-word;" class="deal-title should-truncate">
+				            	<?php echo $product['name'];?></p>
+				          </a>
+				          <p class="deal-price">
+				            <s class="original-price"><?php echo show_money($product['origin_price']);?>₫</s>
+				            	 <?php echo $product['deal_price'];?>₫
+				          </p>
+				            <p style="word-wrap: break-word;" class="deal-location should-truncate">
+				            <?php echo $product['category']['name'];?></p>
+				  		</figcaption>
+				      </figure>
+	  	  		<?php endif;?>
+	  	  		<?php $i ++;?>
+	  	  	<?php endforeach;?>
+	  	  <?php endif;?>
+	      <a class="view-all"
+	      	 href="#">Xem tất cả</a>
+      </div>
+    </section>
+	
+  </div>
+  <?php /**LẤY DANH SÁCH CHUYÊN MỤC PHỔ BIẾN**/?>
+  
+  <?php /**SLIDE BRAND**/?>
+  <div class="container demo-1">
+     <div class="main">
+	<!-- Elastislide Carousel -->
+		<ul id="carousel" class="elastislide-list">
+			<li><a href="#" title='Apple'>
+				<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/apple.jpg" alt="apple" />
+					</a></li>
+				<li><a href="#" title='Ariston'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/ariston.jpg" alt="ariston"/>
+						</a></li>
+				<li><a href="#" title='Asus'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/asus.jpg" alt="asus" />
+						</a></li>
+				<li><a href="#" title='Canon'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/canon.jpg" alt="canon" />
+						</a></li>
+				<li><a href="#" title='Dell'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/dell.jpg" alt="dell" />
+						</a></li>
+				<li><a href="#" title='Electrolux'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/electrolux.jpg" alt="electrolux" />
+						</a></li>
+				<li><a href="#" title='Hitachi'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/hitachi.jpg" alt="hitachi" />
+						</a></li>
+				<li><a href="#" title='Lenovo'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/lenovo.jpg" alt="lenovo" />
+						</a></li title='LG'>
+				<li><a href="#">
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/lg.jpg" alt="lg" />
+						</a></li>
+				<li><a href="#" title='Nokia'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/nokia.jpg" alt="nokia" />
+						</a></li>
+				<li><a href="#" title='Panasonic'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/panasonic.jpg" alt="panasonic" />
+						</a></li>
+				<li><a href="#" title='Samsung'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/samsung.jpg" alt="samsung" />
+						</a></li>
+				<li><a href="#" title='Sharp'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/sharp.jpg" alt="sharp" />
+						</a></li>
+				<li><a href="#" title='Sony'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/sony.jpg" alt="sony" />
+						</a></li>
+				<li><a href="#" title='Toshiba'>
+					<img src="<?php echo ASSETS_CDN;?>/Elastislide/images/brand/toshiba.jpg" alt="toshiba" />
+						</a></li>
+		</ul>
+	</div>
+  </div>
+</div>

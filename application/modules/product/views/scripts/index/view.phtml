@@ -1,0 +1,395 @@
+<div class='row'>
+
+<?php if (isset($this->row)):?>
+<?php 
+    $row = $this->row;
+    $row = Dao_Node_Product::getInstance()->getStandedProduct($row);
+    $lu = Zend_Registry::get('user');
+    $dealestProducts = $this->dealestProducts;
+    $newProducts = $this->newProducts;
+    $bestSellingProducts = $this->bestSellingProducts;
+    $related = $this->related;
+?>
+<script type="text/javascript">
+CL.NID = "<?php echo $row['id']; ?>";
+</script>
+<div class="col-md-12">
+<section class="main">
+  <div class="row">
+    <div class="columns twelve">
+      <section class="module deal">
+        <div class="module-body">
+              <h2 class="deal-page-title">
+              <?php echo $row['name'];?> <?php if($row['deal_price'] != 0 && $row['origin_price'] != 0): ?>
+              	(giá giảm tới <?php echo ($row['deal_price']/$row['origin_price'])*100;?> ) <?php endif;?>
+              </h2>
+            
+              <h3 class="deal-subtitle">
+              	  <?php $row['location'] = isset($row['location']) ? $row['location'] : '';?>
+                  <?php echo $row['location'];?>
+              </h3>
+          <div class="row deal-container ">
+              <div class="three columns" id="purchase-cluster">
+                 <div class="buy ">
+                	<span class="price-label">Giá</span>
+			    	<span class="price" style='font-size: 20px;'>
+			    		<?php $row['deal_price'] = isset($row['deal_price']) ? $row['deal_price'] : $row['origin_price'];?>
+			    		<?php 
+                                  echo show_money(	$row['deal_price']);
+                         ?> ₫
+			    	</span>
+			         <a class="btn-buy-big btn-multi-deal show-multi-option-modal" 
+			         	href="/bill/buy/<?php echo $row['iid'];?>">
+			          Mua!
+			        	</a>
+		          </div>
+                  <div class="deal-discount">
+			          <table>
+			            <tbody>
+			              <tr>
+			                <th>Giá ban đầu</th>
+			                <th>Giảm giá</th>
+			                <th>Tiết kiệm</th>
+			              </tr>
+			              <tr id="discount-data">
+			                <td id="discount-value"><?php echo show_money($row['origin_price']);?>₫</td>
+			                <?php if($row['origin_price'] > 0):?>
+			                <td id="discount-percent">$<?php echo number_format($row['deal_price'] / $row['origin_price'] * 100,1);?>%</td>
+			                <?php else:?>
+			                <td id="discount-percent">0%</td>
+			                <?php endif;?>
+			                <?php if(isset($row['deal_price'])) 
+		                			$save = $row['origin_price'] - $row['deal_price'];
+			                	  else 
+			                	  	$save = 0;
+			                ?>
+			                <td id="discount-you-save"><?php echo show_money($save);?>₫</td>
+			              </tr>
+			            </tbody>
+			          </table>
+			        </div>
+                   
+                   <?php /*
+	               <div class="limited-time">
+				  	 <span class="icon-hourglass"></span>
+					 <span class="no-counter">Limited time remaining!</span>
+				   </div>
+			  
+				  <div class="deal-status">
+				      <span class="qty-bought icon-group">
+				        Over 20 bought
+				      </span>
+				  
+				        <div class="qty-label">
+				          Limited quantity available
+				        </div>
+				  </div>
+                   */?> 
+				    <ul data-bhw="DealSharingButtons" class="share-links">
+				         <div class="fb-like" 
+							data-href="<?echo SITE_URL;?><?php echo node_link('product',$row);?>"  
+	                        data-layout="button_count" 
+	                        data-action="like" 
+	                        data-show-faces="true" 
+	                        data-share="true">
+	                     </div>
+				    </ul>
+              </div>
+
+
+	            <div class="nine columns" id="deal-info">
+	            	<div class='row'>
+	            		<div class='columns twelve'>
+	            			<figure>
+				                <div class="gallery-single">
+							    <div class="gallery-featured" style="height: 420px;">
+							   	    <img src="<?php
+					                   $url = STATIC_GT . $row['images'];
+					                   if(!url_exists($url)){
+					                   	$url = default_avatar('product');
+					                   }
+					                   
+					                   echo $url;
+					                   ?>"
+					                   <?php  /*Giup hien thi phan giua cua anh*/
+					                   /*(Filled image widget new|hot|vote)*/
+					                   if(url_exists($url)){
+							               list($width, $height) = getimagesize($url);
+							               $heightFilledImage = 422;//height class filedImage img
+											$widthFilledImage = 702;
+							                
+							                //Get height (chieu dai thuc cua anh ty le
+							                // voi chieu dai cua khung chua anh)
+							                
+											/*
+											$heightFilledImageNew = $widthFilledImage * $height/ $width;
+							                
+							                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+							                if($gap > 0){
+							                	echo "style = 'margin-top: -{$gap}px'";
+							                }*/
+							                
+							                $widthFilledImageNew = $heightFilledImage * $width/$height;
+							                
+							                $gap = ( $widthFilledImage - $widthFilledImageNew)/2;
+							                if($gap > 0){
+							                	echo "style = 'margin-left: {$gap}px'";
+							                }
+									   }
+						                ?>
+					                    width='100%' id="featured-image">
+							    </div>
+							    <div class="gallery-controls" style="height: 423px;">
+							      <div class="image-zoom"></div>
+							      <div class="image-zoom-label">
+							        <span class="icon-zoom">
+							          &nbsp;Hover to Zoom
+							        </span>
+							      </div>
+							    </div>
+							  </div>
+							</figure>
+	            		</div>	
+            		</div>
+	            	<div class='row' style='margin-top: 15px;'>
+	            		<div class='columns twelve'>
+			            	<div class="fb-comments" 
+		                            data-href="<?echo SITE_URL;?><?php echo node_link('product',$row);?>" data-width="650" data-num-posts="10"></div>
+	            		</div>
+	            	</div>
+	            </div>
+	          </div>
+	        </div>
+	      </section>
+	      
+	    <?php /*San pham tai cac hang khac*/?>
+	    <?php if(isset($related) && count($related) > 0):?>
+	    <section class='module deal'>
+	    	<div class='row'>
+	    		<div class='columns twelve'>
+	    			<table>
+	    				<thead>
+	    					<tr>
+	    						<th style='width: 10%; font-weight: bold;'>Hình ảnh</th>
+	    						<th style='width: 55%; font-weight: bold;'>Mô tả sản phẩm</th>
+	    						<th style='width: 20%; font-weight: bold;'>Nơi bán</th>
+	    						<th style='font-weight: bold;'>Giá bán</th>
+	    					</tr>
+	    				</thead>
+	    				
+	    				<tbody>
+				     		<?php foreach ($related as $r):?>
+								<tr>
+									<td class='bottom-td-related'><img src='<?php echo STATIC_GT . $r['images']?>' 
+										width='85px'/></td>
+									<td class='bottom-td-related'>
+										<span style='font-weight: bold; text-align: center;'>
+										<?php echo $r['name']?></span><br>
+										<?php echo $r['description'];?>
+										</td>
+									<td class='bottom-td-related'><span style='font-weight: bold; text-align: center;'>
+										<?php echo $r['brand'];?></span><br>
+										<img src='<?php echo STATIC_GT . $r['avatar_brand'];?>'/>
+										</td>
+									<td class='bottom-td-related'>
+										<span style='font-weight: bold; text-align: center;'>
+										<?php echo show_money($r['origin_price']);?></span><br>
+										<a href="<?php echo $r['link'];?>" target='_blank' 
+											class="btn-buy-big" style='font-size: 10px;'>
+		          							Đến nơi bán
+		        							</a>
+										</td>
+								</tr>				
+				     		<?php endforeach;?>
+	    				</tbody>
+	    			</table>
+	    		</div>
+	    	</div>
+	    </section>
+		<?php endif;?>
+
+        <section class="write-up module" >
+          <div class="module-body dotted-border">
+              <div class="row hide-diy-gift-card-msg">
+        		<article class="seven columns pitch">
+			         <?php echo $row['description'];?>				
+                </article>
+      
+	        	<article class="four columns">
+	                <div data-bhw="DealFineDetails" class="" >
+	                	<?php echo $row['description'];?>
+					  </div>
+	        	</article>
+	     	 </div>
+          </div>
+        </section>
+
+
+        <?php if(count($dealestProducts) > 0):?>
+        <div  class="module deal-widget " data-bhw-path="TopDeals">
+		  <div class="module-body">
+		    <div class="section-head">
+			     <h2>
+			       Sản phẩm giảm giá nhiều
+			      </h2>
+	           <a href="/product/dealest" class="see-all">Xem tất cả</a>
+			</div>
+			  
+			<div class="block-grid four-up">
+			<?php foreach ($dealestProducts as $product):?>
+			<?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+			  <figure class="deal-card">
+			        <a href="<?php echo node_link('product', $product);?>">
+			          <img src="<?php
+				          $file_header = @get_headers(STATIC_GT . $product['images']);
+				          if($file_header[0] == 'HTTP/1.1 404 Not Found'){
+				          	echo default_avatar('product');
+				          }else{
+				          	echo STATIC_GT . $product['images'];
+				          }
+				          ?>">
+			          <figcaption>
+			            <p style="word-wrap: break-word;" class="deal-title should-truncate">
+			            	<?php echo $product['name'];?></p>
+			            <p style="word-wrap: break-word;" class="merchant-name should-truncate">
+			            	<?php echo $product['category']['name'];?></p>
+					    <p style="word-wrap: break-word;" class="deal-location should-truncate">
+					    	<?php echo $product['counter']['buy'];?> đã mua</p>
+				        <p class="deal-price">
+			                <s class="original-price">$<?php echo show_money($product['origin_price']);?>₫</s>
+					        <?php echo show_money($product['deal_price']);?> ₫
+			            </p>
+			          </figcaption>
+			        </a>
+			      </figure>
+	        <?php endforeach;?>
+	    </div>
+	    </div>
+	  </div>
+	  <?php endif;?>
+			  
+			  
+	 <?php if(count($newProducts) > 0):?>
+  	  <div class="module deal-widget ">
+	    <div class="module-body">
+          <div class="section-head">
+		     <h2>
+		        Sản phẩm mới nhất
+		      </h2>
+	        <a href="/product/newest" class="see-all">Xem tất cả</a>
+		    </div>
+		    
+		     <div class="block-grid three-up">
+		     <?php foreach ($newProducts as $product):?>
+	          <?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+			      <figure class="deal-card">
+			        <a href="<?php echo node_link('product', $product);?>">
+			          <img src="<?php 
+			          $url = STATIC_GT . $product['images'];
+			          if(!url_exists($url)){
+			          	$url = default_avatar('product');
+			          }
+			           
+			          echo $url;
+			          ?>"
+          		                   <?php  /*Giup hien thi phan giua cua anh*/
+          		                   /*(Filled image widget new|hot|vote)*/
+          		                   if(url_exists($url)){
+          				               list($width, $height) = getimagesize($url);
+          				               $heightFilledImage = 196;//height class filedImage img
+          								$widthFilledImage = 305;
+          				                
+          				                //Get height (chieu dai thuc cua anh ty le
+          				                // voi chieu dai cua khung chua anh)
+          				                
+          								/*
+          								$heightFilledImageNew = $widthFilledImage * $height/ $width;
+          				                
+          				                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+          				                if($gap > 0){
+          				                	echo "style = 'margin-top: -{$gap}px'";
+          				                }*/
+          				                
+          				                $widthFilledImageNew = $heightFilledImage * $width/$height;
+          				                
+          				                $gap = ( $widthFilledImage - $widthFilledImageNew)/2;
+          				                if($gap > 0){
+          				                	echo "style = 'margin-left: {$gap}px'";
+          				                }
+          						   }
+			          ?>">
+			          <figcaption>
+			            <p style="word-wrap: break-word;" class="deal-title should-truncate">
+			            	<?php echo $product['name'];?></p>
+			            <p style="word-wrap: break-word;" class="merchant-name should-truncate">
+			       		     <?php echo $product['category']['name'];?></p>
+			            <p style="word-wrap: break-word;" class="deal-location should-truncate">
+			          		 <?php echo $product['counter']['buy'];?> đã mua</p>
+			            <p class="deal-price">
+			                <s class="original-price"><?php echo show_money($product['origin_price']);?>₫</s>
+			        	   <?php echo show_money($product['deal_price']);?>₫
+			            </p>
+			          </figcaption>
+			        </a>
+			      </figure>
+		      <?php endforeach;?>
+		    </div>
+	  </div>
+  	 </div>
+  	 <?php endif;?>
+  	 
+  	 <?php if(count($bestSellingProducts) > 0):?>
+        <div  class="module deal-widget " data-bhw-path="TopDeals">
+		  <div class="module-body">
+		    <div class="section-head">
+			     <h2>
+			       Sản phẩm bán chạy nhất
+			      </h2>
+	           <a href="/product/best-selling" class="see-all">Xem tất cả</a>
+			</div>
+			  
+			<div class="block-grid four-up">
+			<?php foreach ($bestSellingProducts as $product):?>
+			<?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+			  <figure class="deal-card">
+			        <a href="<?php echo node_link('product', $product);?>">
+			          <img src="<?php
+				          $file_header = @get_headers(STATIC_GT . $product['images']);
+				          if($file_header[0] == 'HTTP/1.1 404 Not Found'){
+				          	echo default_avatar('product');
+				          }else{
+				          	echo STATIC_GT . $product['images'];
+				          }
+				          ?>">
+			          <figcaption>
+			            <p style="word-wrap: break-word;" class="deal-title should-truncate">
+			            	<?php echo $product['name'];?></p>
+			            <p style="word-wrap: break-word;" class="merchant-name should-truncate">
+			            	<?php echo $product['category']['name'];?></p>
+					    <p style="word-wrap: break-word;" class="deal-location should-truncate">
+					    	<?php echo $product['counter']['buy'];?> đã mua</p>
+				        <p class="deal-price">
+			                <s class="original-price">$<?php echo show_money($product['origin_price']);?>₫</s>
+					        <?php echo show_money($product['deal_price']);?> ₫
+			            </p>
+			          </figcaption>
+			        </a>
+			      </figure>
+	        <?php endforeach;?>
+	    </div>
+	    </div>
+	  </div>
+	  <?php endif;?>
+    </div>
+  </div>
+</section>
+</div>
+    <?php endif;?>
+</div>
+
+<style>
+.bottom-td-related{
+	border-bottom: 1px solid #D5D5D5;
+	padding: 10px;
+}			          				          
+</style>

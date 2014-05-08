@@ -1,6 +1,3 @@
-<?php if (APPLICATION_ENV == 'development'):?>
-<div data-whereami='<? echo __FILE__;?>'></div>
-<?php endif;?>
 <?php 
     //TO use this common comment wrapper display. Pass at least the following params to $this->
     // $this->comment_node_type
@@ -10,6 +7,7 @@
     $lu = Zend_Registry::get('user');
     $oneCommentScript = isset($this->oneCommentScript) ? $this->oneCommentScript : "widget/one-comment.phtml";
     $newCommentScript = isset($this->newCommentScript) ? $this->newCommentScript : "widget/new-comment-box.phtml";
+    
 ?>
     <div id="comment_list">
         <?php if (isset($this->comments) && count($this->comments) > 0) :?>
@@ -52,15 +50,20 @@
     </div>
     
     <?php //==================NEW COMMENT BOX ======================== ?>
-    <div class='altodd comment' id='new_comment' style='display:block;'>
+    <div class='altodd comment' id='new_comment'>
     	<a name="new_comment"></a>
     	<hr/>
-		
-		<?php if($this->can_comment){?>
-			<?php echo $this->render($newCommentScript);?>
-		<?php }else{?>
-    		<div id='login-to-comment'>
-    	    You must <a href="/user/login">log in</a> to comment
-    	    </div>
-		<?php }?>
+    	<?php 
+//    	<h3>Add comment</h3>
+    	
+    	?>
+    	<?php if($this->can_comment) :?>
+		<?php echo $this->render($newCommentScript);?>
+		<?php else:?>
+		    <?php if (is_guest()) :?>
+		    You must <a href="/user/login">log in</a> to comment
+		    <?php else:?>
+		    You are not allowed to comment
+		    <?php endif;?>
+		<?php endif;?>
 	</div>

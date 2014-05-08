@@ -11,7 +11,7 @@ class Ad_Form_SearchComment extends Cl_Form_SearchCommentNode
 		$this->fieldList = array('status', 'is_spam');
     	$this->setCbHelper('Ad_Form_Helper');
 	}
-	public function setStep($step)
+	public function setStep($step, $currentRow = null)
 	{
 	    if ($step == '')
 	    {
@@ -20,7 +20,7 @@ class Ad_Form_SearchComment extends Cl_Form_SearchCommentNode
         	);
 	        
 	    }
-	    parent::setStep($step);
+	    parent::setStep($step, $currentRow);
 	}
 	
     protected function _customFormFieldsConfig()

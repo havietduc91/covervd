@@ -11,7 +11,8 @@ class Dao_User extends Cl_Dao_User
 			'ts' => 'int',
 			'counter' => 'mixed', // image extension
 	);
-	public function findAll($cond = array(), $convertId = true, $filter = true)
+	
+	public function findAll($cond)
 	{
 		$cond['limit'] = 10;
 		return parent::find($cond);
@@ -43,6 +44,11 @@ class Dao_User extends Cl_Dao_User
 				'birthday' => 'string',
 				'last_login' => 'int',
 				'intro' => 'string',
+				/*****Lien he****************/
+				'phone' => 'string', //eg: +84969999777
+				'adress' => 'string', //eg: 36B 
+				'street' => 'string', //Nguyen Trai
+				'city' => 'string',	
 					
 				'token' => array(
 					array(
@@ -130,6 +136,7 @@ class Dao_User extends Cl_Dao_User
 	
 	public function beforeInsertUser($userData)
 	{
+		f($userData);
 		//check if user lname already exists or not
 		if(isset($userData['mail']) && !isset($userData['lname'])) {
 			$userData['lname'] = $userData['mail'];
@@ -141,8 +148,7 @@ class Dao_User extends Cl_Dao_User
 			$r = $this->findOne($where);
 			if ($r['success'] && $r['count'] > 0)
 			{
-// 				return array('success' => true, 'result' => $r['result'], 'code' => 'existing');
-				return array('success' => false, 'err' => "User with that login name already exists");
+				return array('success' => true, 'result' => $r['result'], 'code' => 'existing');
 			}
 		}
 		$r = parent::beforeInsertUser($userData);

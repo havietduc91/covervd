@@ -1,16 +1,16 @@
 <?php 
 class Ad_Form_Comment extends Cl_Form_CommentNode
 {
-    public $nodeType = "ad";
+    public $nodeType = "Ad";
 
     /*
     public $attributes = array(
     		'id' => "comment_form",
     		'method' => "POST",
-    		'action' => "/ad/comment",
+    		'action' => "/Ad/comment",
     		'class' => "cl_ajax",
-            'new_url' => "/ad/comment",
-            'update_url' => "/ad/update-comment"
+            'new_url' => "/Ad/comment",
+            'update_url' => "/Ad/update-comment"
     );
     */
     

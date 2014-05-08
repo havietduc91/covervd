@@ -3,44 +3,35 @@
  * SITE specifics
  */
 //define('POST_PAGE_SIZE', 30);
-define('SITE_URL', 'http://fun.local');
+define('SITE_URL', 'http://gt.local');
+define('SITE_NAME', 'GT');
 //define('SITE_URL', 'http://www.oakq.com');
 define('SAND_ASSETS_CDN', 'http://sandassets.local/');
-define('ASSETS_CDN', 'http://funassets.local/');
-
-define('STATIC_CDN', 'http://funstatic.local/');
-define('STATIC_PATH', PUBLIC_PATH . '/ufiles/');
-
-define('DESIGN_PATH', 'http://fun.local/design/');
-define('NOREPLY_EMAIL', 'hoibinet@gmail.com');
-define('DOMAIN', 'fun.local');
-define('CONTACT_EMAIL', 'hoibinet@gmail.com');
+define('STATIC_GT', 'http://gtstatic.local/');
+//define('STATIC_GT', 'http://gtassets.local/ufiles');
+define('ASSETS_CDN', 'http://gtassets.local/');
+define('DESIGN_PATH', 'http://stuffcdn.local/design/cg/');
+define('NOREPLY_EMAIL', 'gt@gmail.com');
+define('DOMAIN', 'gt.local');
+define('CONTACT_EMAIL', 'gt@gmail.com');
 define('USE_AMAZON_SES', false); // true => send mail with amazon SES
 define('FILES_UPLOAD_PATH', realpath(APPLICATION_PATH . "/../") . "/hidden/");
 define('JSVERSION', '1340446912');
 define('PAGE_RANGES', 3);//numbers pagination links at a time
-
-//SOCIAL configs
-define('NS_PREFIX', 'hoibinet');
-define('FB_APP_ID', '110250581492');//numbers pagination links at a time
-define('FB_APP_SECRET', '5fbaf9ef50426fc50030fbf83992a1c9');//numbers pagination links at a time
-define('GA_ID', 'UA-2506382-1');
-
-
 /**
  * DB connections
  */
 //include_once('functions.php');
-defined('MONGO_HOST') || define('MONGO_HOST', 'localhost');
+define('MONGO_HOST', 'localhost');
 //define('DICT_BACKEND', 'mongo');
 define('DICT_BACKEND', 'redis');
 define('REDIS_PORT', 6379);
 define('REDIS_HOST','127.0.0.1');
 define('REDIS_PASS', '');
 
-define('RDB_DICT_DB', 9); //[0,1,2] is kept for eekip, [3,4,5] for school,, [6,7,8] for taxi
-define('RDB_CACHE_DB', 10);
-define('RDB_QUEUE_DB', 11);
+define('RDB_DICT_DB', 30); //[0,1,2] is kept for eekip, [3,4,5] for edx,, [6,7,8] for taxi
+define('RDB_CACHE_DB', 31);
+define('RDB_QUEUE_DB', 32);
 
 define('RDB_DICT_PREFIX', 'd:'); //dict
 define('DICT_RDB_USER_PREFIX', 'u:');
@@ -79,8 +70,8 @@ define('CACHED_COMMENT_TITLE_WORD_LENGTH', 20); //number of words
 /**
  * File upload & path
  */
-define('DEFAULT_AVATAR_URL','http://d17yofrdipd1db.cloudfront.net/images/avatar.gif');
-define('SYSTEM_AVATAR_URL', 'http://d17yofrdipd1db.cloudfront.net/images/warning.jpg');
+define('DEFAULT_AVATAR_URL',ASSETS_CDN .'/image/avatar.gif');
+define('SYSTEM_AVATAR_URL', ASSETS_CDN .'/image/avatar.gif');
 //define('AVATAR_PREFIX', 'http://d3syq05o3krv6a.cloudfront.net');
 define('AVATAR_PREFIX', '/ufiles');
 // directory structure to upload avatar
@@ -95,6 +86,33 @@ define('AWS_SECRET', '5atOarymB9xMKCWYPQOf6jbBDB67DxNk4wdDzJ5M');
 define('AS3_AVATAR_FOLDER', 'avatar');
 define('AS3_ITEM_IMAGE_FOLDER', 'image');// 'item');
 define('SECURE_FILES_UPLOAD_PATH', realpath(APPLICATION_PATH . "/../") . "/hidden");
-define('PUBLIC_FILES_UPLOAD_PATH', realpath(PUBLIC_PATH ) . "/ufiles");
+define('PUBLIC_FILES_UPLOAD_PATH', realpath(APPLICATION_PATH . "/../") . "/public/ufiles");
 define('SECURE_FILES_SERVER', 'local');
 define('PUBLIC_FILES_SERVER', 'local');
+
+function default_avatar($nodeType)
+{
+    return ASSETS_CDN . "/images/avatar.gif";
+}
+
+
+/**Misc*/
+define('GOOGLE_USER_IP', '117.5.182.45');
+define('UPLOAD_AVATAR_LOG_TO_FILE', true);//log upload avatar?
+define('TOKEN_PERSISTENT_LIMIT', 10); // limited number user token persistent.
+//task
+define('DATE_DELIMITER', '/');
+define('TICKER_INTERVAL', 10000);
+define('MAX_TIME_STAMP', 'm'); // .
+
+
+/**
+ * Framework specifics
+ */
+define('HASH_ALGO', 'md5'); //password hash algorithm. Can be sha1
+defined ('COOKIE_PREFIX') || define('COOKIE_PREFIX', '_cl_');
+defined ('COOKIE_SALT') || define('COOKIE_SALT', 'dkmmhehehe'); //salt for _cl_uhash
+define('GUEST_ID', 0);
+defined ('COOKIE_SESSION_TIMEOUT') || define('COOKIE_SESSION_TIMEOUT', 60 * 60 * 24); //seconds . Logically must be > PHP session period
+define('CL_NONE_SEARCH_KEY', 'cl_no_search'); //_cl_no_search?
+define('NESTED_DOCUMENT_SEP', '__');

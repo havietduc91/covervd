@@ -1,0 +1,22 @@
+<?php
+	$page = Zend_Registry::get('page');
+	$product_id = get_value('product__id');
+	if(!isset($product_id) || $product_id == '')
+		$product_id = $this->product_id;
+?>
+<ul class='nav nav-pills'>
+	<li <?php if ($page == 'related/index/new') echo "class='active';"?>>
+		<a href="/related/new?product__id=<?php echo $product_id;?>">Tạo mới</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'related/index/update') echo "class='active';"?>>
+		<a href="/related/update?product__id=<?php echo $product_id;?><?php if (isset($this->row['id'])) echo "&id=" . $this->row['id'];?>"">
+			Sửa</a></li>
+	<?php endif;?>    
+	<li <?php if ($page == 'related/index/search') echo "class='active';"?>>
+		<a href="/related/search?product__id=<?php echo $product_id;?>">Tìm kiếm</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'related/index/view') echo "class='active';"?>>
+		<a href="/related/<?php if (isset($this->row['id'])) echo "" . $this->row['id'];?>">Xem chi tiết</a></li>
+	<?php endif;?>
+</ul>
+<div class='separator'></div>

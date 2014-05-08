@@ -3,48 +3,35 @@
  * SITE specifics
  */
 //define('POST_PAGE_SIZE', 30);
-define('SITE_URL', 'http://hoibi.net');
+define('SITE_URL', 'http://giasomot.vn');
+define('SITE_NAME', 'Gía Số Một');
 //define('SITE_URL', 'http://www.oakq.com');
-//define('ASSETS_CDN', 'http://cdn.hoibi.net/');
-define('SAND_ASSETS_CDN', 'http://bao30.com/'); //or http://assets1.sandphp.com
-define('ASSETS_CDN', 'http://assets.hoibi.net/'); //should have been assets.hoibi.net
-define('STATIC_CDN', 'http://s.hoibi.net/');
-define('STATIC_PATH', PUBLIC_PATH . '/ufiles/');
+define('SAND_ASSETS_CDN', 'http://sandassets.giasomot.vn/');
+define('ASSETS_CDN', 'http://assets.giasomot.vn/');
+define('STATIC_GT', 'http://static.giasomot.vn/');
 
-define('DESIGN_PATH', 'http://funstir.com/design/');
-define('NOREPLY_EMAIL', 'no-reply@hoibi.net');
-define('DOMAIN', 'hoibi.net');
-define('CONTACT_EMAIL', 'hoibinet@gmail.com');
+define('NOREPLY_EMAIL', 'noreply@giasomot.vn');
+define('DOMAIN', 'giasomot.vn');
+define('CONTACT_EMAIL', 'contact@giasomot.vn');
 define('USE_AMAZON_SES', false); // true => send mail with amazon SES
 define('FILES_UPLOAD_PATH', realpath(APPLICATION_PATH . "/../") . "/hidden/");
 define('JSVERSION', '1340447153');
 define('PAGE_RANGES', 7);//numbers pagination links at a time
 
-//SOCIAL configs
-define('NS_PREFIX', 'hoibinet');
-define('FB_APP_ID', '110250581492');//numbers pagination links at a time
-define('FB_APP_SECRET', '5fbaf9ef50426fc50030fbf83992a1c9');//numbers pagination links at a time
-define('GA_ID', 'UA-2506382-1');
-
-//Google
-define('G_CLIENT_ID','139117437539-60v8c8drrp015bmitkmr8mejv4qsqdhq.apps.googleusercontent.com');
-define('G_CLIENT_SECRET','KAGBepG567WYOcHqvL515X3G');
-define('G_APP_NAME','hoibi.net');
-define('G_DEV_KEY','AIzaSyCngO57SDDi26Mu0RybA2xKBRVXnthKwsw');//is API Key
 /**
  * DB connections
  */
 //include_once('functions.php');
-defined('MONGO_HOST') || define('MONGO_HOST', 'localhost');
+define('MONGO_HOST', '127.0.0.1');
 //define('DICT_BACKEND', 'mongo');
 define('DICT_BACKEND', 'redis');
 define('REDIS_PORT', 6379);
 define('REDIS_HOST','127.0.0.1');
 define('REDIS_PASS', '');
 
-define('RDB_DICT_DB', 9); //[0,1,2] is kept for eekip, [3,4,5] for school,, [6,7,8] for taxi
-define('RDB_CACHE_DB', 10);
-define('RDB_QUEUE_DB', 11);
+define('RDB_DICT_DB', 30); //[0,1,2] is kept for eekip, [3,4,5] for edx,, [6,7,8] for taxi
+define('RDB_CACHE_DB', 31);
+define('RDB_QUEUE_DB', 32);
 
 define('RDB_DICT_PREFIX', 'd:'); //dict
 
@@ -101,6 +88,32 @@ define('AWS_SECRET', '5atOarymB9xMKCWYPQOf6jbBDB67DxNk4wdDzJ5M');
 define('AS3_AVATAR_FOLDER', 'avatar');
 define('AS3_ITEM_IMAGE_FOLDER', 'image');// 'item');
 define('SECURE_FILES_UPLOAD_PATH', realpath(APPLICATION_PATH . "/../") . "/hidden");
-define('PUBLIC_FILES_UPLOAD_PATH', realpath(PUBLIC_PATH ) . "/ufiles");
+define('PUBLIC_FILES_UPLOAD_PATH', realpath(APPLICATION_PATH . "/../") . "/public/ufiles");
 define('SECURE_FILES_SERVER', 'local');
 define('PUBLIC_FILES_SERVER', 'local');
+
+function default_avatar($nodeType)
+{
+	return ASSETS_CDN . "/images/avatar.gif";
+}
+
+/**Misc*/
+define('GOOGLE_USER_IP', '117.5.182.45');
+define('UPLOAD_AVATAR_LOG_TO_FILE', true);//log upload avatar?
+define('TOKEN_PERSISTENT_LIMIT', 10); // limited number user token persistent.
+//task
+define('DATE_DELIMITER', '/');
+define('TICKER_INTERVAL', 10000);
+define('MAX_TIME_STAMP', 'm'); // .
+
+
+/**
+ * Framework specifics
+ */
+define('HASH_ALGO', 'md5'); //password hash algorithm. Can be sha1
+defined ('COOKIE_PREFIX') || define('COOKIE_PREFIX', '_cl_');
+defined ('COOKIE_SALT') || define('COOKIE_SALT', 'dkmmhehehe'); //salt for _cl_uhash
+define('GUEST_ID', 0);
+defined ('COOKIE_SESSION_TIMEOUT') || define('COOKIE_SESSION_TIMEOUT', 60 * 60 * 24); //seconds . Logically must be > PHP session period
+define('CL_NONE_SEARCH_KEY', 'cl_no_search'); //_cl_no_search?
+define('NESTED_DOCUMENT_SEP', '__');

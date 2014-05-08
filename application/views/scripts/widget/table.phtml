@@ -1,4 +1,4 @@
-<a href="/<?php echo $this->module?>/bulk-delete" class="cl_ajax btn btn-mini" 
+<a href="/<?php echo $this->module?>/bulk-delete" class="cl_ajax btn btn-xs" 
 	_cl_get_metadata="delete_bulk" 
 >Delete all</a>
 <div class="clear"></div>
@@ -28,9 +28,9 @@
 						<?php endif;?>
 						<?php if($h == 'action') :?>
 						<td>
-							<a href="/<?php echo $this->module;?>/update?id=<?php echo $row['id']?>" class="btn btn-mini"><i class="icon-edit"></i>Edit</a>
+							<a href="/<?php echo $this->module;?>/update?id=<?php echo $row['id']?>" class="btn btn-xs"><i class="icon-edit"></i>Edit</a>
 							<a href="/<?php echo $this->module;?>/delete?id=<?php echo $row['id']?>" 
-								class="btn btn-mini cl_ajax" _cl_ajax_confirm="yes" _cl_get_metadata="remove_my_parent:2">
+								class="btn btn-xs cl_ajax" _cl_ajax_confirm="yes" _cl_get_metadata="remove_my_parent:2">
 								<i class="icon-remove"></i>Delete
 							</a>
 							<?php if(isset($row['extraActions'])) :?>

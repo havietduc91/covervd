@@ -2,152 +2,35 @@
 <?php if (!isset($this->activities) || count($this->activities) == 0) :?>
 You have no new notifications
 <?php else:?>
-<?php
-	$value_today = date('d-m-Y', time());
-	$value_yesterday = date('d-m-Y', time()-(24*60*60));  
-	$today = false;
-	$yesterday = false;
-	$older = false;
-	
-	$metadata="{
-	callbacks : {
-		'success' : [
-				{
-					func : 'cl_simple_toggle',
-					params :{ 0 : [['parent']]}
-				},
-			]
-		},
-	}";
-	$metadata = remove_whitespaces($metadata);
-?>
-<?php
-/* 
-<a href='/user/mark-all-notif' class='cl_ajax'>Mark all as read</a>
-<!-- <a href='/user/mark-nrts?ts=<?php echo time();?>' class='cl_ajax'>Mark them all as read</a> -->
-*/
-?>
 <div class="topic_list">
-	<ul>
-	<?php foreach ($this->activities as $act) :?>
-	<?php $classIsRead = ($this->nrts < $act['ts'])?'class="noti_unread"':''?>
-	
-	<?php if( date('d-m-Y', $act['ts']) == $value_today ):?>
-		<?php if(!$today):?>
-			<li class="date">Today</li>
-			<?php $today = true; ?>
-		<?php endif;?>
-	<?php endif;?>
-	
-	<?php if( date('d-m-Y', $act['ts']) == $value_yesterday ):?>
-		<?php if(!$yesterday):?>
-			<li class="date">Yesterday</li>
-			<?php $yesterday = true; ?>
-		<?php endif;?>
-	<?php endif;?>
-	<?php if( date('d-m-Y', $act['ts']) != $value_yesterday && date('d-m-Y', $act['ts']) != $value_today ):?>
-		<?php if(!$older):?>
-			<li class="date">Yesterday</li>
-			<?php $older = true; ?>
-		<?php endif;?>
-	<?php endif;?>
-	<li <?php echo $classIsRead?>>
-		  <!-- <div class="bt_close_notification">Close</div> -->
-          	<?php if (isset($act['actor']['u']['avatar'])) :?> 
-              <div class="avatar">
-              	<img width="50" height="50" src="<?php echo display_avatar($act['actor']['u']['avatar'], 50);?>">
-              </div>
-            <?php else:?>
-              <div class="avatar">
-              	<img width="50" height="50" src="<?php echo SYSTEM_AVATAR_URL;?>">
-              </div>
-          	<?php endif;?>
-          <div class="topic_content">
-          		<?php if(isset($act['unread'])) :?>
-	          	<div class="ignore">
-	          		<?php 
-	          		$href = "/user/ignore-notif-as-read?act={$act['action']}";
-	          		
-	          		if(!isset($act['actor']['s']))
-	          		    $href .= "&actor={$act['actor']['u']['id']}";//
-	          		//if (strpos($act['id'], '_') === 0)//fake activity
-	          		{
-	          		    $href .= "&__mnt={$act['id']}";
-	          		}
-	          		?>
-	          		<a href="<?php echo $href;?>" class="cl_ajax" 
-	          		metadata="<?php echo $metadata;?>"><span class="buttonClose" title="ignore"></span></a>
-	          	</div>
-          	<?php endif;?>
-				<div class="name">
-		          	<?php 
-		          	if ($act['action'] == 'follow')
-		          	{
-				        $text = display_user_link($act['actor']['u']) . " followed you";
-                        $link = get_user_link($act['actor']['u']) . '?__mnt' . $act['id'];
-		          	}
-                    elseif ($act['action'] == 'requires_verify_email')
-                    {
-                        $text = "You haven't verified your email yet. Click to verify";
-                        $link = "/user/verify-email?uid=" . $act['object']['u']['id'];
-                    }
-                    elseif ($act['action'] == 'init_items')
-                    {
-                        $text = "You haven't added any items. Click to add";
-                        $link = "/index/choose-items?substep1=1";
-                    }
-                    elseif ($act['action'] == 'invite_friends')
-                    {
-                        $text = "You haven't invited any friends. Click to invite";
-                        $link = "/index/invite-friends?";
-                    }
-                    elseif ($act['action'] == 'require_email')
-                    {
-                    	$text = "You haven't added email address. Click to add email";
-                    	$link = "/user/update?_cl_step=account&id=" . $act['object']['u']['id'];
-                    }
-                    elseif($act['action'] == 'comment') {
-                    	$text = display_user_link($act['actor']['u']) . " commented on post <span>";
-                    	//$link = display_post_link($act['context']['p']);
-                        $link = get_post_link($act['context']['p']) . "?cid=" . $act['object']['c']['id'];
-                    }
-                    elseif ($act['action'] == 'automatic_follow')
-                    {
-                        $text = "You have followed some {$act['object']['info']} friends";
-                        $link = "/user/following?id={$act['actor']['u']['id']}&__mnt={$act['id']}&act=automatic_follow";
-                    }
-                    elseif ($act['action'] == 'gets_automatic_followers')
-                    {
-                        $text = "Some {$act['object']['info']} friends have followed you";
-                        $link = "/user/followers?id={$act['actor']['u']['id']}&__mnt={$act['id']}&act=automatic_followers";
-                    }
-                    
-                    if (strpos($act['id'], '_') === 0)
-                        $link = $link . "&activity_id={$act['id']}";
-                        
-                    ?>
-				<a href="<?php echo $link;?>"><?php echo $text;?></a>
-				</div>
-	          <div class="dis_content"></div>
-	          <div class="time"><?php echo compare_dates($act['ts']);?></div>
-          </div>
-          <div class="clear"></div>
-        </li>
-	<?php endforeach;?>
+	<ul class="nav nav-list">
+	<?php echo $this->partial("index/partials/notifications.phtml", array('activities' => $this->activities, 'notifType' => $this->notifType))?>
 	</ul>
 </div>
 <?php endif;?>
-<hr/>
-<?php $u = Zend_Registry::get('user');?>
-You can also receive notifications via email. Change your email notification settings <a href="/user/update?id=<?php echo $u['id'];?>&_cl_step=notification">here</a>
-<style type='text/css'>
-div.notification-unread
-{
-	background-color: #F3F3F3;
-}
-div.notification-read
-{
-	background-color: white;
-}
+<div class="clear"></div>
 
-</style>
+<?php $this->inlineScript()->captureStart();?>
+$(function(){
+		//	mark notification as read
+    	$('.mark-notif').on('click', function(e){
+        	e.preventDefault();
+        	var that = $(this);
+        	var url = $(this).attr('href');
+    		$.ajax({
+    		 	   type: "POST",
+    		 	   url: url,
+    		       dataType: 'json',
+    		 	   success: function(msg){
+    		 	   	  if(msg.success) {
+    		 		      that.closest('li').fadeOut();
+    		 		  }
+    		 		  else {
+    		 		      alert('error');
+    		 		  }
+    			}
+    		});
+    		return false;
+    	});
+});
+<?php $this->inlineScript()->captureEnd();?>

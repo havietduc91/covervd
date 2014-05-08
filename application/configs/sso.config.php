@@ -12,10 +12,10 @@ $ssoOptions =
                         'callbackUrl' => $callback . '?login=twitter',
                         'siteUrl' => 'http://twitter.com/oauth',
                         'requestTokenUrl' => "https://api.twitter.com/oauth/request_token",
-                        'authorizeUrl' => "https://api.twitter.com/oauth/authorize",//authorize",
+                        'authorizeUrl' => "https://api.twitter.com/oauth/authenticate",//authorize",
                         'accessTokenUrl' => "https://api.twitter.com/oauth/access_token",
-                        'consumerKey' => 'IMXI3v1ikiCC7bbgEcHeug',
-                        'consumerSecret' => 'GZ7jkh4fb7GwA9EmQqkaojwe515cBeNqfCduIj92c',
+                        'consumerKey' => 'FnenNvLWomFhYoqZX6b0Q',
+                        'consumerSecret' => 'inz0BsEON5OCY3h7PPZqxJGTE5zvtaZdWB1BWhdhqo',
                         'uri' => 'http://twitter.com/account/verify_credentials.json',
     					'urlFriendIds' => 'https://api.twitter.com/1/friends/ids.json?cursor=-1&user_id=114981752',
     					'urlUserLookup' => 'http://api.twitter.com/1/users/lookup.json?user_id=36688537',
@@ -24,11 +24,11 @@ $ssoOptions =
     					'profile_url' => 'https://twitter.com/account/redirect_by_id?id='
                     ),
     'facebook' => array(
-                         'api'  => get_conf('fb:app_id',FB_APP_ID),
-                         'secret' => get_conf('fb:app_secret',FB_APP_SECRET),
+                         'api'  => '483247035041551',
+                         'secret' => 'c9c17095179c38458e265e8247730d56',
                          'cookie' => true,
-                         'appId'  => get_conf('fb:app_id',FB_APP_ID),
-                         'domain' => DOMAIN,	
+                         'appId'  => '483247035041551',
+                         'domain' => 'x.codersquare.com',
                          'callbackUrl' => $callback .'?login=facebook',
                          'permissions' => 'email,read_stream,publish_stream,offline_access,publish_actions',
                          'authorizeUrl' => "https://graph.facebook.com/oauth/authorize?client_id=%s&redirect_uri=%s&scope=%s",
@@ -39,29 +39,35 @@ $ssoOptions =
     		             'profile_url' => 'https://www.facebook.com/profile.php?id='
                     ),
 		'yahoo' => array(
-						'appID' => 'yYCFAh64',
+						'appID' => 'w7PZQI32',
                         'callbackUrl' => $callback . '?login=yahoo',
                         'requestTokenUrl' => "https://api.login.yahoo.com/oauth/v2/get_request_token",
 				        'authorizeUrl' => "https://api.login.yahoo.com/oauth/v2/request_auth",
 				        'accessTokenUrl' => "https://api.login.yahoo.com/oauth/v2/get_token",
-                        'consumerKey' => 'dj0yJmk9Q2NVOVdYTmtBUGNsJmQ9WVdrOWVWbERSa0ZvTmpRbWNHbzlNVFEzTWpZMk1UYzJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD05Yg--',
-                        'consumerSecret' => '8764a73748806c506d70a07cc37dba7ea4564dd8',
+                        'consumerKey' => 'dj0yJmk9dE1GV2tYUDlhTmhCJmQ9WVdrOWR6ZFFXbEZKTXpJbWNHbzlOemt6TmpFek5EWXkmcz1jb25zdW1lcnNlY3JldCZ4PWE5',
+                        'consumerSecret' => 'bf308feeafbb61df34de2f7a8ff8ad90f4f6427a',
                         'uri' => 'http://social.yahooapis.com/v1/user/%s/profile',
                         'profile_url' => 'http://profile.yahoo.com/'
     	),
-    	'google'=>array(
-    				  'client_id'=>get_conf('g:client_id',G_CLIENT_ID),
-    				  'client_secret'=>get_conf('g:client_secret',G_CLIENT_SECRET),
-    				  'app_name'=>get_conf('g:app_name',G_APP_NAME),
-    				  'developer_key'=>get_conf('g:dev_key',G_DEV_KEY),//is API Key
-    				  'dialogUrl'=>'https://accounts.google.com/o/oauth2/auth?response_type=code&redirect_uri=%s&client_id=%s&scope=%s',
-	   				  'redirect_uri' => $callback .'?login=google',
-	   				  'callbackUrl' => $callback . '?login=google',
-	   				  'scope' => array(
-	   				  				    					'https://www.googleapis.com/auth/userinfo.email',
-	   				  				    				     'https://www.googleapis.com/auth/userinfo.profile',
-	   				  				    			   ),
-    				),
-    	);
+    	'google' => array(
+				    	'requestScheme' => Zend_Oauth::REQUEST_SCHEME_HEADER,
+				    	'version' => '1.0',
+				    	'callbackUrl' => $callback . '?login=google',
+				    	//'siteUrl' => 'https://www.google.com/accounts/',
+				    	'requestTokenUrl' => 'https://www.google.com/accounts/OAuthGetRequestToken',
+                        'userAuthorizationUrl' => 'https://www.google.com/accounts/OAuthAuthorizeToken',
+                        'accessTokenUrl' => 'https://www.google.com/accounts/OAuthGetAccessToken',
+				    	'scope' => array(
+				    					/* 'http://www-opensocial.googleusercontent.com/api/people/', 
+				    				     'https://www.googleapis.com/auth/userinfo#email',*/
+				    				     'https://mail.google.com/mail/feed/atom',
+				    				     'http://www.google.com/m8/feeds/',
+				    			   ),
+				    	'consumerKey' => 'x.codersquare.com',//'clu3.org',
+				    	'consumerSecret' => '5Awnxa6Wi5fQDn8Tsgof1VDN',//'vylLLNzAa11vcETrgy79Qgap',
+				    	//'uri' => 'https://www-opensocial.googleusercontent.com/api/people/@me/@self',
+				    	'uri' => 'http://www.google.com/m8/feeds/contacts/default/full'
+    	)
+    );
 
 ?>

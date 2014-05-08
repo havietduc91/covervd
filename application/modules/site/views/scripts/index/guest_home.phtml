@@ -6,25 +6,25 @@ strong {
 	<a name="features"></a>
 	<!-- Sign up -->
 	<div class='row well'>
-		<div class="col-md-6 col-md-offset-3">
-			<a href="/user/oauth?login=yahoo" class="btn btn-mini">
-				<i class = "icon-sm-yahoo"></i><?php t("signin_with_yahoo",1);?>
+		<div class="span6 offset3">
+			<a href="/user/oauth?login=yahoo" class="btn btn-xs">
+				<i class = "icon-sm-yahoo"></i>SignIn with Yahoo
 			</a>
-			<a href="/user/oauth?login=google" class="btn btn-mini">
-				<i class = "icon-sm-google"></i><?php t("signin_with_google",1);?>
+			<a href="/user/oauth?login=google" class="btn btn-xs">
+				<i class = "icon-sm-google"></i>SignIn with Google
 			</a>
-			<a href="/user/oauth?login=twitter" class="btn btn-mini btn-info" style="font-weight:bold;">
-				<i class = "icon-sm-twitter"></i><?php t("signin_with_twitter",1);?>
+			<a href="/user/oauth?login=twitter" class="btn btn-xs btn-info" style="font-weight:bold;">
+				<i class = "icon-sm-twitter"></i>SignIn with Twitter
 			</a>
-			<a href="/user/oauth?login=facebook" class="btn btn-mini">
-				<i class = "icon-sm-facebook"></i><?php t("signin_with_facebook",1);?>
+			<a href="/user/oauth?login=facebook" class="btn btn-xs">
+				<i class = "icon-sm-facebook"></i>SignIn with Facebook
 			</a>
 		</div>
-        <div class='col-md-3 col-md-offset-3' id='register_form'>
+        <div class='span3 offset3' id='register_form'>
         	<a name="signup"></a>
         	
-        	<h3><?php t("sign_up",1);?></h3>
-        		<?php t("it's_free",1);?>
+        	<h3>Sign up</h3>
+        		It's free!
         	<?php 
         	    $form = new User_Form_Register();
                 $form->build();
@@ -33,10 +33,10 @@ strong {
                 echo $form;
         	?>
         </div>
-        <div class='col-md-3'>
+        <div class='span3'>
         	<div id='login_form'>
-        	<h3><?php t("login",1);?></h3>
-        	<?php t("forgot_your_password",1);?> <a href="/user/forgot-password" id='remind_password'><?php t("recieve_a_new_one",1);?></a>
+        	<h3>Login</h3>
+        	Forgot your password? <a href="/user/forgot-password" id='remind_password'>Receive a new one</a>
         	<?php 
         	    $form = new User_Form_Login();
                 $form->build();
@@ -47,8 +47,8 @@ strong {
         	</div>
         	
         	<div id='remind_password_form' style='display:none'>
-    		<h3><?php t("remind_password",1);?></h3>
-        	<b style='color:green'><a href='/user/login' id='login'><?php t("login",1);?></a></b>
+    		<h3>Remind password</h3>
+        	<b style='color:green'><a href='/user/login' id='login'>Login</a></b>
         	<?php 
         	    $form = new User_Form_RemindPassword();
                 $form->build();
@@ -63,45 +63,45 @@ strong {
 	</div>
 	
 	<div class='row'>
-		<div class='col-md-12'>
-		<h3><?php t("download_mobile_apps",1);?></h3>
+		<div class='span12'>
+		<h3>Download mobile apps</h3>
 		</div>
 	</div>
 	
 	<div class='row'>
 	<hr/>
-	<div class='col-md-3'>
-    	<h3><?php t("iphone",1);?></h3>
+	<div class='span3'>
+    	<h3>iPhone</h3>
     	<div>
     		<p>
-    		<?php t("iphone",1);?>
+    		Iphone
     		</p>
     	</div>
 	</div>
 	
-	<div class='col-md-3'>
-    	<h3><?php t("android",1);?></h3>
+	<div class='span3'>
+    	<h3>Android</h3>
     	<div>
     		<p>
-    		<?php t("android",1);?>
+    		Android
     		</p>
     	</div>
 	</div>
 
-	<div class='col-md-3'>
-    	<h3><?php t("window",1);?></h3>
+	<div class='span3'>
+    	<h3>Windows</h3>
     	<div>
     		<p>
-    		<?php t("window",1);?>
+    		Windows
     		</p>
     	</div>
 	</div>
 
-	<div class='col-md-3'>
-    	<h3><?php t("blackberry",1);?></h3>
+	<div class='span3'>
+    	<h3>BlackBerry</h3>
     	<div>
     		<p>
-    		<?php t("blackberry",1);?>
+    		BlackBerry
     		</p>
     	</div>
 	</div>

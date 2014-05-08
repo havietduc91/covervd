@@ -1,0 +1,71 @@
+<?php
+   $form = $this->form;
+?>
+<div class="main row">
+  <section class="twelve columns">
+    <form method="post" class='cl_ajax' action="/feedback/new">
+      <section class="module">
+        <div class="module-body">
+          <div id="account-billing-info">
+          	<div class="limited-time" style='border-top: medium none;'>
+		        <span class="no-counter">
+		        	Cám ơn quý khách hàng đã mua hàng tại Giasomot.vn, nhằm nâng cao chất lượng sản phẩm và
+
+					dịch vụ của website kính mong quý khách hàng dành 5 phút để phản hồi lại cho chúng tôi cảm
+
+					nhận khi mua sắm tại Giasomot.vn</span>
+		    </div>
+				   
+            <h1 class="section-title">Thông tin phản hồi</h1>
+
+              <div data-bhw="CreditCards" id="credit-card">
+                <div class="row">
+                  <div class="six columns">
+                    <div>
+                      <?php echo $form->uname;?>
+                    </div>
+              
+                    <div>
+                      <?php echo $form->umail;?>
+                    </div>
+              
+                    <div>
+                     <?php echo $form->overview;?>
+                    </div>
+              
+              		<div>
+                     <?php echo $form->interface;?>
+                    </div>
+                    
+                  </div>
+              
+                  <div class="six columns">
+                   <div>
+                     <?php echo $form->used;?>
+                    </div>
+                    
+                    <div>
+                     <?php echo $form->payment;?>
+                    </div>
+                    
+                    <div>
+                     <?php echo $form->more;?>
+                    </div>
+              
+                    <input id="status" type="hidden" value="queued" name="status">
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+
+          <div class="row complete-order-container">
+          <?php echo $this->form->_cl_submit;?>
+          </div>
+        </div>
+      </section>
+
+    </form>
+  </section>
+
+</div>

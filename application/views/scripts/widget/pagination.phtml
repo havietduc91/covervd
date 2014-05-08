@@ -1,4 +1,4 @@
-<b>Total: <?php echo $this->total;?></b> 
+<b>Tổng số : <?php echo $this->total;?></b> 
 
 <?php 
     $perPage = $this->form->getValue('items_per_page');
@@ -11,7 +11,7 @@
         if ($this->total > $perPage) {
             $nrOfPages = floor(($this->total - 1) / $perPage) + 1;
 ?>
-<?echo t('divided_into');?> <?php echo $nrOfPages;?> <?php echo t('pages')?> :
+item trên <?php echo $nrOfPages;?> trang :
 
 <div class="">
   <ul class="pagination">

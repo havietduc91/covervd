@@ -1,0 +1,67 @@
+<?php  
+	$form = $this->form;
+?>
+<div class="main row">
+  <section class="nine columns">
+    <form method="post" class='cl_ajax' action="/contact/new">
+      <section class="module">
+        <div class="module-body">
+          <div id="account-billing-info">
+            <h1 class="section-title">Thông tin khách hàng</h1>
+
+              <div data-bhw="CreditCards" id="credit-card" data-bhw-path="ConfirmationForm|CreditCards">
+                <div class="row">
+                  <div class="five columns">
+                    <div>
+                      <?php echo $form->name;?>
+                    </div>
+              
+                    <div>
+                      <?php echo $form->email;?>
+                    </div>
+              
+                    <div>
+                     <?php echo $form->city;?>
+                    </div>
+              
+              		<div>
+                     <?php echo $form->phone;?>
+                    </div>
+                    
+                  </div>
+              
+                  <div class="seven columns">
+                   <div>
+                     <?php echo $form->company;?>
+                    </div>
+                    
+                    <div>
+                     <?php echo $form->info;?>
+                    </div>
+                    <input id="status" type="hidden" value="queued" name="status">
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+
+          <div class="row complete-order-container">
+          <?php echo $this->form->_cl_submit;?>
+          </div>
+        </div>
+      </section>
+
+    </form>
+  </section>
+  
+	<section class="three columns" style='margin-top: 15px;'>
+		<h3 style='font-weight: bold;'>Thông tin về Giá Số Một</h3>
+		<br>
+		<div class="mTop20">
+			<b style='font-weight: bold;'>Địa chỉ (Đang cập nhật)</b><br>
+			<b style='font-weight: bold;'>Liên hệ </b><span style="color: #FF0000">(046).328.7272</span></span><br>
+			<b style='font-weight: bold;'>Hotline </b><span style="color: #FF0000">0943.959.698</span><br>
+			<b style='font-weight: bold;'>Email: </b><a href="mailto:contact@giasomot.vn">contact@giasomot.vn</a>
+			</div>
+	</section>
+</div>

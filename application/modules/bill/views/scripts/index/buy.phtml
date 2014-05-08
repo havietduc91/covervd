@@ -1,0 +1,146 @@
+<?php
+   $lu = Zend_Registry::get('user');
+   $product = $this->product;
+   $count_p = 1; //So luong san pham
+   
+   $form = $this->form;
+   $product['origin_price'] = isset($product['origin_price']) ? $product['origin_price'] : $product['price'];
+   $product['deal_price'] = isset($product['deal_price']) ? $product['deal_price'] : $product['origin_price'];
+?>
+<div class="main row">
+  <section class="twelve columns">
+    <form method="post" class='cl_ajax' action="/bill/new">
+      <section class="module" id="product-info">
+        <div class="module-body">
+          <h1>Chi tiết sản phẩm</h1>
+      
+          <div id="product-info-loader-container">
+      
+          <table>
+            <thead>
+              <tr>
+                <th class="eight"><strong>Tên sản phẩm</strong></th>
+                <th class="text-center three"><strong>Số lượng</strong></th>
+                <th class="text-center"></th>
+                <th class="text-center"><strong>Giá</strong></th>
+                <th class="text-center"></th>
+                <th class="text-right"><strong>Tổng</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>
+                      <h5 id="product-description" class="product-description">
+                          <?php echo $product['name'];?>
+	                </h5>
+	            </td>
+                  <td class="text-center">
+                        <input type="text" name="quantity" id="product-quantity"
+	                         value="<?php echo $count_p;?>" class="five">
+	              </td>
+                  <td class="">
+                    <strong class="">x</strong>
+                  </td>
+                  <td>
+                    <strong id="price"><?php echo $product['deal_price'];?></strong>
+                  </td>
+                  <td class="text-center">
+                    <strong>=</strong>
+                  </td>
+                  <td id="total-container" class="text-right">
+                  	<?php $total = $product['deal_price'] * $count_p;?>
+                    <strong class="subtotal-price"><?php echo $total;?></strong>
+                  </td>
+                </tr>
+
+            </tbody>
+          </table>
+      
+          <div id="show-breakdown-discount">
+    		</div>
+          <div id="show-breakdown-credit">
+    		</div>
+          
+          <div class="module-footer total text-right">
+            <h3>
+              <span>Tổng tiền:</span>
+              <span class="my-price"><?php echo $total;?></span>
+            </h3>
+          </div>
+        </div>
+        </div>
+      </section>
+      
+      <section class="module">
+        <div class="module-body">
+          <div id="account-billing-info">
+            <h1 class="section-title">Thông tin khách hàng</h1>
+
+              <div data-bhw="CreditCards" id="credit-card" data-bhw-path="ConfirmationForm|CreditCards">
+                <div class="row">
+                  <div class="six columns">
+                    <div>
+                      <?php echo $form->uname;?>
+                    </div>
+              
+                    <div>
+                      <?php echo $form->umail;?>
+                    </div>
+              
+                    <div>
+                     <?php echo $form->uadress;?>
+                    </div>
+              
+              		<div>
+                     <?php echo $form->uage;?>
+                    </div>
+                    
+                  </div>
+              
+                  <div class="six columns">
+                   <div>
+                     <?php echo $form->ucity;?>
+                    </div>
+                    
+                    <div>
+                     <?php echo $form->uphone;?>
+                    </div>
+                    
+                    <div>
+                     <?php echo $form->note;?>
+                    </div>
+              
+                    <div>
+                     <?php //echo $form->product__model;?>
+                    </div>
+              
+                    <div>
+                     <?php //echo $form->product__serialNumber;?>
+                    </div>
+                    
+                    <div>
+                     <?php //echo $form->status;?>
+                    </div>
+                    <input id="product__iid" type="hidden" value="<?php echo $product['iid'];?>" name="product__iid">
+                    <input id="product__id" type="hidden" value="<?php echo $product['id'];?>" name="product__id">
+                    <input id="status" type="hidden" value="queued" name="status">
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+
+          <div class="row complete-order-container">
+          <?php echo $this->form->_cl_submit;?>
+          <?php /*
+            <input type="submit" value="Đồng ý" id="complete-order"
+             class="btn four">
+          */?>
+          </div>
+        </div>
+      </section>
+
+    </form>
+  </section>
+
+</div>

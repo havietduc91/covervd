@@ -1,30 +1,51 @@
 <?php
- 
 $lu = $this->row;
 $step = get_value('_cl_step', '');
 ?>
-<?php /* //what is this??
-    <?php if (!getenv('SITE')):?>
-	<?php echo $this->render('index/user-subnav.phtml');?>
-	<?php endif;?>
-*/ ?>
-    <div class="col-md-12">
-    	<ul class="nav nav-tabs">
-    		<li class=' <?php if ($step == 'account' || $step == '' ) echo 'active';?>'><a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=account"><?php echo t("account",1);?></a></li>
-    		<li class=' <?php if ($step == 'avatar') echo 'active';?>'><a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=avatar"><?php echo t('avatar',1);?></a></li>
-    		<li class=' <?php if ($step == 'change_pass') echo 'active';?>'><a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=change_pass"><?php echo t('change_password',1);?></a></li>
-    		<?php if ($lu['status'] == 'unactivated') :?>
-    		<li><a  href="/user/activate?id=<?php echo $lu['id'];?>"><?php echo t("active_account",1);?></a></li>
-    		<?php endif;?>
-    	</ul>
-    </div>
-    <div class="separator-high"></div>
-	<?php if($step == 'avatar'):?>
-	<?php endif;?>
-	<div class="col-md-6"><?php echo $this->form;?></div>
+
+<section class="main row">
+  <div class="twelve columns">
+    <section class="module my-groupons">
+      <div class="module-body">
+      	<h2 data-bhw="My Stuff Header" data-bhw-path="My Stuff Header">Trang Cá Nhân</h2>
+      	
+        <div class="row">
+          <div class="tabs-container">
+            <ul  class="tabs">
+              <li <?php if($step == 'account'):?>class="active"<?php endif;?>>
+              		<a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=account">
+              			Sửa thông tin</a></li>
+              <li <?php if($step == 'change_pass'):?>class="active"<?php endif;?>>
+              	 	<a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=change_pass">
+              	 		Đổi mật khẩu</a></li>
+              <li <?php if($step == 'adress'):?>class="active"<?php endif;?>>
+              	 	<a href="/user/update?id=<?php echo $lu['id'];?>&_cl_step=adress">
+              	 		Địa chỉ</a></li>
+             <li >
+              		<a href="/user/carts">Giỏ hàng</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- begin my_account -->
+        <div class="main row">
+		  <div class="twelve columns">
+		    <section class="module" id="divisions">
+		      <div class="module-body">
+		        <!-- end my_account_subdescription -->
+				<?php echo $this->form;?>
+		      </div>
+		    </section>
+		  </div>
+		</div>
+		
+      </div>
+    </section>
+  </div>
+</section>
 
 <?php $this->inlineScript()->captureStart();?>
-CL.formStep = '<?php echo $step;?>';
+CL.formStep = '<?php echo $steps;?>';
 CL.uid = '<?php echo $lu['id'];?>';
 CL.CODENAME = '<?php echo CODENAME;?>';
 <?php $this->inlineScript()->captureEnd();?>
@@ -47,4 +68,3 @@ CL.CODENAME = '<?php echo CODENAME;?>';
 		);
 	});
 <?php $this->inlineScript()->captureEnd();?>
-

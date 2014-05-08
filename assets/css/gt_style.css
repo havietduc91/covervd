@@ -1,0 +1,295 @@
+/* @@@@@ [ RESET ] @@@@@ */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, select, input, textarea, legend, caption, tbody, tfoot, thead,  th { margin:0; padding:0; border:0; outline:0; font-size:100%; background:transparent; }
+body { line-height:1; }
+
+blockquote, q { quotes:none; }
+blockquote:before, blockquote:after, q:before, q:after { content:''; content:none; }
+:focus { outline:0; }
+ins { text-decoration:underline; }
+del { text-decoration:line-through; }
+a img {border: none; outline: none;}
+a {
+    color: #111111;
+    outline: medium none;
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+a {
+    color: #0E71B4;
+}
+a {
+    color: #00A0DC;
+    outline-style: none;
+    text-decoration: none;
+}
+ol li {display: list-item; list-style: decimal;}
+li {
+    list-style-type: none;
+}
+body{font-size:12px;font-family:Arial, Tahoma;}
+#ns-clouds {
+background: url("http://demo.rockettheme.com/nov09/templates/rt_iridium_j15/images/backgrounds/style1/bg-tile.png") repeat-x scroll 50% 0 #FFFFFF;
+}
+/*
+#ns-sky {
+    background: url("../images/backgrounds/bg-sky.gif") repeat-x scroll 0 0 #ECF6FF;
+}
+*/
+
+input.checkbox,input.radio{overflow:hidden;padding:0;margin:0 2px 0 0;width:15px;vertical-align:middle;border:none;background:transparent;}
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+body.promo-page {
+    background: none repeat scroll 0 0 #FFFFFF;
+    overflow-x: hidden;
+}
+body {
+    background: none repeat scroll 0 0 #F0F0F0;
+    margin: 0;
+    overflow-y: auto;
+    position: relative;
+    z-index: 0;
+}
+.promo-page #header {
+    overflow: visible;
+}
+.promo-page #header {
+    box-shadow: none;
+}
+.wrap {
+    background-color: rgba(0, 0, 0, 0);
+}
+.header {
+    background-color: #F5F5F5;
+    width: 100%;
+}
+.v7_N_Header {
+    border-bottom: 1px solid #E7E6E6;
+    width: 100%;
+}
+.v7_N_HeaderBg {
+    background-color: #FFFFFF;
+}
+.v7_N_Header_Top {
+    height: 80px;
+}
+.main, .v7_main_header, .v7_main, .v7_List, .v7_N_Header_Main {
+    margin: 0 auto;
+    width: 1220px;
+}
+.float_left, .fl, .fL, #fl{
+	float: left;
+}
+.v7_N_Search {
+    background: url("images/version7/headerNew/bg_search.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #DFDFDF;
+    border-radius: 5px;
+    height: 52px;
+    margin: 12px 0 0;
+    position: relative;
+    width: 384px;
+}
+.v7_N_searchBox {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #FFFFFF;
+    border-color: #E0E0E0 -moz-use-text-color #E0E0E0 #E0E0E0;
+    border-image: none;
+    border-radius: 0 3px 3px 0;
+    border-style: solid none solid solid;
+    border-width: 1px medium 1px 1px;
+    height: 34px;
+    margin: 8px;
+    width: 366px;
+}
+.v7_N_InputSearch {
+    border: medium none;
+    color: #999999;
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 3px;
+    outline: medium none;
+    padding: 6px 10px 0;
+    width: 250px;
+}
+.v7_N_BtnSearch {
+    background: url("images/version7/headerNew/iconHeader.png?v=3") no-repeat scroll 8px 9px #F36362;
+    border: 0 none;
+    border-radius: 0 3px 3px 0;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 14px;
+    height: 36px;
+    margin-top: -1px;
+    padding: 0 0 0 20px;
+    width: 96px;
+}
+
+.v7_N_Header_Bottom {
+    background-color: #0E71B4;
+    height: 45px;
+}
+.v7_N_categoryHover, .v7_N_category {
+    height: 45px;
+    line-height: 45px;
+}
+.main, .v7_main_header, .v7_main, .v7_List, .v7_N_Header_Main {
+    margin: 0 auto;
+    width: 1220px;
+}
+.v7_N_category .v7_ActiveHomeIcon, .v7_N_category .v7_ActiveHomeIcon:hover, .v7_N_Header_Main .v7_N_BtnHome:hover {
+    background-color: #0F639C;
+}
+.float_left, .fl, .fL, #fl {
+    float: left;
+}
+.v7_N_BtnHome {
+    background: url("images/version7/headerNew/iconHeader.png?v=3") no-repeat scroll center -434px #0E71B4;
+    display: block;
+    height: 45px;
+    padding: 0;
+    width: 50px;
+}
+.v7_N_categoryHover, .v7_menuCateNews, .v7_GroupCate {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    height: 45px;
+    padding: 0 23px;
+    text-transform: uppercase;
+}
+
+.v7_menuCateNews span {
+    background-color: #03B384;
+}
+.v7_N_Header_BotEvent a span, .v7_menuCateNews span {
+    background-color: #F36362;
+    border-radius: 3px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 6px 2px;
+}
+.v7_N_Header_BotEvent {
+    height: 50px;
+    line-height: 50px;
+}
+
+.mTop25, #mTop25 {
+    margin-top: 25px;
+}
+.v7_main_Left, .v7_List_Left {
+    float: left;
+    width: 945px;
+}
+.v7_N_Sup_Box {
+    float: left;
+    width: 250px;
+}
+.v7_TD2014_Box {
+    border: 1px solid #E4E4E4;
+    box-shadow: 0 2px 2px #EEEEEE;
+    padding: 16px 10px;
+}
+
+.v7_TD2014_TitBox {
+    background: url("images/version7/body/topdeal.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    color: #666666;
+    font-size: 13px;
+    padding-left: 53px;
+}
+
+.mTop5, #mTop5 {
+    margin-top: 5px;
+}
+.v7_TD2014_BackGround {
+    border-bottom: 1px solid #E4E4E4;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+.v7_TD2014_Sup {
+    color: #333333;
+    font-size: 14px;
+}
+.v7_TD2014_Sup li, .v7_TD2014_LinkB li {
+    background: url("images/version7/body/topdeal.png") no-repeat scroll 15px -113px rgba(0, 0, 0, 0);
+    line-height: 23px;
+    margin-top: 10px;
+    padding-left: 30px;
+}
+.v7_TD2014_overHidden {
+    height: 22px;
+    overflow: hidden;
+}
+.v7_N_Sup_Deal {
+    border: 1px solid #E4E4E4;
+    float: right;
+    width: 670px;
+}
+.v7_a_displayBlock {
+    display: block;
+}
+.float_right, .fr, .fR, #fr {
+    float: right;
+}
+.v7_TD2014_DealInfo {
+    background-color: #FFFFFF;
+    float: left;
+    height: 348px;
+    margin: 1px 1px 1px 0;
+    overflow: hidden;
+    width: 319px;
+}
+.v7_TD2014_BInfo {
+    padding: 20px 24px;
+}
+.v7_TD2014_Info_Title {
+    color: #666666;
+    font-size: 14px;
+}
+.v7_TD2014_Info_Title a {
+    color: #333333;
+    font-size: 20px;
+}
+.v7_NTD_BoxPrice {
+    margin-top: 15px;
+    padding-bottom: 15px;
+}
+.v7_NTD_BorderBot {
+    border-bottom: 1px solid #E4E4E4;
+}
+.v7_NTD_PriceNew {
+    color: #FE1A19;
+    font-size: 28px;
+}
+.v7_NTD_PriceNewOld {
+    color: #999999;
+    font-size: 16px;
+    margin-top: 5px;
+    text-decoration: line-through;
+}
+.v7_NTD_TypeBuy, .v7_NTD_NumBuyer, .v7_NTD_Time {
+    background: url("images/version7/body/icon_support.png?v=3") no-repeat scroll 0 -277px rgba(0, 0, 0, 0);
+    color: #333333;
+    font-size: 14px;
+    line-height: 22px;
+    margin-top: 8px;
+    padding-left: 40px;
+}
+.v7_NTD_Time {
+    background-position: 0 -324px;
+}
+.v7_NTD_NumBuyer {
+    background-position: 0 -372px;
+}

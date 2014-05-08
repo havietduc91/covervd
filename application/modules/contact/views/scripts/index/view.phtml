@@ -1,0 +1,98 @@
+<?php 
+    $row = $this->row;
+    $lu = Zend_Registry::get('user');
+?>
+<script type="text/javascript">
+CL.NID = "<?php echo $row['id']; ?>";
+</script>
+
+<div class="main row">
+	<div class="twelve columns">
+		<div class="module">
+			<div class="module-body">
+					<div class="limited-time" style='border-top: medium none;'>
+				        <span class="no-counter">Cám ơn Quý khách đã gửi thông tin liên hệ hợp tác. Chúng tôi sẽ liên hệ lại với Quý khách trong thời gian sớm nhất<br></span>
+				   </div>
+					<h1 class="section-title">Dưới đây là thông tin liên hệ của quý vị:</h1>
+					<div class="deal-status" style='border-top: medium none; margin-left: 15px;'>
+						<div class='row'>
+							<div class='two columns'>
+								<div class="qty-label">
+						          Họ và tên:
+						        </div>
+							</div>
+							<div class='five columns'>
+						      <span class="qty-bought">
+						        <?php echo $row['name'];?>
+						      </span>
+							</div>
+							<div class='five columns'>
+								</div>
+				       </div>
+				       
+				       <div class='row'>
+							<div class='two columns'>
+								<div class="qty-label">
+						          Điện thoại*:
+						        </div>
+							</div>
+							<div class='five columns'>
+						      <span class="qty-bought">
+						        <?php echo $row['phone'];?>
+						      </span>
+							</div>
+							<div class='five columns'>
+								</div>
+				       </div>
+				       
+				       <div class='row'>
+							<div class='two columns'>
+								<div class="qty-label">
+						          Email*:
+						        </div>
+							</div>
+							<div class='five columns'>
+						      <span class="qty-bought">
+						         <?php echo $row['email'];?>
+						      </span>
+							</div>
+							<div class='five columns'>
+								</div>
+				       </div>
+				       
+				       <div class='row'>
+							<div class='two columns'>
+								<div class="qty-label">
+						          Tên Doanh nghiệp:
+						        </div>
+							</div>
+							<div class='five columns'>
+						      <span class="qty-bought">
+						        <?php echo $row['company'];?>
+						      </span>
+							</div>
+							<div class='five columns'>
+								</div>
+				       </div>
+				       
+				       <div class='row'>
+							<div class='two columns'>
+								<div class="qty-label">
+						          Tỉnh/Thành phố:
+						        </div>
+							</div>
+							<div class='five columns'>
+						      <span class="qty-bought">
+						        <?php echo $row['city'];?>
+						      </span>
+							</div>
+							<div class='five columns'>
+								</div>
+				       </div>
+				    </div>
+				    
+				   <a class="btn-buy" href="/">  Quay về trang chủ</a>
+			</div>
+		</div>
+	</div> 
+</div> 

@@ -1,0 +1,317 @@
+body {
+  background-color: #fff;
+}
+.loading-wheel {
+  background: url(/user_sessions/assets/groupon-social-loading-spinner-81ffd9089f.gif) no-repeat center;
+}
+.groupon-logo {
+  background: url(/user_sessions/assets/groupon-social-logo_bw-5384a4e0d3.png) no-repeat center;
+}
+.facebook-logo {
+  background: url(/user_sessions/assets/groupon-social-facebook_logo-59c6dcb0e3.png) no-repeat center;
+}
+.arrow-splitter {
+  height: 110px;
+  background: url(/user_sessions/assets/groupon-social-arrow-af9ba63bdf.png) no-repeat center 50px;
+  margin-bottom: 15px;
+}
+.facebook-account-info {
+  height: 110px;
+  background: #fff;
+}
+.facebook-account-info .facebook-thumbnail {
+  padding-top: 5px;
+  padding-bottom: 3px;
+}
+.facebook-account-info .not-you-text {
+  font-size: 11px;
+}
+.login #forgot-password {
+  font-size: 10px;
+  margin-bottom: 20px;
+  margin-top: -15px;
+}
+@media screen and (max-width: 768px) {
+  .responsive-funnel #forgot-password {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+}
+.signup .groupon-signup .errors {
+  color: #ba0c2f;
+}
+.login-iframe {
+  margin: 0 auto;
+  max-width: 265px;
+  min-width: 0;
+}
+.login-iframe label {
+  font-family: 'OpenSansRegular', 'Helvetica Neue', Helvetica, Arial, FreeSans, sans-serif;
+  font-weight: 300;
+}
+.login-iframe .btn-cta {
+  width: 100%;
+}
+.login-iframe .field-with-icon {
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  margin: 0;
+  padding: 5px 8px;
+}
+.login-iframe .field-with-icon input {
+  background: none;
+  border: none;
+  float: left;
+  margin: 0;
+  padding: 0;
+}
+.login-iframe .field-with-icon input:focus {
+  box-shadow: none;
+}
+.login-iframe .field-with-icon span {
+  color: #bbb;
+  height: 19px;
+  padding-left: 0;
+}
+.login-iframe .field-with-icon span:before,
+.login-iframe .field-with-icon span .ie-icon {
+  display: block;
+  font-size: 16px;
+  height: 19px;
+  line-height: 22px;
+}
+.login-iframe .field-with-icon span.icon-key {
+  background: transparent url(/user_sessions/assets/iframe-key-2b3141764e.png) no-repeat 0 2px;
+}
+.login-iframe .iframe-signup .login-only {
+  display: none;
+}
+.login-iframe .iframe-signup .signup-only {
+  display: block;
+}
+span.login-iframe .iframe-signup .signup-only {
+  display: inline;
+}
+.login-iframe .iframe-signup #forgot-password {
+  display: none;
+}
+.login-iframe .groupon-login #forgot-password {
+  margin-top: -5px;
+}
+.login-iframe > .row {
+  width: 100%;
+}
+.login-iframe .loader {
+  background: rgba(255,255,255,0.5);
+  bottom: 0;
+  display: none;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+.login-iframe .loader .icon-g-loader {
+  left: 50%;
+  margin-left: -1.0667em;
+  margin-top: -1.0667em;
+  position: absolute;
+  top: 50%;
+}
+.login-iframe .loading .loader {
+  display: block;
+}
+.login-iframe .section-title .text-right {
+  color: #949494;
+  padding-right: 0;
+  padding-top: 13px;
+}
+.login-iframe .section-title .title {
+  font-size: 24px;
+}
+.login-iframe .section-title p {
+  margin-bottom: 0;
+  padding-left: 0;
+}
+.login-iframe .signup-only {
+  display: none;
+}
+.login-iframe #forgot-password {
+  margin-bottom: 0;
+}
+#iframe-login {
+  position: relative;
+}
+#promise p {
+  margin-bottom: 10px;
+}
+.prom-night #promise {
+  background-color: #e3e3e3;
+  padding: 0 16px;
+}
+.prom-night #promise .module-title {
+  padding: 10px 0 0;
+}
+.facebook-login-button {
+  background-image: url(/user_sessions/assets/facebook-button-47837c418a.png);
+  cursor: pointer;
+  display: block;
+  height: 21px;
+  width: 87px;
+}
+.login-iframe .facebook-login {
+  background: #3b5998;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  margin: 20px 0;
+  padding: 10px 20px 10px 40px;
+  position: relative;
+  text-transform: uppercase;
+}
+.login-iframe .facebook-login .facebook-login-button {
+  background-image: none;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.login-iframe #__modal_container__ button,
+.login-iframe #__modal_container__ .modal-body {
+  max-width: 100% !important;
+}
+.login-iframe #__modal_container__ .form-bordered {
+  padding-bottom: 20px;
+}
+.login-iframe #__modal_container__ .form-bordered .ten,
+.login-iframe #__modal_container__ .form-bordered .two {
+  width: 100%;
+}
+.prom-night .facebook-login h3 {
+  margin-bottom: 10px;
+}
+.section-spacer {
+  border: 1px solid #ddeacf;
+  border-width: 0 0 0 1px;
+  bottom: 0;
+  left: 45.833%;
+  position: absolute;
+  top: 0;
+}
+.section-spacer span {
+  background: #fff;
+  color: #666;
+  display: block;
+  font-style: italic;
+  font-weight: bold;
+  margin-left: -15px;
+  margin-top: -2em;
+  padding: 5px 0;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 30px;
+}
+.login-iframe .section-spacer {
+  border-width: 1px 0 0;
+  bottom: auto;
+  left: auto;
+  margin-bottom: 10px;
+  position: relative;
+  top: auto;
+}
+.login-iframe .section-spacer span {
+  font-size: 12px;
+  font-style: normal;
+  margin-left: -15px;
+  left: 50%;
+  padding: 0;
+  top: 14px;
+}
+.prom-night .section-spacer {
+  border-color: #ccc;
+}
+.caption {
+  font-size: 10px;
+  margin-left: 20px;
+}
+.login .login-section .module-body,
+.signup .login-section .module-body,
+.login .signup-section .module-body,
+.signup .signup-section .module-body {
+  padding-top: 10px;
+}
+.login #login,
+.signup #login,
+.login #signup,
+.signup #signup {
+  margin-bottom: 20px;
+  position: relative;
+}
+.pull-one {
+  right: 8.333%;
+}
+.push-one {
+  left: 8.333%;
+}
+.section-title span {
+  font-size: 0.55em;
+}
+.session-form .field {
+  margin-bottom: 10px;
+}
+.session-form .field label {
+  padding-top: 4px;
+}
+.signin-btn,
+.signup-btn {
+  margin-bottom: 0;
+}
+.og .login .login-section .module,
+.og .signup .login-section .module,
+.og .login .signup-section .module,
+.og .signup .signup-section .module {
+  padding: 0;
+}
+.og .login .section-title,
+.og .signup .section-title {
+  padding: 0 10px;
+}
+.og #login,
+.og #signup {
+  padding: 0 10px;
+}
+.prom-night .groupon-login h3,
+.prom-night .groupon-signup h3 {
+  margin-bottom: 10px;
+}
+.prom-night .session-form .field input[type=email],
+.prom-night .session-form .field input[type=password],
+.prom-night .session-form .field input[type=text] {
+  margin-right: 0;
+}
+.prom-night .session-form .field label {
+  padding-top: 6px;
+}
+@media screen and (max-width: 768px) {
+  .responsive-funnel .login-section,
+  .responsive-funnel .signup-section {
+    width: 100%;
+  }
+  .responsive-funnel .login-section + .three,
+  .responsive-funnel .signup-section + .three {
+    clear: both;
+    width: 100%;
+  }
+  .responsive-funnel.prom-night .groupon-login,
+  .responsive-funnel.prom-night .groupon-signup {
+    padding-right: 0;
+  }
+  .responsive-funnel.prom-night .row .row {
+    margin: 0;
+  }
+  .responsive-funnel.prom-night.login .facebook-login {
+    padding-left: 0;
+  }
+}

@@ -1,0 +1,16 @@
+<?php $page = Zend_Registry::get('page');?>
+<ul class='nav nav-pills'>
+	<li <?php if ($page == 'feedback/index/new') echo "class='active';"?>>
+		<a href="/feedback/new">Tạo mới</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'feedback/index/update') echo "class='active';"?>>
+		<a href="/feedback/update<?php if (isset($this->row['id'])) echo "?id=" . $this->row['id'];?>"">Cập nhật</a></li>
+	<?php endif;?>    
+	<li <?php if ($page == 'feedback/index/search') echo "class='active';"?>>
+		<a href="/feedback/search">Tìm kiếm</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'feedback/index/view') echo "class='active';"?>>
+		<a href="/feedback/<?php if (isset($this->row['id'])) echo "" . $this->row['id'];?>">Xem chi tiết</a></li>
+	<?php endif;?>
+</ul>
+<div class='separator'></div>

@@ -1,0 +1,24 @@
+<?php 
+	$products = $this->products;
+?>
+<section class="main row">
+	<div class="twelve columns">
+		<section id="main" class="module">
+			<div id="content" class="module-body">
+				<div id="deal_content" class="three-col">
+					<div id="js-page-header" class="page_header">
+						<div>
+							<h2 class="browse-title-heading">
+								<a  href="javascript:void(0)">
+									Sản phẩm giá tốt nhất </a>
+							</h2>
+						</div>
+						
+						<div class="dotted-line"></div>
+					</div>
+					<?php echo $this->render('index/products.phtml');?>
+				</div>
+			</div>
+		</section>	
+	</div>
+</section>

@@ -1,0 +1,19 @@
+<?php $page = Zend_Registry::get('page');?>
+<ul class='nav nav-pills'>
+	<li <?php if ($page == 'product/index/new') echo "class='active';"?>>
+		<a href="/product/new">Tạo mới</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'product/index/update') echo "class='active';"?>>
+		<a href="/product/update<?php if (isset($this->row['id'])) echo "?id=" . $this->row['id'];?>"">
+		Cập nhật</a></li>
+	<?php endif;?>    
+	<li <?php if ($page == 'product/index/search') echo "class='active';"?>>
+		<a href="/product/search">Tìm kiếm</a></li>
+    <li <?php if ($page == 'product/index/search-comment') echo "class='active';"?>>
+    	<a href="/product/search-comment">Tìm kiếm bình luận</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'product/index/view') echo "class='active';"?>>
+		<a href="/product/<?php if (isset($this->row['id'])) echo "" . $this->row['id'];?>">Xem chi tiết</a></li>
+	<?php endif;?>
+</ul>
+<div class='separator'></div>

@@ -1,120 +1,97 @@
-<div class='row'>
+<div class="row">
+  <section class="nine columns login-section">
+    <div class="module">
+      <h1 class="section-title">
+        Sign In
+        <span>
+          or
+          <a href="/user/register">
+            Sign Up
+          </a>
+        </span>
+      </h1>
 
-<?php echo sand_dev_info_phtml(__FILE__);?>
-
-<?php 
-    $page = Zend_Registry::get('page');
-?>
-    <div class="<? if (!is_modal_ajax()):?>col-md-6 col-md-offset-3<?endif;?>" id='login-container' <?php if(is_modal_ajax()):?> style="z-index:500;"<?php endif;?>>
-        	<div class="login-provider" style='padding-right:20px;width:30%;float:left;'>
-        		<h5><?php echo t('login_in_with', 1);?></h5>
-                <?php echo $this->render('fun/sso.phtml');?>        		
-        	</div>
-        	
-        	<div class="loginForm" style='width:60%;float:left;padding-left:20px;border-left: 1px solid #CCCCCC;'
-        	>
-	        	 <div id='login_form' class="form-group" style='<?php if ($page=='user/index/register'):?>display:none;<?php endif;?>'>
-		        	<h5><?php echo t('login_with_%s_account', 1, DOMAIN);?></h5>
-		        	<?php 
-		        	/*
+      <div class="module-body">
+        <div class="row">
+            <div class="facebook-login five columns">
+              <h3>
+                Sign in with your Facebook account
+              </h3>
+          
+              <p>Connect your Facebook account to sign in to Groupon.</p>
+          
+              <div class="fb-login-button">
+                <div class="facebook-login-button"></div>
+              </div>
+            </div>
+          <div class="section-spacer">
+            <span>or</span>
+          </div>
+          
+          <div class="groupon-login six columns push-one">
+          <div class="loginForm">
+	        	<div id='login_form'>
+		        	<h3>Đăng nhập với tài khoản <?php echo SITE_NAME;?></h3>
+		        	Quên mật khẩu? <a href="/user/forgot-password" id='remind_password'>
+		        		Nhận mật khẩu mới qua email</a>
+	          	<?php 
 	        	    $form = new User_Form_Login();
 	                $form->build();
 	                $form->setAction('/user/login')
 	                    ->setAttrib('class', 'cl_ajax');
-	                $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-medium')
-	                ->setLabel(t('login',3));
-	        	    echo $form;
-	        	    */?>
-                    <form class="cl_ajax" action="/user/login" method="post" enctype="application/x-www-form-urlencoded"><dl class="zend_form">
-                    <dt id="lname-label"><label class="required" for="lname"><?php echo t('email_or_login_name', 1);?></label></dt>
-                    <dd id="lname-element">
-                    <input type="text" value="" class= "form-control" placeholder = "Login name or Email" name="lname" <?php if ($page == 'user/index/login'):?>autofocus="autofocus"<?php endif;?>></dd>
-                    <dt id="pass-label"><label class="required" for="pass"><?php echo t('password', 1);?></label></dt>
-                    <dd id="pass-element">
-                    <input type="password" class= "form-control" placeholder = "**********" value="" name="pass"></dd>
-                    
-                    
-                    <input type="checkbox" checked="checked" value="1" id="remember" name="remember"> 
-                    <?php echo t('remember_me',1);?> 
-                    <input type="hidden" id="_cl_step" value="" name="_cl_step">
-                    <input type="hidden" value="<?php echo get_value('b');?>" name="b" />
-                    <br/><br/>
-                    <input type="submit" class="btn btn-primary btn-medium" 
-                        value="<?php echo t('login', 3);?>" name="_cl_submit"></dl></form>
-	        	    
-	        	    <? echo t('forgot_password', 1);?>?
-            	    <a href="/user/forgot-password"
-                	id='remind_password'><?php echo t('receive_pass_via_email', 1);?></a>
-	        	    
-        	    </div>
-        	
-        	    <div id='signup_form' <?php if ($page=='user/index/login'):?>style='display:none;'<?php endif;?>>
-		        	<h5><?php echo t('sign_up_account', 1);?></h5>
-		        	<?php
-		        	/* 
-						$form = new User_Form_Register();
-						$form->build();
-						$form->setAction('/user/register')
-						->setAttrib('class', 'cl_ajax');
-						$form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-medium')
-						->setLabel(t('register',3));
-						echo $form;
-				    */
-					?>
-                    <form class="cl_ajax" action="/user/register" method="post" enctype="application/x-www-form-urlencoded"><dl class="zend_form">
-                    <dt id="mail-label"><label class="required" for="mail"><?php echo t('email', 1);?></label></dt>
-                    <dd id="mail-element">
-                    <input type="text" value="" class="form-control" placeholder="fun@fun.com" name="mail" <?php if ($page == 'user/index/register'):?>autofocus="autofocus"<?php endif;?>></dd>
-                    <dt id="name-label"><label class="optional" for="name"><?php echo t('display_name', 1);?></label></dt>
-                    <dd id="name-element">
-                    <input type="text" value="" id="name" class="form-control" placeholder="Steve Job" name="name"></dd>
-                    <dt id="pass-label"><label class="required" for="pass"><?php echo t('password', 1);?></label></dt>
-                    <dd id="pass-element">
-                    <input type="password" value="" class="form-control" placeholder="********" name="pass"></dd>
-                    <dt id="_cl_step-label" style="display: none;">&nbsp;</dt>
-                    <dd id="_cl_step-element" style="display: none;">
-                    <input type="hidden" value="" name="_cl_step">
-                    <input type="hidden" value="<?php echo get_value('b');?>" name="b" />
-                    </dd>
-                    <br/>
-                    <input type="submit" class="btn btn-medium btn-primary" value="<?php echo t('register',3);?>" id="_cl_submit" name="_cl_submit"></dl></form>
-                            	        
-        	    </div>
-            	<div id='remind_password_form' style='display:none;'>
-        		<h5><?php echo t('reset_password', 1);?></h5>
-            	<div class="msg"></div>
-            	<?php 
-            	    $form = new User_Form_RemindPassword();
-                    $form->build();
-                    $form->setAction('/user/forgot-password')
-                        ->setAttrib('class', 'cl_ajax')
-                        ->setAttrib('cl_ajax_success', 'remind_pass_success')
-                    	->setAttrib('cl_ajax_error', 'remind_pass_error');
-                    $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-medium')
-                        ->setLabel(t('send_password',1));
-            	?>        	
-            	
-        		<?php echo $form;?>
-            	</div>
+	                $form->getElement('_cl_submit')->setAttrib('class', 'btn-primary btn btn-large');
+	                echo $form;
+	        	?>
+	        	<div class="clearfix clear"></div>
+        		</div>
+        		
+        		<div id='remind_password_form' style='display:none'>
+		    		<h3>Thiết lập lại mật khẩu</h3>
+		        	<b><a href='/user/login' id='login'>Đăng nhập</a></b>
+		        	<?php 
+		        	    $form = new User_Form_RemindPassword();
+		                $form->build();
+		                $form->setAction('/user/forgot-password')
+		                    ->setAttrib('class', 'cl_ajax')
+		                    ->setAttrib('cl_ajax_success', 'remind_pass_success')
+		                	->setAttrib('cl_ajax_error', 'remind_pass_error');
+		                echo $form;
+		        	?>        	
+		        	</div>
+        	</div>
+          </div>
         </div>
-        <div class='clearfix clear'><br/></div>
-    	<div id='show_login_wrapper' <?php if ($page=='user/index/login'):?>style='display:none;'<?php endif;?>>
-            	<a href="/user/login" id='show_login'
-            	class='btn btn-medium btn-block btn-info' style='text-align:center;'
-            	id='remind_password'><?php echo t('login', 3);?></a>
-    	</div>
-
-    	<div  id='show_signup_wrapper' <?php if ($page=='user/index/register'):?>style='display:none;'<?php endif;?>>
-            	<a href="/user/register" id='show_signup'
-            	class='btn btn-medium btn-block btn-info'  style='text-align:center;'
-            	id='remind_password'><?php echo t('create_an_account', 3);?></a>
-    	</div>
-    	
-  </div>
-<style>
-      input[type='submit'],input[type='text'],input[type='password']
-      {
-      width:240px;
-      }      	
-</style>
+      </div>
+    </div>
+  </section>
+  
+   <section class="three columns">
+    <section data-bhw="GrouponPromise" id="promise" class="module" data-bhw-path="GrouponPromise">
+      <h3 class="module-title">Our Promise To You</h3>
+  
+      <div class="module-body">
+        <p>We're confident in the businesses we feature on Groupon and back them with the Groupon Promise.</p>
+        <p>
+          <a href="/">Learn more</a>
+        </p>
+      </div>
+    </section>
+  </section>
 </div>
+
+ <?php $this->inlineScript()->captureStart();?>
+	$(document).ready(function(){
+	
+	    $("#login").click(function(e){
+	    	e.preventDefault();
+	    	$("#login_form").show();
+	    	$("#remind_password_form").hide();
+	    });
+	   
+	    $("#remind_password").click(function(e){
+	    	e.preventDefault();
+	    	$("#login_form").hide();
+	    	$("#remind_password_form").show();
+	    });
+	});
+<?php $this->inlineScript()->captureEnd();?>

@@ -1,0 +1,172 @@
+<div class='row'>
+
+<?php if (isset($this->row)):?>
+<?php 
+    $row = $this->row;
+    $row = Dao_Node_Product::getInstance()->getStandedProduct($row);
+    $lu = Zend_Registry::get('user');
+?>
+<script type="text/javascript">
+CL.NID = "<?php echo $row['id']; ?>";
+</script>
+<div class="col-md-12">
+<section class="main">
+  <div class="row">
+    <div class="columns twelve">
+      <section class="module deal">
+        <div class="module-body">
+              <h2 class="deal-page-title">
+              <?php echo $row['name'];?> <?php if($row['deal_price'] != 0 && $row['origin_price'] != 0): ?>
+              	(giá giảm tới <?php echo ($row['deal_price']/$row['origin_price'])*100;?> ) <?php endif;?>
+              </h2>
+            
+              <h3 class="deal-subtitle">
+              	  <?php $row['location'] = isset($row['location']) ? $row['location'] : '';?>
+                  <?php echo $row['location'];?>
+              </h3>
+          <div class="row deal-container ">
+              <div class="three columns" id="purchase-cluster">
+                 <div class="buy ">
+                	<span class="price-label">Giá</span>
+			    	<span class="price" style='font-size: 20px;'>
+			    		<?php $row['deal_price'] = isset($row['deal_price']) ? $row['deal_price'] : $row['origin_price'];?>
+			    		<?php 
+                                  echo show_money(	$row['deal_price']);
+                         ?> ₫
+			    	</span>
+			         <a class="btn-buy-big btn-multi-deal show-multi-option-modal" 
+			         	href="/bill/buy/<?php echo $row['iid'];?>">
+			          Mua!
+			        	</a>
+		          </div>
+                  <div class="deal-discount">
+			          <table>
+			            <tbody>
+			              <tr>
+			                <th>Giá ban đầu</th>
+			                <th>Giảm giá</th>
+			                <th>Tiết kiệm</th>
+			              </tr>
+			              <tr id="discount-data">
+			                <td id="discount-value"><?php echo show_money($row['origin_price']);?>₫</td>
+			                <?php if($row['origin_price'] > 0):?>
+			                <td id="discount-percent">$<?php echo number_format($row['deal_price'] / $row['origin_price'] * 100,1);?>%</td>
+			                <?php else:?>
+			                <td id="discount-percent">0%</td>
+			                <?php endif;?>
+			                <?php if(isset($row['deal_price'])) 
+		                			$save = $row['origin_price'] - $row['deal_price'];
+			                	  else 
+			                	  	$save = 0;
+			                ?>
+			                <td id="discount-you-save"><?php echo show_money($save);?>₫</td>
+			              </tr>
+			            </tbody>
+			          </table>
+			        </div>
+                   
+                   <?php /*
+	               <div class="limited-time">
+				  	 <span class="icon-hourglass"></span>
+					 <span class="no-counter">Limited time remaining!</span>
+				   </div>
+			  
+				  <div class="deal-status">
+				      <span class="qty-bought icon-group">
+				        Over 20 bought
+				      </span>
+				  
+				        <div class="qty-label">
+				          Limited quantity available
+				        </div>
+				  </div>
+                   */?> 
+				    <ul data-bhw="DealSharingButtons" class="share-links">
+				         <div class="fb-like" 
+							data-href="<?echo SITE_URL;?><?php echo node_link('product',$row);?>"  
+	                        data-layout="button_count" 
+	                        data-action="like" 
+	                        data-show-faces="true" 
+	                        data-share="true">
+	                     </div>
+				    </ul>
+              </div>
+
+
+	            <div class="nine columns" id="deal-info">
+	            	<div class='row'>
+	            		<div class='columns twelve'>
+	            			<figure>
+				                <div class="gallery-single">
+							    <div class="gallery-featured" style="height: 420px;">
+							   	    <img src="<?php
+					                   $url = STATIC_GT . $row['images'];
+					                   if(!url_exists($url)){
+					                   	$url = default_avatar('product');
+					                   }
+					                   
+					                   echo $url;
+					                   ?>"
+					                   <?php  /*Giup hien thi phan giua cua anh*/
+					                   /*(Filled image widget new|hot|vote)*/
+					                   if(url_exists($url)){
+							               list($width, $height) = getimagesize($url);
+							               $heightFilledImage = 422;//height class filedImage img
+											$widthFilledImage = 702;
+							                
+							                //Get height (chieu dai thuc cua anh ty le
+							                // voi chieu dai cua khung chua anh)
+							                
+											/*
+											$heightFilledImageNew = $widthFilledImage * $height/ $width;
+							                
+							                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+							                if($gap > 0){
+							                	echo "style = 'margin-top: -{$gap}px'";
+							                }*/
+							                
+							                $widthFilledImageNew = $heightFilledImage * $width/$height;
+							                
+							                $gap = ( $widthFilledImage - $widthFilledImageNew)/2;
+							                if($gap > 0){
+							                	echo "style = 'margin-left: {$gap}px'";
+							                }
+									   }
+						                ?>
+					                    width='100%' id="featured-image">
+							    </div>
+							    <div class="gallery-controls" style="height: 423px;">
+							      <div class="image-zoom"></div>
+							      <div class="image-zoom-label">
+							        <span class="icon-zoom">
+							          &nbsp;Hover to Zoom
+							        </span>
+							      </div>
+							    </div>
+							  </div>
+							</figure>
+	            		</div>	
+            		</div>
+	            	<div class='row' style='margin-top: 15px;'>
+	            		<div class='columns twelve'>
+			            	<div class="fb-comments" 
+		                            data-href="<?echo SITE_URL;?><?php echo node_link('product',$row);?>" data-width="650" data-num-posts="10"></div>
+	            		</div>
+	            	</div>
+	            </div>
+	          </div>
+	        </div>
+	      </section>
+    </div>
+  </div>
+</section>
+</div>
+    <?php endif;?>
+</div>
+
+<style>
+.bottom-td-related{
+	border-bottom: 1px solid #D5D5D5;
+	padding: 10px;
+}			          				          
+</style>

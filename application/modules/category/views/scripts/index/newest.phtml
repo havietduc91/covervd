@@ -1,0 +1,175 @@
+<?php 
+	$products = $this->products;
+?>
+<section class="main row">
+	<div class="twelve columns">
+		<section id="main" class="module">
+			<div id="content" class="module-body">
+				<div id="deal_content" class="three-col">
+					<div id="js-page-header" class="page_header">
+						<div>
+							<h2 class="browse-title-heading">
+								<a  href=javascript:void(0)">
+									Sản phẩm mới nhất</a>
+							</h2>
+						</div>
+						
+						<div class="dotted-line"></div>
+					</div>
+					
+					<div id="deal-space" class="twelve columns deal-space deal-tile-grid-view ">
+						<div class="content">
+						   <?php $first = Dao_Node_Product::getInstance()->getStandedProduct($products[0]);?>
+						   <?php if(isset($first)):?>
+							<figure class="featured-deal">
+								<div class="deal-tile" id="hero-tile">
+							      <a href="<?php echo node_link('product', $first);?>" class="hero-link">
+							      <img src="<?php
+									      $url = STATIC_GT . $first['images'];
+							              if(!url_exists($url)){
+							              	$url = default_avatar('product');
+							              }
+							              
+							              echo $url;
+						                   ?>"
+						                   <?php  /*Giup hien thi phan giua cua anh*/
+						                   /*(Filled image widget new|hot|vote)*/
+						                   if(url_exists($url)){
+								               list($width, $height) = getimagesize($url);
+								               $heightFilledImage = 267;//height class filedImage img
+												$widthFilledImage = 440;
+								                
+								                //Get height (chieu dai thuc cua anh ty le
+								                // voi chieu dai cua khung chua anh)
+								                /*
+												$heightFilledImageNew = $widthFilledImage * $height/ $width;
+								                
+								                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+								                if($gap > 0){
+								                	echo "style = 'margin-top: -{$gap}px'";
+								                }*/
+								                
+								                $widthFilledImageNew = $heightFilledImage * $width/$height;
+								                
+								                $gap = ( $widthFilledImage - $widthFilledImageNew)/2;
+								                if($gap > 0){
+								                	echo "style = 'margin-left: {$gap}px'";
+								                }
+										   }
+							                ?>
+						                    width='100%' class="hero_deal_img ">
+							      </a>
+							    
+							      <figcaption>
+							        <div class="row hero-tile-text">
+							          
+							          <h2 class="hero-tile-merchant-name truncation"><?php echo $row['name'];?></h2>
+							          <h1 style="word-wrap: break-word;" class="should-truncate hero-tile-title">
+							          	<a href="<?php echo node_link('product', $first);?>">
+							          		<?php echo $first['name'];?></a></h1>
+							          <div style="word-wrap: break-word;" 
+							          		class="description should-truncate hero-tile-description">
+							          		<p><?php $content = isset($first['content']) ? $first['content'] : '';?></p>
+						          		</div>
+							          <div class="deal-location truncate-others ">
+							            <span class="deal-location-name">
+							            	<?php echo $first['counter']['buy'];?> đã mua</span> 
+							          </div>
+							          
+							        </div>
+							        <div class="row hero-tile-btns ">
+							          <p class="deal-price six columns">
+							            <s class="original-price"><?php echo show_money($first['origin_price']);?>₫</s>
+							            <s class="discount-price"><?php echo show_money($first['deal_price']);?>₫</s>
+							          </p>
+							          <div class="view-deal six columns">
+							              <a href="<?php echo node_link('product', $first);?>" 
+							              	class="btn-buy">Xem chi tiết</a>
+							      </div>
+							        </div>
+							      </figcaption>
+							    </div>
+							</figure>
+							<?php endif;?>
+							
+							<div id="browse-deals" 
+									class="block-grid browse-deals three-up" style='margin-top: 50px;'>
+								<?php if(count($products) > 1):?>
+									<?php $i = 0;?>
+									<?php foreach ($products as $product):?>
+										<?php if($i > 0):?>
+											<?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+											<figure class="deal-card deal-list-tile deal-tile deal-tile-standard">
+											    <a href="<?php echo node_link('product', $product);?>">
+											    <img src="<?php
+	 											  $url = STATIC_GT . $product['images'];
+									              if(!url_exists($url)){
+									              	$url = default_avatar('product');
+									              }
+									              
+									              echo $url;
+								                   ?>"
+								                   <?php  /*Giup hien thi phan giua cua anh*/
+								                   /*(Filled image widget new|hot|vote)*/
+								                   if(url_exists($url)){
+										               list($width, $height) = getimagesize($url);
+										               $heightFilledImage = 182;//height class filedImage img
+														$widthFilledImage = 300;
+										                
+										                //Get height (chieu dai thuc cua anh ty le
+										                // voi chieu dai cua khung chua anh)
+										                /*
+														$heightFilledImageNew = $widthFilledImage * $height/ $width;
+										                
+										                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+										                if($gap > 0){
+										                	echo "style = 'margin-top: -{$gap}px'";
+										                }*/
+										                
+										                $widthFilledImageNew = $heightFilledImage * $width/$height;
+										                
+										                $gap = ( $widthFilledImage - $widthFilledImageNew)/2;
+										                if($gap > 0){
+										                	echo "style = 'margin-left: {$gap}px'";
+										                }
+												   }
+									                ?>
+								                    width='100%' class="hero_deal_img ">
+											      <figcaption>
+											        <div class="deal-tile-content">
+											          <p style="word-wrap: break-word;" class="deal-title should-truncate">
+											          	<?php echo $product['name'];?></p>
+											          <p class="merchant-name truncation "><?php echo $row['name'];?></p>
+											          <p class="deal-location truncate-others ">
+											            <span class="deal-location-name">
+											            	<?php echo $product['counter']['buy'];?> đã mua</span> 
+											          </p>
+											          <div style="word-wrap: break-word;" 
+											          	class="description should-truncate deal-tile-description"><p>
+											          		<?php $content = isset($product['content']) ? $product['content'] : '';?>
+											          		<?php echo $content;?></p></div>
+											        </div>
+											        <div class="purchase-info clearfix ">
+											          <p class="deal-price">
+											            <s class="original-price"><?php echo show_money($product['origin_price']);?>₫</s>
+											            <s class="discount-price"><?php echo show_money($product['deal_price']);?>₫</s>
+											          </p>
+											          <p class="view-deal hide">
+											              <button class="btn-buy btn-small">Xem chi tiết</button>
+											        </p>
+											        </div>
+											      </figcaption>
+											    </a>
+											  </figure>
+										<?php endif;?>
+										<?php $i ++;?>
+									<?php endforeach;?>
+								<?php endif;?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>	
+	</div>
+</section>

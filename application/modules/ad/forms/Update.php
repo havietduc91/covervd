@@ -5,18 +5,18 @@ class Ad_Form_Update extends Ad_Form_New
     {
         parent::init();
     }
-    public function setStep($step, $currentRow = '')
+    public function setStep($step, $currentRow = null)
     {
         if ($step == '' )
         {
-            $this->fieldList = array('name', 'content', 'status');
+            //$this->fieldList = array('name', 'content', 'status');
         }
         elseif ($step == 'status')
         {
             $this->fieldList = array('status');
         }
         $this->setCbHelper('Ad_Form_Helper');
-	    parent::setStep($step);
+	    parent::setStep($step, $currentRow);
     }
     
     /**
@@ -31,7 +31,7 @@ class Ad_Form_Update extends Ad_Form_New
         $lu = Zend_Registry::get('user');
         if ($this->step == '') //a full update
         {
-            assure_perm('update_own_ad');
+            assure_perm('update_own_samx');
             return array('success' => true, 'err' => "Permission failed in Ad");
         }
         

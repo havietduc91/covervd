@@ -1,8 +1,16 @@
+<div class='row'>
+<?php echo sand_dev_info_phtml(__FILE__);?>
+
+<?php $page = Zend_Registry::get('page');?>
 <div class='col-md-12'>
 <?php echo $this->render('index/navbar.phtml');?>
 </div>
 <div class='col-md-6'>
-<h1> New Ad </h1>
+<?php if ($page == 'ad/index/new'):?>
+<h1> <?php echo t('new_ad',1);?></h1>
+<?php else:?>
+<h1> <?php echo t('update_ad',1);?></h1>
+<?php endif;?>
 <?php $this->form->setAttrib('class', 'cl_ajax');?>
 <?php echo $this->form;?>
 </div>
@@ -11,4 +19,5 @@
     <hr/>
     <div id='preview_area'>
     </div>
+</div>
 </div>

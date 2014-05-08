@@ -1,0 +1,17 @@
+<?php $page = Zend_Registry::get('page');?>
+<ul class='nav nav-pills'>
+	<li <?php if ($page == 'category/index/new') echo "class='active';"?>>
+		<a href="/category/new">Tạo chuyên mục mới</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'category/index/update') echo "class='active';"?>>
+		<a href="/category/update<?php if (isset($this->row['id'])) echo "?id=" . $this->row['id'];?>"">
+			Cập nhật</a></li>
+	<?php endif;?>    
+	<li <?php if ($page == 'category/index/search') echo "class='active';"?>><a href="/category/search">
+		Tìm kiếm</a></li>
+	<? if (isset($this->row)) :?>    
+	<li <?php if ($page == 'category/index/view') echo "class='active';"?>><a href="/category/<?php if (isset($this->row['id'])) echo "" . $this->row['id'];?>">
+		Xem chi tiết</a></li>
+	<?php endif;?>
+</ul>
+<div class='separator'></div>

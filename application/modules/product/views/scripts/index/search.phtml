@@ -1,0 +1,108 @@
+<div class='row'>
+    <div class='col-md-12'>
+        <div class="row well">
+        	<br />
+        	<?php if($this->total > 0) :?>
+                <?php echo $this->render("widget/pagination.phtml");?>
+            <?php endif;?>
+        	<form action="/product/search" method="GET" class='' id="search_form" style="display: inline;">
+            <div class="col-md-4">
+                <?php echo $this->form->supplierName;?>
+                <?php echo $this->form->model;?>
+                <?php echo $this->form->stockStatus;?>
+                
+            </div>
+            <div class="col-md-4">
+                <?php echo $this->form->iid;?>
+                <?php echo $this->form->name;?>
+                <?php echo $this->form->serialNumber;?>
+            </div>
+            <div class="col-md-4">
+                <?php echo $this->form->price;?>
+				<?php echo $this->form->_cl_submit; ?>
+				<?php echo $this->form->page //auto add to search - use for splitview?>
+            </div>
+            </form>
+        </div>
+        <div class="separator"></div>
+         <h4>Danh sách sản phẩm</h4>
+        
+        <div class="clear"></div>
+        <br>
+         <?php if($this->count > 0) :?>
+        <div class="row well">
+    	<table class="table table-striped table-bordered table-condensed zebra-striped tablesorter" id='search-result-details'>
+    		<thead id='head-table'>
+    				<tr>
+                        <th><b><input type="checkbox" class="checkall" /></b></th>
+                        <th><b>iid</b></th>
+                        <th>Hình ảnh</th>
+                        <th style='width: 20%;'><b>Tên</b></th>
+                        <th style='width: 25%;'><b>Thông tin</b></th>
+                        <th><b>Chú ý</b></th>
+                        <th><b>Mô tả</b></th>
+                        <th><b>Giá</b></th>
+                        <th style='width: 5%;'><b>Trạng thái</b></th>
+                        <th style='width: 5%;'><b>Actions</b></th>
+                    </tr>
+    		</thead>
+    		<tbody>
+    			<?php foreach($this->list as $row) :?>
+	    			<?php $avatar = (isset($row['images']) && $row['images'] != '') ? STATIC_GT . $row['images'] : default_avatar('product');?>
+	    			<tr id="<?php echo $row['id'];?>" >
+	    			<?php /*<td><a href="<?php echo node_link('product', $row);?>"><?php echo $row['Model'];?></a></td>*/?>
+	    				<td> <input type="checkbox" value="<?php echo $row['_id'];?>" class="check-item" 
+	    				data-sn='<?php echo $row['serialNumber'];?>'
+	    				/> </td>
+	    				<td><?php echo $row['iid'];?></td>
+	    				<td> <img alt="" src="<?php echo $avatar;?>" width='65px;'> </td>
+	    				<td>
+	    					<a href="<?php echo node_link('product', $row);?>">
+	    						<?php echo $row['name'];?></a></td>
+	    			    <td>
+		    				<b>Người tạo:</b> <?php echo $row['supplierName'];?></br>
+		    				<b>Model :</b> <?php echo $row['model'];?></br>
+		    				<b>Serialnumber:</b> <?php echo $row['serialNumber'];?></br>
+		    				<b>Ngày nhận:</b> <?php echo $row['receivedDate'];?></br>
+		    				<b>Trạng thái Stock:</b> <?php 
+		    					$row['stockStatus'] = isset($row['stockStatus']) ? $row['stockStatus'] : 0;
+		    					echo $row['stockStatus'];?>
+	    			    </td>
+	    				<td><?php echo $row['note'];?></td>
+	    				<td><?php echo $row['description'];?></td>
+	    				<td><?php echo show_money($row['price']);?></td>				
+	    	            <td>
+	                        <div class="btn-group">
+	        			    	<a href="/product/update?id=<?php echo $row['id'];?>&status=queued&_cl_step=status"
+	        			    	class="btn btn-primary btn-xs <?php if($row['status']=='queued') echo 'active';?> cl_ajax" 
+	        			    	_cl_get_metadata="active_button_group"> Đang ch </a>
+	        			    	<a href="/product/update?id=<?php echo $row['id'];?>&status=approved&_cl_step=status"
+	        			    	class="btn btn-primary btn-xs <?php if($row['status']=='approved') echo 'active';?> cl_ajax"
+	        			    	 _cl_get_metadata="active_button_group"> Đã duyệt</a>
+	        			    </div> 
+	        			</td>
+	    				<td>
+	    				    <a href="/product/update?id=<?php echo $row['id'];?>" class="btn btn-xs btn-default">
+	    				    	<i class="icon-edit"></i>Sửa</a>
+	    				    <a href="/related/search?product__id=<?php echo $row['id'];?>" class="btn btn-xs btn-primary">
+	    				    	<i class="icon-edit"></i>So sánh</a>
+	    				    <?php if (has_perm('admin_product')):?>
+	    				    <a href="/product/delete?id=<?php echo $row['id'];?>" class="btn btn-xs btn-danger cl_ajax" 
+	    				        _cl_get_metadata="remove_my_parent:2"
+	    				        _cl_ajax_confirm='Are you sure you want to permanently delete this item?'
+	    				        >
+	                           <i class="icon-remove"></i>Xóa
+	    				       </a>
+	    				    <?php endif;?>
+	    			   </td>
+	    			</tr>
+    			<?php endforeach; ?>	
+    		</tbody>
+            		
+    	</table>
+    	</div>
+    	<?php else:?>
+        	<h3 style="text-align: center; color: red;">No item found</h3>
+        <?php endif;?>
+    </div>
+</div>

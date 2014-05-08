@@ -1,49 +1,61 @@
-<div class='row'>
+<div class="row">
+<?php 
+	$form = new User_Form_Register();
+	$form->build();
+	$form->setAction('/user/register')
+	->setAttrib('class', 'cl_ajax');
+?>
+  <section class="nine columns signup-section">
+    <div class="module">
+      <h1 class="section-title">
+        Sign Up
+        <span>
+          or
+          <a href="<?php echo SITE_URL?>/user/login">
+            Sign In
+          </a>
+        </span>
+      </h1>
 
-<?php echo sand_dev_info_phtml(__FILE__);?>
+      <div class="module-body">
+        <div class="row" id="signup">
+            <div data-bhw="SignUp" class="facebook-login five columns" data-bhw-path="SignUp">
+              <h3>
+                Sign up with your Facebook account
+              </h3>
+          
+              <p>Connect your Facebook account to sign up to Groupon.</p>
+          
+              <div class="fb-login-button">
+                <div class="facebook-login-button"></div>
+              </div>
+            </div>
+          <div class="section-spacer">
+            <span>or</span>
+          </div>
+          
+          <div class="groupon-signup six columns push-one">
+            <h3>
+            <h3>Đăng ky với tài khoản <?php echo SITE_NAME;?></h3>
+            </h3>
+            <?php echo $form;?>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="col-md-8 col-md-offset-2 well login-container">
-        	<div class="login-provider">
-        		<h3><?php echo t('sign_up_account', 1);?> <?php echo t('via', 1);?></h3>
-        		<div class="img-container">
-        			<a href="/user/oauth?login=google" class="btn btn-lg">
-	    				<img width="180" height="61" src="<?php echo ASSETS_CDN?>edx/img/google-logo-large.png" alt="Google">
-	    			</a>
-        		</div>
-        		<div class="clearfix clear"></div>
-        		<div class="img-container">
-        			<a href="/user/oauth?login=facebook" class="btn btn-lg">
-	    				<img width="180" height="61" src="<?php echo ASSETS_CDN?>edx/img/facebook-logo-large.png" alt="Facebook">
-	    			</a>
-        		</div>
-        		<div class="clearfix clear"></div>
-        		<div class="img-container">
-        			<a href="/user/oauth?login=yahoo" class="btn btn-lg">
-	    				<img width="180" height="61" src="<?php echo ASSETS_CDN?>edx/img/yahoo-logo-large.png" alt="Yahoo">
-	    			</a>
-        		</div>
-        	</div>
-        	<div class="vertical-separator">
-        		<span class="separator-text"><?php echo t('or', 3);?></span>
-        	</div>
-        	<div class="loginForm">
-	        	<div id='login_form'>
-		        	<h3><?php echo t('sign_up_account', 1);?></h3>
-		        	<?php if (isset($this->err)) :?>
-					      <?php echo $this->err;?>
-					<?php endif;?>
-					<?php if (isset($this->successMsg)) :?>
-					      <?php echo $this->successMsg;?>
-					<?php endif;?>
-		        	<?php 
-						$form = new User_Form_Register();
-						$form->build();
-						$form->setAction('/user/register')
-						->setAttrib('class', 'cl_ajax');
-						echo $form;
-					?>
-	        	</div>
-	        </div>
-       <div class="clearfix clear"></div>
-</div>
+  <section class="three columns">
+    <section data-bhw="GrouponPromise" id="promise" class="module" data-bhw-path="GrouponPromise">
+      <h3 class="module-title">Our Promise To You</h3>
+  
+      <div class="module-body">
+        <p>We're confident in the businesses we feature on Groupon and back them with the Groupon Promise.</p>
+        <p>
+          <a href="/groupon-promise">Learn more</a>
+        </p>
+      </div>
+    </section>
+  </section>
 </div>

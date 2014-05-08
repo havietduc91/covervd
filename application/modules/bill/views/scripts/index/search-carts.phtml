@@ -1,0 +1,131 @@
+<?php
+$list = $this->list;
+$status = $this->status;
+?>
+
+<section class="main row">
+  <div class="twelve columns">
+    <section class="module my-groupons">
+      <div class="module-body">
+      	<h2 data-bhw="My Stuff Header" data-bhw-path="My Stuff Header">Admin:: Quản lý giỏ hàng</h2>
+      	
+        <div class="row">
+          <div class="tabs-container">
+            <ul  class="tabs">
+              <li <?php if($status == 'queued'):?> class='active' <?php endif;?>>
+              		<a href="/bill/search-carts?status=queued">
+              			Chưa bán</a></li>
+              <li <?php if($status == 'buy'):?> class='active' <?php endif;?>>
+              	 	<a href="/bill/search-carts?status=buy">
+              	 		Đã bán</a></li>
+              <li <?php if($status == 'cancel'):?> class='active' <?php endif;?>>
+              	 	<a href="/bill/search-carts?status=cancel">
+              	 		Đã hủy</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- begin my_account -->
+        <div class="main row">
+		  <div class="twelve columns">
+		    <section class="module" id="divisions">
+		      <div class="module-body">
+			      <div id="deal_content" class="three-col">
+      				<?php if(count($list) > 0):?>
+			      	<div style='margin-top: 66px;'></div>
+			      	<div id="deal-space" class="twelve columns deal-space deal-tile-grid-view">
+			      		<div class="content">
+			      			<div id="browse-deals" class="block-grid browse-deals three-up">
+				      				<?php foreach ($list as $bill):?>
+				      					<?php $product = $bill['product'];?>
+								  		<?php $product = Dao_Node_Product::getInstance()->getStandedProduct($product);?>
+								      <figure class="deal-card">
+								        <a href="<?php echo node_link('product', $product);?>">
+								          <img src="<?php
+							 				  $url = STATIC_GT . $product['images'];
+								              if(!url_exists($url)){
+								              	$url = default_avatar('product');
+								              }
+								              echo $url;
+							                   ?>"
+							                   <?php  /*Giup hien thi phan giua cua anh*/
+							                   /*(Filled image widget new|hot|vote)*/
+								               list($width, $height) = getimagesize($url);
+								               $heightFilledImage = 134;//height class filedImage img
+												$widthFilledImage = 222;
+								                
+								                //Get height (chieu dai thuc cua anh ty le
+								                // voi chieu dai cua khung chua anh)
+												/*
+												$heightFilledImageNew = $widthFilledImage * $height/ $width;
+								                
+								                $gap = ($heightFilledImageNew - $heightFilledImage)/2;
+								                if($gap > 0){
+								                	echo "style = 'margin-top: -{$gap}px'";
+								                }*/
+								                
+								                $widthFilledImageNew = $heightFilledImage * $width/$height;
+								                
+								                $gap = ( $widthFilledImage - $widthFilledImageNew)/2;
+								                if($gap > 0){
+								                	echo "style = 'margin-left: {$gap}px'";
+								                }
+								                ?>
+							                    width='100%'>
+								          <figcaption>
+								            <p style="word-wrap: break-word;" class="deal-title should-truncate">
+								            	<?php echo $product['name'];?></p>
+								            <p style="word-wrap: break-word;" class="merchant-name should-truncate">
+								       		     <?php echo $product['category']['name'];?></p>
+								            <p style="word-wrap: break-word;" class="deal-location should-truncate">
+								          		 <?php echo $product['counter']['buy'];?> đã mua</p>
+								            <p class="deal-price">
+								                <s class="original-price"><?php echo show_money($product['origin_price']);?>₫</s>
+								        	   <?php echo show_money($product['deal_price']);?>₫
+								            </p>
+								          </figcaption>
+								        </a>
+								      </figure>
+								      <?php endforeach;?>
+			      			</div>
+			      		</div>
+			      	</div>
+			      	<?php else:?>
+			      	    <h1>Không có sản phẩm nào trong mục này!</h1>
+			      	    <div style='min-height: 300px;'> </div>
+			        <?php endif;?>
+			      </div>
+		      </div>
+		    </section>
+		  </div>
+		</div>
+		
+      </div>
+    </section>
+  </div>
+</section>
+
+<?php $this->inlineScript()->captureStart();?>
+CL.formStep = '<?php echo $steps;?>';
+CL.uid = '<?php echo $lu['id'];?>';
+CL.CODENAME = '<?php echo CODENAME;?>';
+<?php $this->inlineScript()->captureEnd();?>
+<?php $this->inlineScript()->captureStart();?>
+	$(function(){
+		$('form').ajaxForm(
+		{
+			success: function(data, statusText, xhr, $form){
+				if (data.success)
+				{
+					alert_success("Success!");
+					$form.parent().find('span').html($form.find("input:text").val());
+					$form.parent().find("span,.edit").show();
+                    $('a.cancel').trigger('click');
+				}
+				else
+					alert_error("error " + data.err);
+			}
+		}
+		);
+	});
+<?php $this->inlineScript()->captureEnd();?>

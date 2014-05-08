@@ -1,0 +1,41 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+#accordion strong {
+	font-weight: bold !important;
+}
+#slide1 {
+	background:#f2f2f2;
+}
+#slide1 .content {
+	padding:20px;
+	font-family: 'Yanone Kaffeesatz', sans-serif; font-weight:bold;
+}
+#slide1 h4 {
+	font-size:24px !important;
+	line-height:28px !important;
+}
+#slide1 .content ul {
+	list-style: square;
+	margin-top:15px;
+	margin-left:40px;
+}
+#slide1 .content li {
+	margin-bottom:10px;
+}
+#slide3 {
+	background:url(../img/slide-bg.jpg) center center no-repeat;
+	color:#fff !important;
+}
+#slide3 .content {
+	padding:15px 20px;
+}
+#slide3 a {
+	color:#ddd;
+}
+#slide3 .content h1 {
+	text-align:left;
+	font-size:60px;
+}

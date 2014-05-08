@@ -1,17 +1,4 @@
 var Translations = {
-   'login_first' : "You have to login first",
-   'refresh_captcha' : "Try other image",
-   'ago' : "trước",
-   'from now' : "từ bây giờ",
-   "%d seconds" : "vừa mới đây",
-   "about a minute" : "vừa mới đây",
-   "%d minutes" : "%d phút",
-   "about an hour" : "1h",
-   "%d hours" : "%d giờ",
-   "a day" : "1 ngày",
-   "%d days" : "%d ngày",
-   "about a month": "1 tháng",
-   "%d months" : "%d tháng",
-   "about a year" : "1 năm",
-   "%d years" : "%d năm",
+   'login_first' : "You have to login first"
+ 
 };

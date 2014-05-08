@@ -10,15 +10,9 @@ class Ad_Form_Search extends Cl_Form_Search
     	$this->setCbHelper('Ad_Form_Helper');
     	//$this->setDisplayInline();
 	}
-	public function setStep($step)
+	public function setStep($step, $currentRow = null)
 	{
-	    if ($step == '')
-	    {
-    		$this->fieldList = array(
-        	);
-	        
-	    }
-	    parent::setStep($step);
+	    parent::setStep($step, $currentRow);
 	}
 	//protected $_fieldListConfig; @see Cl_Dao_Foo
 	
@@ -29,7 +23,7 @@ class Ad_Form_Search extends Cl_Form_Search
     	'status' => array(
     		'type' => 'MultiCheckbox', /* 'MultiCheckbox', */
     		'options' => array(
-				'label' => "",
+				'label' => "Trạng thái",
     			'disableLoadDefaultDecorators' => true,
 //    			'required' => true,
 	    		'filters' => array('StringTrim', 'StripTags'),
@@ -41,7 +35,7 @@ class Ad_Form_Search extends Cl_Form_Search
     	'name' => array(
     		'type' => 'Text',
     		'options' => array(
-    			'label' => "Ad name",
+    			'label' => "Tên quảng cáo",
 	    		'filters' => array('StringTrim', 'StripTags')
     		),
     		'op' => '$like',
@@ -49,7 +43,7 @@ class Ad_Form_Search extends Cl_Form_Search
 		'items_per_page' => array(
         		'type' => 'Select', 
         		'options' => array(
-    				'label' => "Display",
+    				'label' => "Hiển thị",
         			'disableLoadDefaultDecorators' => false,
         			'required' => true,
     	    		'filters' => array('StringTrim', 'StripTags')

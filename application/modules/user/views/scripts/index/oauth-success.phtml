@@ -1,6 +1,6 @@
 <?php if(isset($this->emails)) :?>
 <?php $emails = array_reverse($this->emails);?>
-<div class="col-md-12">
+<div class="span12">
 	<h3>Choose primary email address.</h3>
 	<p>You have many email address. Please choose a primary email address.</p>
 	<form action="/user/update?id=<?php echo $this->uid;?>&_cl_step=mail" 
@@ -29,6 +29,3 @@ $(function(){
 	}
 });
 <?php $this->inlineScript()->captureEnd();?>
-<div class='alert alert-success'>
-Congratulations.
-</div>

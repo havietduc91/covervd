@@ -1,4 +1,3 @@
-<div class='row'>
 <?php 
     $lu = Zend_Registry::get('user');
     $r = Cl_Dao_User_Role::getInstance()->findAll();
@@ -12,7 +11,6 @@
     <?php 
         echo $this->form->getElement('lname');
         echo $this->form->getElement('name');
-        echo $this->form->getElement('f');
         //'id','lname', 'name','mail','status', 'oauth.twitter.name','oauth.facebook.name'
         ?>
     </div>
@@ -39,7 +37,6 @@
 <div class='col-md-3'>
     <div class='search_form well'>
     <?php
-    echo $this->form->getElement('order_counter__k');
     echo $this->form->getElement('id');
     echo $this->form->getElement('_cl_submit');
     ?>
@@ -48,49 +45,39 @@
 
 
 </form>
-</div>
 
-<div class='row'>
-<div class='col-md-12'>
+<div class='col-md-12' style='clear: both;'>
 
 <?php if (isset($this->list)) :?>
-	<?php echo t('total', 1);?> <?php echo $this->total;?>
+	Total <?php echo $this->total;?>
 	<?php if($this->total > 0) :?>
 	    <?php echo $this->render("widget/pagination.phtml");?>
 	<?php endif;?>
 	
-	<a href="/user/bulk-delete" class="cl_ajax btn btn-xs btn-danger"
+	<a href="/<?php echo $this->module?>/bulk-delete" class="cl_ajax btn btn-xs"
 		_cl_get_metadata="delete_bulk"  
-	><?php echo t('delete_selected', 1);?></a>
+	>Delete all</a>
 	<div class="clear"></div>
 	<br/>
 <table class="table table-striped table-bordered table-condensed">
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkall"/></th>
-			<th>ID</th>
-			<th>Name</th>
+			<th>Mongo ID</th>
+			<th>Tên</th>
 			<th>Email</th>
-			<th>Token</th>
-			<th>Karma Point</th>
-			<th>Role</th>
-			<th>status</th>
+			<th>Vai trò</th>
+			<th>Trạng thái</th>
 			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 		<?php foreach($this->list as $row) :?>
-		<?php if ($row['name'] != 'root'):?>
 		<tr id="<?php echo $row['id'];?>">
 			<td><input type="checkbox" value="<?php echo $row['id'];?>" class="check-item" /></td>
-			<td><?php echo Cl_Utility::charBreadcumb($row['iid'], 8);?></td>
+			<td><?php echo Cl_Utility::charBreadcumb($row['id'], 8);?>...</td>
 			<td><a href="/user/<?php echo $row['id'];?>"><?php echo $row['name'];?></a></td>
 			<td><a href="/user/<?php echo $row['id'];?>"><?php echo $row['mail'];?></a></td>
-			<th><?php if (isset($row['token']))
-			    foreach($row['token'] as $token);
-			        echo $token['token'];
-			    ?></th>
-			<td><?php echo $row['counter']['k'];?></td>
 			<td>
 			<form class="cl_ajax" method="POST" action="/user/update?_cl_step=assign_roles">
 			    <input type="hidden" name="id" value="<?php echo $row['id']?>" />
@@ -100,35 +87,36 @@
 			    <a href="/user/update-role?id=<?echo $role['id'];?>"><?php echo $role['name'];?></a>
 			    <?php endforeach;?>
 			    <br/>
-			    <input name="submit" type="submit" value="update" class="btn btn-xs btn-primary">
+			    <input name="submit" type="submit" value="update" class="btn btn-xs btn-default">
 			</form>
 			</td>			
 			<td>
 					<span <?php if ($row['status'] == 'banned') echo "style='display:none'"?> >
-					Active<br/>
+					Kích hoạt<br/>
 					<a href='/user/update?id=<?php echo $row['id'];?>&_cl_step=block_user&status=banned' 
-					    _cl_get_metadata="hide_my_parent_show_next_uncle" class='btn btn-xs btn-default cl_ajax' _cl_ajax_confirm="yes">Block</a>
+					    _cl_get_metadata="hide_my_parent_show_next_uncle" class='btn btn-xs btn-primary cl_ajax'
+					    _cl_ajax_confirm="yes">Đã khóa</a>
 					</span>
 					<span <?php if ($row['status'] != 'banned') echo "style='display:none'"?> >
-					Banned<br/>
+					Đã band<br/>
 					<a href='/user/update?id=<?php echo $row['id'];?>&_cl_step=unblock_user&status=activated' 
-					    _cl_get_metadata="hide_my_parent_show_prev_uncle" class='btn btn-xs btn-default cl_ajax' _cl_ajax_confirm="yes">Unblock</a>
+					    _cl_get_metadata="hide_my_parent_show_prev_uncle" class='btn btn-xs cl_ajax btn-primary' 
+					    _cl_ajax_confirm="yes">Mở khóa</a>
 					</span>
 			</td>			
 			<td>
-					<a href="/<?php echo $this->module;?>/update?id=<?php echo $row['id']?>" class="btn btn-xs btn-default "><i class="icon-edit"></i>Edit</a>
+					<a href="/<?php echo $this->module;?>/update?id=<?php echo $row['id']?>" class="btn btn-xs btn-default">
+						<i class="icon-edit"></i>Sửa</a>
 					<a href="/<?php echo $this->module;?>/delete?id=<?php echo $row['id']?>" 
-						class="btn btn-danger btn-xs cl_ajax" _cl_ajax_confirm="yes" _cl_get_metadata="remove_my_parent:2">
-						<i class="icon-remove"></i>Delete
+						class="btn btn-xs btn-danger cl_ajax" _cl_ajax_confirm="yes" _cl_get_metadata="remove_my_parent:2">
+						<i class="icon-remove"></i>Xóa
 					</a>
 			</td>
 		</tr>
-		<?php endif;?>
 		<?php endforeach;?>
 	</tbody>
 </table>
 <?php else:?>
-	Error: <?php echo $this->err;?>
+	Lỗi : <?php echo $this->err;?>
 <?php endif;?>
-</div>
 </div>

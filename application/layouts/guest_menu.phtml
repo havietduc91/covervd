@@ -1,0 +1,504 @@
+<?php $lu = Zend_Registry::get('user');?>
+<div class="header-v2">
+        <header role="banner" data-bhw="Header" class="header" data-bhw-path="Header">
+          <div class="row">
+            <div class="two columns">
+              <a data-track="{&quot;event&quot;:&quot;click&quot;,&quot;t&quot;:&quot;logo_click&quot;}" data-bhw="Logo" class="logo icon-groupon" href="/" data-bhw-path="Header|Logo"></a>
+            </div>
+            <div class="ten columns ">
+              <div class="row">
+                  <div class="eight columns search-bar-wrapper">
+                    <form data-bhw="SearchBar" id="search-bar" class="search-bar free-text-search-enabled" data-bhw-path="Header|SearchBar">
+		              <div class="rounded-input left active-search">
+		                <label for="search" class="icon-magnifying-glass"></label>
+		                <input type="search" autofocus="" 
+		                	data-bhw="FreeTextSearchField" id="search" 
+		                	placeholder="Nhập sản phẩm bạn tìm kiếm" spellcheck="false" 
+	                		autocomplete="off" name="search" 
+	                		data-bhw-path="Header|SearchBar|FreeTextSearchField">
+                		<div data-bhw="SearchBarAutoComplete"
+                		 class="search typeahead-response" style="display: none;"></div>
+              </div>
+              <div data-error-availability="We are experiencing difficulty finding your location. Try again later." data-error-bad_location="We couldn't understand that location. Try another ZIP/Postal Code, neighborhood or address." data-error-generic="There was an error" class="rounded-input right">
+                <label for="location" class="icon-marker"></label>
+                <input type="text" data-bhw="LocationBarField" id="location" spellcheck="false" 
+                		placeholder="Nhập vào địa điểm" autocomplete="off" 
+                		name="location" data-bhw-path="Header|SearchBar|LocationBarField">
+                		<div data-bhw="SearchBarAutoComplete" class="location typeahead-response" 
+                		style="width: auto; display: none;"></div>
+		              </div>
+		              <input type="submit" data-bhw="LocationBarFindDeals" class="btn-rounded btn-search" value="Go" name="submit_search">
+		            </form>
+          
+		          <script>
+		            Groupon.Modules.SearchBar.SearchOverrides = [{"link":"/occasion/bestofgroupon","terms":["best","best of","best of groupon","top","top rated","best massage","best restaurant","best things to do","best gym","best facial","best nail salon","best car wash","best facial","best spas","best laser hair removal","best indian","best italian","best american","best bar","best laser hair removal"]},{"link":"/getaways","terms":["hotel","hotels"]},{"link":"/reserve","terms":["reservations","reserve"]},{"link":"http://www.grouponworks.com/get-featured","terms":["sell on groupon","advertise on groupon","run a groupon deal","get featured"]},{"link":"/groupon-promise","terms":["return policy","claim refund","request refund","refund","returns"]},{"link":"/customer_support","terms":["customer support","customer service"]},{"link":"https://merchants.groupon.com","terms":["merchant center"]},{"link":"https://breadcrumb.groupon.com/","terms":["breadcrumb","pos","point of sale"]},{"link":"https://breadcrumb.groupon.com/payments","terms":["payments"]},{"link":"https://grassroots.groupon.com/","terms":["charity","grassroots"]},{"link":"/coupons","terms":["coupons"]},{"link":"/giftcards","terms":["gift cards"]},{"link":"/articles/favin-the-maven","terms":["favin","favins faves","favin's faves","favin the maven","Beauty Expert","Resident Expert","Beauty Advice","Beauty Tips","Beauty Tricks"]}];
+		          </script>
+         		 </div>
+                  <div class="four columns user-wrapper">
+                      <?php if(is_guest()):?>
+                          <nav class="user-menu signed-out">
+	                              <a href="/user/login" class="first" >Đăng nhập</a>
+	                              <a href="/user/register">Đăng ký</a>
+                          </nav>
+				      <?php else:?>
+				          <nav class="user-menu signed-in">
+		                      <a class="user-name icon-arrow-down-large" href="/mygroupons">
+		                      	<?php echo $lu['name'];?></a>
+			                      <ul class="my-stuff">
+			                        <?php if(has_perm('sudo')):?>
+				                      	<li><a href="/site/admin" 
+				                        	id="user-admin">Quản trị</a></li>
+		                        	<?php endif;?>
+			                      	<li><a href="/user/<?php echo $lu['id'];?>" 
+			                        	id="user-groupons">Trang cá nhân</a></li>
+			                        <li><a href="/user/update?id=<?php echo $lu['id']?>&_cl_step=account" 
+			                        	id="user-account">Sửa thông tin</a></li>
+			                        <li><a href="/user/update?id=<?php echo $lu['id']?>&_cl_step=change_pass" 
+			                        	id="change_pass">Đổi mật khẩu</a></li>
+		              			    <li><a id="sign-out" class="sign-out" 
+		              			    	href="/user/logout">Đăng suất</a></li>
+			                      </ul>
+		                   </nav>	
+                       <?php endif;?>
+
+                      <?php if(!is_guest()):?>
+	                      <div data-bhw="CartWidget" class="cart-widget" data-bhw-path="Header|CartWidget"><div class="cart-name">
+							  <a class="btn-secondary btn-small" href="/user/carts">
+							  	<span class="icon-goods"></span> Giỏ hàng</a>
+							</div>
+							<div data-bhw="ShoppingCart" class="module cart-empty-container">
+							  <div class="cart-empty-body">
+							    <div class="cart-empty-header"><b>Xem giỏ hàng</b></div>
+							    <p>Click vào đây để xem những sản phẩm hữu ích!
+							    	<a href="/"><?php echo SITE_NAME;?></a>.
+							  </p></div>
+							</div>
+						 </div>
+					 <?php endif;?>
+        		</div>
+              </div>
+            </div>
+          </div>
+        </header>
+        
+        <nav role="navigation" class="primary-nav">
+          <div class="row">
+            <div class="twelve columns">
+              <ul>
+        
+                <li data-bhw="NavAllDeals" class="primary-nav-tab" id="all-tab" style="width: 92px;" data-bhw-path="NavAllDeals">
+                  <a href="/browse/chicago">All Deals</a>
+                </li>
+
+                <li data-bhw="NavLocalDeals" class="primary-nav-tab" id="local-tab" style="width: 104px;" data-bhw-path="NavLocalDeals">
+                  <a href="/browse/chicago?context=local">Local</a>
+                </li>
+
+                <li data-bhw="NavGoods" class="primary-nav-tab" id="goods-tab" style="width: 115px;" data-bhw-path="NavGoods">
+                  <a href="http://gtgiaodien.local/goods.html">
+                    Goods
+                  </a>
+                </li>
+        
+                <li data-bhw="NavGetaways" class="primary-nav-tab" id="getaways-tab" style="width: 137px;" data-bhw-path="NavGetaways">
+                  <a href="/getaways">
+                        Getaways
+          </a>
+                </li>
+        
+                    <li data-bhw="NavReserve" class="primary-nav-tab reserve-tab" id="reserve-tab" style="width: 124px;" data-bhw-path="NavReserve">
+                      <a class="reserve G_event E-GlobalTopNavNH_GReserve" href="/reserve/chicago">Reserve</a>
+                    </li>
+
+                  <li data-bhw="NavCoupons" class="primary-nav-tab" id="coupons-tab" style="width: 127px;" data-bhw-path="NavCoupons">
+                    <a href="/coupons">Freebies</a>
+                  </li>
+
+                    <li data-bhw="NavOccasion" class="Occasion primary-nav-tab last" id="occasion-tab" style="width: 177px;" data-bhw-path="NavOccasion">
+              <a data-track="{&quot;event&quot;:&quot;click&quot;,&quot;t&quot;:&quot;occasion_tab_selected&quot;}" class="G_event E-GobalTopNavNH_GrouponOccasion showBestOfCampaignIcon icon-crown" href="/occasions">
+                Groupon's Best
+              </a>
+            </li>
+
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <nav class="subnav">
+          <nav style="display: none" class="subnav-flyout all-tab-flyout row">
+            <div data-bhw="CategoryNavigation" class="categories">
+              <div class="column">
+                <a href="/browse/chicago" id="all-deals" data-bhc="category:all-deals">
+                  <span class="title">All Deals</span>
+                  <span class="count">5009</span>
+                </a>
+        <a href="/browse/chicago?category=food-and-drink" id="food-and-drink" data-bhc="category:food-and-drink">
+                  <span class="title">Food &amp; Drink</span>
+                  <span class="count">413</span>
+                </a>
+        <a href="/browse/chicago?category=events-and-activities" id="events-and-activities" data-bhc="category:events-and-activities">
+                  <span class="title">Events &amp; Activities</span>
+                  <span class="count">744</span>
+                </a>
+        <a href="/browse/chicago?category=beauty-and-spas" id="beauty-and-spas" data-bhc="category:beauty-and-spas">
+                  <span class="title">Beauty &amp; Spas</span>
+                  <span class="count">992</span>
+                </a>
+        <a href="/browse/chicago?category=health-and-fitness" id="health-and-fitness" data-bhc="category:health-and-fitness">
+                  <span class="title">Health &amp; Fitness</span>
+                  <span class="count">823</span>
+                </a>
+        <a href="/browse/chicago?category=home-improvement" id="home-improvement" data-bhc="category:home-improvement">
+                  <span class="title">Home Services</span>
+                  <span class="count">192</span>
+                </a>
+      </div>
+      <div class="column">
+                <a href="/browse/chicago?category=local-services" id="local-services" data-bhc="category:local-services">
+                  <span class="title">Local Services</span>
+                  <span class="count">300</span>
+                </a>
+        <a href="/browse/chicago?category=automotive" id="automotive" data-bhc="category:automotive">
+                  <span class="title">Automotive</span>
+                  <span class="count">71</span>
+                </a>
+        <a href="/browse/chicago?category=shopping" id="shopping" data-bhc="category:shopping">
+                  <span class="title">Shopping</span>
+                  <span class="count">107</span>
+                </a>
+      </div>
+    </div>
+            <div class="megamind">
+              <div data-bhw="Megamind_Best of Groupon" class="widget">
+                <a href="https://www.groupon.com/occasion/bestofgroupon">
+                <span>
+                  <img data-bhc="asset:Best of Groupon" src="https://img.grouponcdn.com/deal/jhuX7u2chHHm2e26jxEmwS/BOG_Subnav-440x420">
+                </span>
+                </a>
+              </div>
+      <div data-bhw="Megamind_Events &amp; Activities" class="widget">
+                <a href="https://www.groupon.com/browse/chicago?category=events-and-activities">
+                <span>
+                  <img data-bhc="asset:Events &amp; Activities" src="https://img.grouponcdn.com/deal/xiXuesdTMpuDDyMidfkBnF/mu_local-eventsactivities_jpg-440x420">
+                </span>
+                </a>
+              </div>
+    </div>
+          </nav>
+  <nav style="display: none" class="subnav-flyout local-tab-flyout row">
+            <div data-bhw="CategoryNavigation" class="categories">
+              <div class="column">
+                <a href="/browse/chicago" id="all-deals" data-bhc="category:all-deals">
+                  <span class="title">All Deals</span>
+                  <span class="count">3090</span>
+                </a>
+        <a href="/browse/chicago?category=food-and-drink" id="food-and-drink" data-bhc="category:food-and-drink">
+                  <span class="title">Food &amp; Drink</span>
+                  <span class="count">413</span>
+                </a>
+        <a href="/browse/chicago?category=events-and-activities" id="events-and-activities" data-bhc="category:events-and-activities">
+                  <span class="title">Events &amp; Activities</span>
+                  <span class="count">744</span>
+                </a>
+        <a href="/browse/chicago?category=beauty-and-spas" id="beauty-and-spas" data-bhc="category:beauty-and-spas">
+                  <span class="title">Beauty &amp; Spas</span>
+                  <span class="count">992</span>
+                </a>
+        <a href="/browse/chicago?category=health-and-fitness" id="health-and-fitness" data-bhc="category:health-and-fitness">
+                  <span class="title">Health &amp; Fitness</span>
+                  <span class="count">823</span>
+                </a>
+        <a href="/browse/chicago?category=home-improvement" id="home-improvement" data-bhc="category:home-improvement">
+                  <span class="title">Home Services</span>
+                  <span class="count">192</span>
+                </a>
+      </div>
+      <div class="column">
+                <a href="/browse/chicago?category=local-services" id="local-services" data-bhc="category:local-services">
+                  <span class="title">Local Services</span>
+                  <span class="count">300</span>
+                </a>
+        <a href="/browse/chicago?category=automotive" id="automotive" data-bhc="category:automotive">
+                  <span class="title">Automotive</span>
+                  <span class="count">71</span>
+                </a>
+        <a href="/browse/chicago?category=shopping" id="shopping" data-bhc="category:shopping">
+                  <span class="title">Shopping</span>
+                  <span class="count">107</span>
+                </a>
+      </div>
+    </div>
+            <div class="megamind">
+              <div data-bhw="Megamind_Best of Groupon" class="widget">
+                <a href="https://www.groupon.com/occasion/bestofgroupon">
+                <span>
+                  <img data-bhc="asset:Best of Groupon" src="https://img.grouponcdn.com/deal/jhuX7u2chHHm2e26jxEmwS/BOG_Subnav-440x420">
+                </span>
+                </a>
+              </div>
+      <div data-bhw="Megamind_Events &amp; Activities" class="widget">
+                <a href="https://www.groupon.com/browse/chicago?category=events-and-activities">
+                <span>
+                  <img data-bhc="asset:Events &amp; Activities" src="https://img.grouponcdn.com/deal/xiXuesdTMpuDDyMidfkBnF/mu_local-eventsactivities_jpg-440x420">
+                </span>
+                </a>
+              </div>
+    </div>
+          </nav>
+  <nav style="display: none" class="subnav-flyout goods-tab-flyout row">
+            <div data-bhw="CategoryNavigation" class="categories">
+              <div class="column">
+                <a href="/goods?category=all" id="all-deals" data-bhc="category:all-deals">
+                  <span class="title">All Goods</span>
+                  <span class="count">1997</span>
+                </a>
+        <a href="/goods?category=apparel-and-accessories" id="apparel-and-accessories" data-bhc="category:apparel-and-accessories">
+                  <span class="title">Apparel</span>
+                  <span class="count">426</span>
+                </a>
+        <a href="/goods?category=automotive-goods" id="automotive-goods" data-bhc="category:automotive-goods">
+                  <span class="title">Auto</span>
+                  <span class="count">19</span>
+                </a>
+        <a href="/goods?category=baby-goods" id="baby-goods" data-bhc="category:baby-goods">
+                  <span class="title">Baby</span>
+                  <span class="count">21</span>
+                </a>
+        <a href="/goods?category=electronics-goods" id="electronics-goods" data-bhc="category:electronics-goods">
+                  <span class="title">Electronics</span>
+                  <span class="count">454</span>
+                </a>
+        <a href="/goods?category=entertainment-and-media" id="entertainment-and-media" data-bhc="category:entertainment-and-media">
+                  <span class="title">Entertainment</span>
+                  <span class="count">83</span>
+                </a>
+        <a href="/goods?category=food-and-drink-goods" id="food-and-drink-goods" data-bhc="category:food-and-drink-goods">
+                  <span class="title">Food &amp; Drink</span>
+                  <span class="count">53</span>
+                </a>
+      </div>
+      <div class="column">
+                <a href="/goods?category=health-and-beauty-goods" id="health-and-beauty-goods" data-bhc="category:health-and-beauty-goods">
+                  <span class="title">Health &amp; Beauty</span>
+                  <span class="count">239</span>
+                </a>
+        <a href="/goods?category=home-goods" id="home-goods" data-bhc="category:home-goods">
+                  <span class="title">Home</span>
+                  <span class="count">301</span>
+                </a>
+        <a href="/goods?category=jewelry" id="jewelry" data-bhc="category:jewelry">
+                  <span class="title">Jewelry &amp; Watches</span>
+                  <span class="count">200</span>
+                </a>
+        <a href="/goods?category=pets-goods" id="pets-goods" data-bhc="category:pets-goods">
+                  <span class="title">Pets</span>
+                  <span class="count">53</span>
+                </a>
+        <a href="/goods?category=sports-and-outdoors-goods" id="sports-and-outdoors-goods" data-bhc="category:sports-and-outdoors-goods">
+                  <span class="title">Sporting Goods</span>
+                  <span class="count">123</span>
+                </a>
+        <a href="/goods?category=tools-and-diy-goods" id="tools-and-diy-goods" data-bhc="category:tools-and-diy-goods">
+                  <span class="title">Tools</span>
+                  <span class="count">28</span>
+                </a>
+        <a href="/goods?category=toys" id="toys" data-bhc="category:toys">
+                  <span class="title">Toys</span>
+                  <span class="count">58</span>
+                </a>
+      </div>
+    </div>
+            <div class="megamind">
+              <div data-bhw="Megamind_Goods Clearance New" class="widget">
+                <a href="https://www.groupon.com/occasion/gg-clearance">
+                <span>
+                  <img data-bhc="asset:Goods Clearance New" src="https://img.grouponcdn.com/deal/81shbKMLCdVtDHBnSWB98G/clearance-subnav_goods-440x420">
+                </span>
+                </a>
+              </div>
+      <div data-bhw="Megamind_Goods Spring Fashions" class="widget">
+                <a href="https://www.groupon.com/occasion/gg-spring-fashion-trends">
+                <span>
+                  <img data-bhc="asset:Goods Spring Fashions" src="https://img.grouponcdn.com/deal/8BSTcmAGtAsLPo9CbUYm8M/goods_springfash_subnav-440x420">
+                </span>
+                </a>
+              </div>
+    </div>
+          </nav>
+  <nav style="display: none" class="subnav-flyout getaways-tab-flyout row">
+            <div data-bhw="CategoryNavigation" class="categories">
+              <div class="column">
+                <a data-bhc="category:All Destinations" href="/getaways#category/All+Destinations">
+                  <span class="title">All Destinations</span>
+                  <span class="count"></span>
+                </a>
+        <a data-bhc="category:USA &amp; Canada" href="/getaways#category/USA+and+Canada">
+                  <span class="title">USA &amp; Canada</span>
+                  <span class="count"></span>
+                </a>
+        <a data-bhc="category:Mexico, the Caribbean, &amp; Latin America" href="/getaways#category/Mexico,+the+Caribbean,+&amp;+Latin+America">
+                  <span class="title">Mexico, the Caribbean, &amp; Latin America</span>
+                  <span class="count"></span>
+                </a>
+        <a data-bhc="category:Europe, Asia, Africa, &amp; Oceania" href="/getaways#category/Europe,+Asia,+Africa,+&amp;+Oceania">
+                  <span class="title">Europe, Asia, Africa, &amp; Oceania</span>
+                  <span class="count"></span>
+                </a>
+      </div>
+    </div>
+            <div class="megamind">
+              <div data-bhw="Megamind_getaways-educational" class="widget">
+                <a href="/getaways">
+                <span>
+                  <img data-bhc="asset:getaways-educational" src="//www.groupon.com/layout/assets/SearchSubNav@2x-44cc8152b2.png">
+                </span>
+                </a>
+              </div>
+      <div data-bhw="Megamind_Getaways_skiing" class="widget">
+                <a href="https://www.groupon.com/occasion/ga-ski-destinations">
+                <span>
+                  <img data-bhc="asset:Getaways_skiing" src="https://img.grouponcdn.com/deal/sbAEa6a9g3FJRp7EmqjtxG/Getaways_Skiing_Subnav-440x420">
+                </span>
+                </a>
+              </div>
+      <div data-bhw="Megamind_ga-under99" class="widget">
+                <a href="https://www.groupon.com/occasion/best-hotel-deals">
+                <span>
+                  <img data-bhc="asset:ga-under99" src="https://img.grouponcdn.com/deal/5CKRbXh3ksaCgViUCL4XrP/getaways_under99-440x420">
+                </span>
+                </a>
+              </div>
+    </div>
+          </nav>
+  <nav style="display: none" class="subnav-flyout reserve-tab-flyout row">
+            <div data-bhw="CategoryNavigation" class="categories">
+              <div class="column">
+                <a href="/reserve/new-york" id="new-york" data-bhc="category:new-york">
+                  <span class="title">New York City</span>
+                  <span class="count">348</span>
+                </a>
+        <a href="/reserve/north-jersey" id="north-jersey" data-bhc="category:north-jersey">
+                  <span class="title">North Jersey</span>
+                  <span class="count">28</span>
+                </a>
+        <a href="/reserve/long-island" id="long-island" data-bhc="category:long-island">
+                  <span class="title">Long Island</span>
+                  <span class="count">31</span>
+                </a>
+        <a href="/reserve/westchester-county" id="westchester-county" data-bhc="category:westchester-county">
+                  <span class="title">Westchester</span>
+                  <span class="count">23</span>
+                </a>
+        <a href="/reserve/chicago" id="chicago" data-bhc="category:chicago">
+                  <span class="title">Chicago</span>
+                  <span class="count">80</span>
+                </a>
+        <a href="/reserve/san-francisco" id="san-francisco" data-bhc="category:san-francisco">
+                  <span class="title">San Francisco</span>
+                  <span class="count">37</span>
+                </a>
+        <a href="/reserve/los-angeles" id="los-angeles" data-bhc="category:los-angeles">
+                  <span class="title">Los Angeles</span>
+                  <span class="count">61</span>
+                </a>
+      </div>
+      <div class="column">
+                <a href="/reserve/washington-dc" id="washington-dc" data-bhc="category:washington-dc">
+                  <span class="title">Washington DC</span>
+                  <span class="count">47</span>
+                </a>
+        <a href="/reserve/philadelphia" id="philadelphia" data-bhc="category:philadelphia">
+                  <span class="title">Philadelphia</span>
+                  <span class="count">24</span>
+                </a>
+        <a href="/reserve/atlanta" id="atlanta" data-bhc="category:atlanta">
+                  <span class="title">Atlanta</span>
+                  <span class="count">20</span>
+                </a>
+        <a href="/reserve/boston" id="boston" data-bhc="category:boston">
+                  <span class="title">Boston</span>
+                  <span class="count">19</span>
+                </a>
+        <a href="/reserve/miami" id="miami" data-bhc="category:miami">
+                  <span class="title">Miami</span>
+                  <span class="count">47</span>
+                </a>
+        <a href="/reserve/denver" id="denver" data-bhc="category:denver">
+                  <span class="title">Denver</span>
+                  <span class="count">18</span>
+                </a>
+      </div>
+    </div>
+            <div class="megamind">
+              <div data-bhw="Megamind_Reserve2 B" class="widget">
+                <a href="https://www.groupon.com/reserve">
+                <span>
+                  <img data-bhc="asset:Reserve2" src="https://img.grouponcdn.com/deal/qJFgdFZbH9DYHwQZ4eAVLi/mu_reserve-value02_jpg-440x420">
+                </span>
+                </a>
+              </div>
+      <div data-bhw="Megamind_Reserve2 A" class="widget">
+                <a href="https://www.groupon.com/reserve">
+                <span>
+                  <img data-bhc="asset:Reserve2" src="https://img.grouponcdn.com/deal/jZ3vMst3vAKnZVnr7SFdVX/mu_reserve-value01_jpg-440x420">
+                </span>
+                </a>
+              </div>
+    </div>
+          </nav>
+  <nav style="display: none" class="subnav-flyout coupons-tab-flyout row">
+            <div data-bhw="CategoryNavigation" class="categories">
+              <div class="column">
+                <a data-bhc="category:All Stores" href="/coupons/stores">
+                  <span class="title">All Stores</span>
+                  <span class="count"></span>
+                </a>
+        <a data-bhc="category:Target" href="/coupons/stores/target.com">
+                  <span class="title">Target</span>
+                  <span class="count"></span>
+                </a>
+        <a data-bhc="category:Toys R Us" href="/coupons/stores/toysrus.com">
+                  <span class="title">Toys R Us</span>
+                  <span class="count"></span>
+                </a>
+        <a data-bhc="category:Sephora" href="/coupons/stores/sephora.com">
+                  <span class="title">Sephora</span>
+                  <span class="count"></span>
+                </a>
+        <a data-bhc="category:Nordstrom" href="/coupons/stores/nordstrom.com">
+                  <span class="title">Nordstrom</span>
+                  <span class="count"></span>
+                </a>
+        <a data-bhc="category:Best Buy" href="/coupons/stores/bestbuy.com">
+                  <span class="title">Best Buy</span>
+                  <span class="count"></span>
+                </a>
+      </div>
+    </div>
+            <div class="megamind">
+              <div data-bhw="Megamind_DefaultFallback" class="widget">
+                <a href="/coupons">
+                <span>
+                  <img data-bhc="asset:Today's Best" src="//img.grouponcdn.com/deal/45m9Y28QFGAVovMwa1cxga/todays-best-col2-440x420">
+                </span>
+                </a>
+              </div>
+      <div data-bhw="Megamind_DefaultFallback" class="widget">
+                <a href="/coupons/exclusives">
+                <span>
+                  <img data-bhc="asset:Groupon Gift Cards" src="//img.grouponcdn.com/deal/b6yfUwzHwusp71HawEsp3p/g-exclusives-col3-440x420">
+                </span>
+                </a>
+              </div>
+      <div data-bhw="Megamind_DefaultFallback" class="widget">
+                <a href="/coupons">
+                <span>
+                  <img data-bhc="asset:About Groupon Freebies" src="//img.grouponcdn.com/deal/kKbhTxfz3Bnb8YfNNvcNZg/freebies-text-col4-440x420">
+                </span>
+                </a>
+              </div>
+    </div>
+          </nav>
+</nav>
+        
+      </div>
